@@ -3,7 +3,9 @@
 
 int main(int argc, char const *argv[])
 {
+    //Declare variables
     int number, parity, result;
+
     //Get number from user
     printf("Saisissez un nombre:\n>>> ");
     scanf("%d", &number);
@@ -16,6 +18,7 @@ int main(int argc, char const *argv[])
         parity = 0;
     }
 
+    //Loop until result is computed
     while (number > 0){
         //If number was even, make it an odd
         if (parity){
@@ -24,6 +27,7 @@ int main(int argc, char const *argv[])
 
         //Increase result
         result += number;
+        
         //Decrease number
         number -= 2;
     }
