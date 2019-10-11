@@ -10,7 +10,7 @@ int main(int argc, char const *argv[])
     printf("Saisissez un nombre:\n>>> ");
     scanf("%d", &number);
 
-    /* Check if number is odd or even*/
+    // Check if number is odd or even
     if (number % 2 == 0){
         parity = 1;
     }
@@ -32,6 +32,7 @@ int main(int argc, char const *argv[])
         number -= 2;
     }
 
+    //Display result
     printf("The result is:\n>>> %d", result);
 
     return 0;

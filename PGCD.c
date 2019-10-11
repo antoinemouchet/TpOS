@@ -18,7 +18,7 @@ int is_divisor(int num_1, int num_2){
 
 int main(int argc, char const *argv[])
 {
-    int num_1, num_2,num_3, divider_n12, divider_n13, divider_n21, divider_n23, pgcd;
+    int num_1, num_2, num_3, divider_n12, divider_n13, divider_n21, divider_n23, pgcd;
 
     //Get numbers
     printf("Insérez le premier nombre:\n>>> ");
