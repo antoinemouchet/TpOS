@@ -2,7 +2,9 @@
 #include <stdlib.h>
 
 int is_divisor(int num_1, int num_2){
-    //Check if num 2 is a divisor of num 1
+    /* Function to test if num 2 is a divisor of num 1
+    by using the result of the modulo.*/
+    
     if (num_1 % num_2 == 0){
         return 1;
     }
