@@ -22,11 +22,20 @@ int main(int argc, char const *argv[])
     printf("Insert a number:\n>>> ");
     scanf("%d", &number);
 
-    //Get factorial of number
-    result = factorial(number);
+    /*Check that factorial of number exists
+    Which means that number is positive. */
+    if (number < 0){
+        printf("The factorial of %d does not exist", number);
+    }
+    
+    else{
+        //Get factorial of number
+        result = factorial(number);
+        //Display result
+        printf("The factorial of %d is: %d", number, result);
+    }
 
-    //Display result
-    printf("The factorial of %d is: %d", number, result);
+    
 
     return 0;
 }
