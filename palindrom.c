@@ -14,7 +14,7 @@ int is_palindrom(char string[])
     /* Loop until:
     - a difference is found
     - all letters are tested */
-    while (high_ind > 1)
+    while (high_ind > low_ind)
     {
         //If letters are different then return false
         if (string[low_ind] != string[high_ind])
