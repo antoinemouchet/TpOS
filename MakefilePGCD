@@ -1,8 +1,7 @@
 all:
 	gcc PGCD.c -ggdb -o output.o
-
 debug: all
-	gdb output.o 
+	gdb output.o
 
 clear:
 	rm ./*.o
