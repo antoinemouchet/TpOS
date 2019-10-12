@@ -49,6 +49,5 @@ int main(int argc, char const *argv[])
         printf("%s is not a palindrome.\n", sentence);
     }
 
-    scanf("%d", &palindrom);
     return 0;
 }
