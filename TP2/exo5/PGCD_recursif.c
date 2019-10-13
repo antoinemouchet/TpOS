@@ -56,6 +56,7 @@ int main(int argc, char const *argv[])
     else
     {
         printf("One of the number is 0. No PGCD available.");
+        return 1;
     }
 
     scanf("%d", &num_2);

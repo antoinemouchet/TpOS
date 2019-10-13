@@ -26,6 +26,7 @@ int main(int argc, char const *argv[])
     Which means that number is positive. */
     if (number < 0){
         printf("The factorial of %d does not exist", number);
+        return 1;
     }
     
     else{

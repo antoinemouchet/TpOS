@@ -29,7 +29,12 @@ int main(int argc, char const *argv[])
     //initialize pgcd at 0
     pgcd = 0;
 
-
+    if (num_1 == 0 || num_2 == 0)
+    {
+        printf("One of the number is equal to 0, no divisor possible.");
+        return 1;
+    }
+    
     /*Num 3 is equal to the smallest between num 1 and num 2
     if num 1 and num 2 are different */
     if (num_1 == num_2){
