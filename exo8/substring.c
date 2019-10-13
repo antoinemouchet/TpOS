@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
     //Check that 2 arguments were given (string and substring)
     if (argc != 3)
     {
-        printf("You did not give a proper amount of arguments");
+        printf("You did not give a proper amount of arguments.");
         //Return 1 to show there was an error
         return 1;
     }
@@ -20,6 +20,13 @@ int main(int argc, char const *argv[])
     //Get len of sentence and substring
     int str_len = strlen(sentence), sub_len = strlen(substring);
 
+    //Make sure that substring is smaller than sentence
+    if (str_len < sub_len)
+    {
+        printf("The substring is bigger than the string.");
+        //Return 1 to show there was an error
+        return 1;
+    }
     /*indexes of substring:
     -index of letter we are looking at
     -index of starting 
