@@ -14,6 +14,7 @@ int main(int argc, char const *argv[])
     if (n_terms < 2)
     {
         printf("Number of terms must be greater or equal to 2. (%d < 2)", n_terms);
+        return 1; //Error
     }
     else
     {
