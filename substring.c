@@ -70,7 +70,7 @@ int main(int argc, char const *argv[])
     }
     else
     {
-        printf("%s was not found in %d", substring, sentence);
+        printf("%s was not found in %s", substring, sentence);
     }
 
     return 0;
