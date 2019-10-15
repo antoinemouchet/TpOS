@@ -9,9 +9,7 @@ Dans ce programme, on déclare une ``` array ```(=tableau) de taille 5.
 
 Ensuite, on va lancer une boucle (un maximum de 5 fois car ```n``` est incrémenté de 1 à chaque tour et ne peut dépasser ```SIZE``` qui a été défini comme valant 5) pour charger dans le tableau des caractères avec le format d'un entier.
 
-!!! note
-
-    getchar() lit le standard input (ce qui est tapé dans la ligne de commande)
+**_Note_**:  getchar() lit le standard input (ce qui est tapé dans la ligne de commande)
 
 Dans la fonction ```getint``` on boucle tant que le caractère (```c```) est un espace. 
 Ensuite, si ```c``` n'est pas un nombre, un caractère de fin de ligne (```EOF = End Of File```) ni un + ou un -, alors on le "supprime" et on renvoie 0, ce qui nous ramène dans ```main``` et arrête donc le programme.
