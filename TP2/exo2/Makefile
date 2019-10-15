@@ -4,9 +4,11 @@ CC = gcc
 SOURCES = suite.c
 # Debug
 DEBUG = gdb
+#Flags
+CFLAGS = -ggdb -Wall
 
 all:
-	$(CC) $(SOURCES) -ggdb -o output.o
+	$(CC) $(SOURCES) $(CFLAGS) -o output.o
 debug: all
 	$(DEBUG) output.o
 
