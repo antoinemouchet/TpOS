@@ -7,9 +7,6 @@
 
 void remove_word(char *text_pointer, int nb_words_to_dell)
 {
-
-    int text_pointer = *text_pointer;
-
     int word_to_dell;
     printf("Insert the index of the word to dell.\n>>> ");
     scanf("%d", &word_to_dell);
