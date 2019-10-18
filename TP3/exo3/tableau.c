@@ -5,6 +5,18 @@
 
 #define SIZE 5
 
+void remove_word(char *array[], int nb_words_to_dell)
+{
+    int word_to_dell;
+    printf("Insert the index of the word to dell.\n>>> ");
+    scanf("%d", &word_to_dell);
+    //Loop until all strings after string deleted are moved
+    for ( int i = word_to_dell; i < SIZE; i++)
+    {
+        strcpy(array[i], array[i + 1]);
+    }
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -16,8 +28,8 @@ int main(int argc, char const *argv[])
 
     //initialize the index of the word in array of word
     int text_ind = 0;
-    //Initialize the index of the word to delete
-    int word_to_dell = 0;
+    //Initialize the index of the word to delete and amount of words to delete
+    int word_to_dell = 0, nb_words = 0;
 
     //initialize a boolean
     int writing = 1;
@@ -40,23 +52,23 @@ int main(int argc, char const *argv[])
         else
         {
             //Get info from user
-            printf("No place left in the array, %s couldn't be inserted.\nInsert index of word to delete or 100 to stop writing:\n>>> ", word);
-            scanf("%d", &word_to_dell);
+            printf("No place left in the array, %s couldn't be inserted.\nInsert numbers of words to delete or 100 to stop writing:\n>>> ", word);
+            scanf("%d", &nb_words);
 
             //Do nothing if 100 is entered
-            if (word_to_dell == 100)
+            if (nb_words == 100)
             {}
 
             //Make sure index of word is in array
-            else if (word_to_dell < SIZE)
+            else if (nb_words < SIZE)
             {
                 //Loop until all strings after string deleted are moved
-                for ( int i = word_to_dell; i < SIZE; i++)
+                for ( int i = 0; i < nb_words; i++)
                 {
-                    strcpy(text[i], text[i + 1]);
+                    remove_word(text, nb_words);
                 }
-                //Add last word entered at the end
-                strcpy(text[text_ind - 1], word);
+                //Add last word entered at the queue
+                strcpy(text[strlen(text)], word);
             }
 
             //number invalid
