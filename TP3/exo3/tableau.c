@@ -63,7 +63,7 @@ int main(int argc, char const *argv[])
             else if (nb_words < SIZE)
             {
                 //initialize pointer on text
-                char *pa = text;
+                char *pa = *text;
 
                 //Loop until all strings after string deleted are moved
                 for ( int i = 0; i < nb_words; i++)
