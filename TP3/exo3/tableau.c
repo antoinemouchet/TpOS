@@ -71,6 +71,13 @@ int main(int argc, char const *argv[])
         } 
     }
 
+    //Display array
+    printf("Array is:\n>>>");
+    for (int i = 0; i < SIZE; i++)
+    {
+        printf("%s ", text[i]);
+    }
+
     return 0;
 
 }
