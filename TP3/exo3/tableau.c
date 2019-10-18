@@ -41,7 +41,7 @@ int main(int argc, char const *argv[])
         {
             //Get info from user
             printf("No place left in the array.\nInsert index of word to delete or 100 to stop writing:\n>>> ");
-            scanf("%d", word_to_dell);
+            scanf("%d", &word_to_dell);
 
             //stop writing
             if (word_to_dell == 100)
