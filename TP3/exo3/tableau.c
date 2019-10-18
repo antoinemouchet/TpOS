@@ -1,0 +1,1 @@
+//Exercice 3 avec les tableaux STATIQUES (pas de malloc)
