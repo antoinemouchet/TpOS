@@ -25,13 +25,13 @@ int main(int argc, char const *argv[])
     //Loop until user is done adding words
     while (writing)
     {
+        //Get string from user
+        printf("Insert a word (and press enter):\n>>> ");
+        scanf("%[^\n]%*c", word);
+
         //Check if array is not full
         if (text_ind < SIZE)
         {
-            //Get string from user
-            printf("Insert a word (and press enter):\n>>> ");
-            scanf("%[^\n]%*c", word);
-
             //Add word in array
             strcpy(text[text_ind], word);
             //Increment index of array
@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
         else
         {
             //Get info from user
-            printf("No place left in the array.\nInsert index of word to delete or 100 to stop writing:\n>>> ");
+            printf("No place left in the array, %s couldn't be inserted.\nInsert index of word to delete or 100 to stop writing:\n>>> ", word);
             scanf("%d", &word_to_dell);
 
             //Do nothing if 100 is entered
