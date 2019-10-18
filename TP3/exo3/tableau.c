@@ -58,7 +58,7 @@ int main(int argc, char const *argv[])
                     strcpy(text[i], text[i + 1]);
                 }
                 //Add last word entered at the end
-                strcpy(word, text[text_ind - 1]);
+                strcpy(text[text_ind - 1], word);
             }
 
             //number invalid
