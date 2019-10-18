@@ -5,7 +5,7 @@
 
 #define SIZE 5
 
-void remove_word(char *array[], int nb_words_to_dell)
+void remove_word(char *text_pointer, int nb_words_to_dell)
 {
     int word_to_dell;
     printf("Insert the index of the word to dell.\n>>> ");
@@ -13,7 +13,7 @@ void remove_word(char *array[], int nb_words_to_dell)
     //Loop until all strings after string deleted are moved
     for ( int i = word_to_dell; i < SIZE; i++)
     {
-        strcpy(array[i], array[i + 1]);
+        strcpy((text_pointer + i), (text_pointer + i + 1));
     }
 }
 
@@ -62,10 +62,13 @@ int main(int argc, char const *argv[])
             //Make sure index of word is in array
             else if (nb_words < SIZE)
             {
+                //initialize pointer on text
+                int *pa = text;
+
                 //Loop until all strings after string deleted are moved
                 for ( int i = 0; i < nb_words; i++)
                 {
-                    remove_word(*text, nb_words);
+                    remove_word(*pa, nb_words);
                 }
                 //Add last word entered at the queue
                 strcpy(text[strlen(*text)], word);
