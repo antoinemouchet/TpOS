@@ -23,3 +23,7 @@ Le résultat est stocké à l'endroit du tableau indiqué par ```*pn```
 Une fois qu'on arrive à ```EOF```, le programme se termine correctement et le tableau ```array``` est complété.
 
 ### Partie 2
+
+Le passage par référence se fait correctement, on voit que ce n'est pas une valeur qui est transmise à la fonction mais l'emplacement de l'élément du tableau.
+
+<img src="./Screen_gdb.png">
