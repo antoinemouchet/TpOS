@@ -13,7 +13,7 @@ void remove_word(char *text_pointer, int nb_words_to_dell)
     //Loop until all strings after string deleted are moved
     for ( int i = word_to_dell; i < SIZE; i++)
     {
-        strcpy((text_pointer + i), (text_pointer + i + 1));
+        strcpy((*text_pointer + i), (*text_pointer + i + 1));
     }
 }
 
