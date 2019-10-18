@@ -28,8 +28,8 @@ int main(int argc, char const *argv[])
 
     //initialize the index of the word in array of word
     int text_ind = 0;
-    //Initialize the index of the word to delete and amount of words to delete
-    int word_to_dell = 0, nb_words = 0;
+    //Initialize the amount of words to delete
+    int nb_words = 0;
 
     //initialize a boolean
     int writing = 1;
@@ -65,10 +65,10 @@ int main(int argc, char const *argv[])
                 //Loop until all strings after string deleted are moved
                 for ( int i = 0; i < nb_words; i++)
                 {
-                    remove_word(text, nb_words);
+                    remove_word(*text, nb_words);
                 }
                 //Add last word entered at the queue
-                strcpy(text[strlen(text)], word);
+                strcpy(text[strlen(*text)], word);
             }
 
             //number invalid
