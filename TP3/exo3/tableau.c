@@ -15,7 +15,7 @@ void remove_word(char *text_pointer, int nb_words_to_dell)
     for ( int i = word_to_dell; i < SIZE; i++)
     {
         strcpy((char*)(text_pointer + i), (char*)(text_pointer + i + 1));
-        printf("%c", (char*)(text_pointer + i));
+        printf("%s", (char*)(text_pointer + i));
     }
 }
 
