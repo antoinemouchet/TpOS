@@ -70,7 +70,7 @@ int main(int argc, char const *argv[])
                     remove_word(&text, nb_words);
                 }
                 //Add last word entered at the queue
-                strcpy(text[strlen(text)], word);
+                strcpy(text[strlen(*text)], word);
             }
 
             //number invalid
