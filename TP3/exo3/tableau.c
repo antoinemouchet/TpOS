@@ -9,15 +9,13 @@
 void remove_word(char text[][20], int nb_words_to_dell)
 {
     int word_to_dell;
-    char word_1[20], word_2[20];
+
     printf("Insert the index of the word to dell.\n>>> ");
     scanf("%d", &word_to_dell);
     //Loop until all strings after string deleted are moved
     for ( int i = word_to_dell; i < SIZE; i++)
     {
-        word_2[20] = text[i + 1];
-        text[i][20] = word_2;
-
+        strcpy((char *)text[i][20],(char *) text[i + 1][20]);
         printf("%s", text[i][20]);
     }
 }
