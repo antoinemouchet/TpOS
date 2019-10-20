@@ -77,7 +77,7 @@ int main(int argc, char const *argv[])
                 {
                     if (i != SIZE - 1)
                     {
-                        text[i][SIZE_WORD] = text[i+1][SIZE_WORD];
+                        text[i][SIZE_WORD] = text[i+1];
                     }
                     else
                     {

@@ -7,7 +7,7 @@
 #define SIZE 5
 #define SIZE_WORD 20
 
-void remove_word(char text[][SIZE_WORD], int nb_words_to_dell)
+void remove_word(char text[][SIZE_WORD])
 {
     int word_to_dell;
 
@@ -23,7 +23,7 @@ void remove_word(char text[][SIZE_WORD], int nb_words_to_dell)
         }
         else
         {
-            strcpy(text[i], NULL);
+            strcpy(text[i], "");
         }
         
         printf("%s", text[i]);
@@ -75,8 +75,10 @@ int main(int argc, char const *argv[])
                 //Loop until all strings after string deleted are moved
                 for ( int i = 0; i < nb_words; i++)
                 {
-                    remove_word(text, nb_words);
+                    remove_word(text);
+                    //tab updated with nbwords less
                 }
+
                 //Add last word entered at the queue
                 strcpy(text[SIZE - nb_words], word);
             }
@@ -84,7 +86,7 @@ int main(int argc, char const *argv[])
             //number invalid
             else
             {
-                printf("Number entered is unvalid.");
+                printf("Number entered is invalid.");
             }
 
             //Stop writing since array is full
