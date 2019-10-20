@@ -15,8 +15,8 @@ void remove_word(char text[][20], int nb_words_to_dell)
     //Loop until all strings after string deleted are moved
     for ( int i = word_to_dell; i < SIZE; i++)
     {
-        strcpy((char *)text[i][20],(char *) text[i + 1][20]);
-        printf("%s", text[i][20]);
+        strcpy((char *)(text[i][20]),(char *)(text[i + 1][20]));
+        printf("%s", (char*)(text[i][20]));
     }
 }
 
