@@ -70,7 +70,7 @@ int main(int argc, char const *argv[])
 
             //Do nothing if 100 is entered
             //Make sure index of word is in array
-            if (nb_words < SIZE && nb_words > 0 && nb_words != 100)
+            if (nb_words < SIZE && nb_words >= 0 && nb_words != 100)
             {
                 //Loop until all strings after string deleted are moved
                 for ( int i = nb_words; nb_words < SIZE - 1; i++)

@@ -78,7 +78,7 @@ int main(int argc, char const *argv[])
                     remove_word(text, nb_words);
                 }
                 //Add last word entered at the queue
-                strcpy(text[strlen(*text)], word);
+                strcpy(text[SIZE - nb_words], word);
             }
 
             //number invalid

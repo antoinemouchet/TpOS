@@ -4,6 +4,6 @@ struct dict_element
     char word[100];
     char definition[500];
 
-    struct dict_element * suivant;
+    struct dict_element *next ;
 
 };
