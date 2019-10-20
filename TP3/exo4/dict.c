@@ -16,7 +16,7 @@ int isEmpty(DictElement* head)
 {
 
     //Initialize current position of pointer
-    struct DictElement *PosPoint = head;
+    DictElement* PosPoint = head;
 
     //If head is null then it's empty
     if (head == NULL)
@@ -48,7 +48,7 @@ void NewQueue(char* word, char* definition, DictElement** head)
    
     DictElement* NewEl = (DictElement*) malloc(sizeof(DictElement));
   
-    DictElement *last = *head;  
+    DictElement *PosPoint = *head;
    
     
     NewEl -> word  = word;
@@ -56,19 +56,19 @@ void NewQueue(char* word, char* definition, DictElement** head)
     NewEl -> next = NULL;
   
     //If list is empty then
-    if (isEmpty(*head))
+    if (isEmpty(&head))
     {
         *head = NewEl;
     }
     else
     {
         //Loop to make it the last one
-        while (last -> next != NULL)
+        while (PosPoint -> next != NULL)
         {
-            last = last -> next;
+            PosPoint = PosPoint -> next;
         }
         
-        last -> next = NewEl;
+        PosPoint -> next = NewEl;
     }
 }
 
@@ -80,7 +80,7 @@ void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
     //If inserted as first element then head
     if (InsertInd == 0)
     {
-        NewHead(word, definition, head);
+        NewHead(&word, &definition, &head);
     }
     
     else
@@ -98,7 +98,7 @@ void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
         //check if it's at last position
         if (PosPoint == NULL)
         {
-            NewQueue(word, definition, head);
+            NewQueue(&word, &definition, &head);
         }
         else
         {
@@ -109,3 +109,87 @@ void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
     }
 }
 
+void RemoveElement(int index, DictElement** head)
+{
+    if (index < 0)
+    {
+       printf("Index is invalid.\n");
+    }
+    
+   // If linked list is empty 
+   else if (isEmpty(&head)) 
+    {
+        printf("There is nothing to delete.\n");
+    }
+
+    else
+    {
+
+        //Get actual head in case we need to delete it
+        DictElement* tmp = *head; 
+        
+        // If head needs to be removed 
+        if (index == 0) 
+        { 
+            //New head is second element
+            *head = tmp -> next; 
+            //free space used
+            free(tmp); 
+        }
+
+        else
+        {
+            //Initialize counter
+            int i = 0;
+            //Loop until element before element to delete is reached
+            while (i < index - 1 && tmp != NULL)
+            {   
+                //Get next element
+                tmp = tmp -> next;
+
+                //Increment counter
+                i++;
+            }
+
+            //index can not be found
+            if (tmp == NULL)
+            {
+                printf("index is out of bounds.\n");
+            }
+
+            //index was reached
+            else
+            {
+                DictElement* NewNext = tmp -> next -> next;
+                //remove it from memory
+                free(tmp->next);
+                //Adapt pointers
+                tmp -> next = NewNext;
+            }   
+        }
+    }
+} 
+
+
+void RemoveHead(DictElement** head)
+{
+    RemoveElement(0, &head);
+}
+
+int GetSize(DictElement* head)
+{
+    //Basic case
+    if (isEmpty(&head))
+    {
+        return 0;
+    }
+
+    //Recursive Case
+    return 1 + GetSize(&(head -> next));
+}
+
+void RemoveQueue(DictElement** head)
+{
+    int lastInd = GetSize(&head) - 1;
+    RemoveElement(lastInd, &head);
+}
