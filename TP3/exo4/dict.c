@@ -12,11 +12,8 @@ typedef struct DictElement
 
 } DictElement;
 
-int isEmpty(DictElement* head)
+int isEmpty(DictElement** head)
 {
-
-    //Initialize current position of pointer
-    DictElement* PosPoint = head;
 
     //If head is null then it's empty
     if (head == NULL)
@@ -74,7 +71,7 @@ void NewQueue(char* word, char* definition, DictElement** head)
 
 void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
 {
-    DictElement* PosPoint =  head;
+    DictElement* PosPoint = *head;
     int pos = 0;
 
     //If inserted as first element then head
@@ -117,7 +114,7 @@ void RemoveElement(int index, DictElement** head)
     }
     
    // If linked list is empty 
-   else if (isEmpty(head)) 
+   else if (isEmpty(*head)) 
     {
         printf("There is nothing to delete.\n");
     }
