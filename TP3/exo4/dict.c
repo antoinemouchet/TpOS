@@ -46,7 +46,7 @@ void NewHead(char* word, char* definition, DictElement** head)
 void NewQueue(char* word, char* definition, DictElement** head)
 {
    
-    DictElement* NewEl = (DictElement*) malloc(sizeof(DictElement)); 
+    DictElement* NewEl = (DictElement*) malloc(sizeof(DictElement));
   
     DictElement *last = *head;  
    
@@ -72,4 +72,40 @@ void NewQueue(char* word, char* definition, DictElement** head)
     }
 }
 
+void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
+{
+    DictElement* PosPoint =  head;
+    int pos = 0;
+
+    //If inserted as first element then head
+    if (InsertInd == 0)
+    {
+        NewHead(word, definition, head);
+    }
+    
+    else
+    {
+        DictElement* NewEl = (DictElement*) malloc(sizeof(DictElement));
+        NewEl -> word  = word;
+        NewEl -> definition = definition;
+
+        //Loop until at point of insertion
+        while (PosPoint != NULL && pos != InsertInd - 1)
+        {
+            PosPoint = PosPoint -> next;
+            InsertInd++;
+        }
+        //check if it's at last position
+        if (PosPoint == NULL)
+        {
+            NewQueue(word, definition, head);
+        }
+        else
+        {
+            //Update pointers
+            NewEl -> next = PosPoint -> next;
+            PosPoint -> next = NewEl;
+        }
+    }
+}
 
