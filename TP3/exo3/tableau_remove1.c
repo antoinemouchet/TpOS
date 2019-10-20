@@ -77,11 +77,11 @@ int main(int argc, char const *argv[])
                 {
                     if (i != SIZE - 1)
                     {
-                        strcpy(text[i], text[i + 1]);
+                        text[i][SIZE_WORD] = text[i+1][SIZE_WORD];
                     }
                     else
                     {
-                        strcpy(text[i], NULL);
+                        text[i][SIZE_WORD] = NULL;
                     }
         
                 }
