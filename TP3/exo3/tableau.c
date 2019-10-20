@@ -67,7 +67,7 @@ int main(int argc, char const *argv[])
                 //Loop until all strings after string deleted are moved
                 for ( int i = 0; i < nb_words; i++)
                 {
-                    remove_word(text[SIZE][20], nb_words);
+                    remove_word(&text, nb_words);
                 }
                 //Add last word entered at the queue
                 strcpy(text[strlen(*text)], word);
