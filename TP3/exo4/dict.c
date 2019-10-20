@@ -59,15 +59,17 @@ void NewQueue(char* word, char* definition, DictElement** head)
     if (isEmpty(*head))
     {
         *head = NewEl;
-        return ;
     }
-
-    //Loop to make it the last one
-    while (last -> next != NULL)
+    else
     {
-        last = last -> next;
+        //Loop to make it the last one
+        while (last -> next != NULL)
+        {
+            last = last -> next;
+        }
+        
+        last -> next = NewEl;
     }
-    
-    last -> next = NewEl;
 }
+
 
