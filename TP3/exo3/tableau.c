@@ -25,8 +25,7 @@ void remove_word(char text[][SIZE_WORD])
         {
             strcpy(text[i], "");
         }
-        
-        printf("%s", text[i]);
+
     }
 }
 
