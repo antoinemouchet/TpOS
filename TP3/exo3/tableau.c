@@ -6,7 +6,7 @@
 
 #define SIZE 5
 
-void remove_word(char text[][20], int nb_words_to_dell)
+void remove_word(char text[SIZE][20], int nb_words_to_dell)
 {
     int word_to_dell;
     printf("Insert the index of the word to dell.\n>>> ");
@@ -22,7 +22,7 @@ void remove_word(char text[][20], int nb_words_to_dell)
 
 int main(int argc, char const *argv[])
 {
-    //Initialize an array of 50 strings each of 20 char max.
+    //Initialize an array of SIZE strings each of 20 char max.
     char text[SIZE][20];
 
     //Initialize an array for a word of 20char max
