@@ -14,8 +14,8 @@ void remove_word(char text[][20], int nb_words_to_dell)
     //Loop until all strings after string deleted are moved
     for ( int i = word_to_dell; i < SIZE; i++)
     {
-        strcpy(text[i], text[i + 1]);
-        printf("%s", text[i]);
+        strcpy(text[i][20], text[i + 1][20]);
+        printf("%s", text[i][20]);
     }
 }
 
@@ -62,12 +62,12 @@ int main(int argc, char const *argv[])
             {}
 
             //Make sure index of word is in array
-            else if (nb_words < SIZE)
+            else if (nb_words < SIZE && nb_words > 0)
             {
                 //Loop until all strings after string deleted are moved
                 for ( int i = 0; i < nb_words; i++)
                 {
-                    remove_word(&text, nb_words);
+                    remove_word(text[SIZE][20], nb_words);
                 }
                 //Add last word entered at the queue
                 strcpy(text[strlen(*text)], word);
