@@ -12,7 +12,7 @@ typedef struct DictElement
 
 } DictElement;
 
-int isEmpty(DictElement** head)
+int isEmpty(DictElement* head)
 {
 
     //If head is null then it's empty
@@ -114,7 +114,7 @@ void RemoveElement(int index, DictElement** head)
     }
     
    // If linked list is empty 
-   else if (isEmpty(*head)) 
+   else if (isEmpty(head)) 
     {
         printf("There is nothing to delete.\n");
     }
