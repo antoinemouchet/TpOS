@@ -56,7 +56,7 @@ void NewQueue(char* word, char* definition, DictElement** head)
     NewEl -> next = NULL;
   
     //If list is empty then
-    if (isEmpty(&head))
+    if (isEmpty(head))
     {
         *head = NewEl;
     }
@@ -80,7 +80,7 @@ void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
     //If inserted as first element then head
     if (InsertInd == 0)
     {
-        NewHead(&word, &definition, &head);
+        NewHead(word, definition, head);
     }
     
     else
@@ -98,7 +98,7 @@ void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
         //check if it's at last position
         if (PosPoint == NULL)
         {
-            NewQueue(&word, &definition, &head);
+            NewQueue(word, definition, head);
         }
         else
         {
@@ -117,7 +117,7 @@ void RemoveElement(int index, DictElement** head)
     }
     
    // If linked list is empty 
-   else if (isEmpty(&head)) 
+   else if (isEmpty(head)) 
     {
         printf("There is nothing to delete.\n");
     }
@@ -173,23 +173,23 @@ void RemoveElement(int index, DictElement** head)
 
 void RemoveHead(DictElement** head)
 {
-    RemoveElement(0, &head);
+    RemoveElement(0, head);
 }
 
 int GetSize(DictElement* head)
 {
     //Basic case
-    if (isEmpty(&head))
+    if (isEmpty(head))
     {
         return 0;
     }
 
     //Recursive Case
-    return 1 + GetSize(&(head -> next));
+    return 1 + GetSize(head -> next);
 }
 
 void RemoveQueue(DictElement** head)
 {
-    int lastInd = GetSize(&head) - 1;
-    RemoveElement(lastInd, &head);
+    int lastInd = GetSize(head) - 1;
+    RemoveElement(lastInd, head);
 }
