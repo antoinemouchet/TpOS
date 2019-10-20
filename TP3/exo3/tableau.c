@@ -18,15 +18,14 @@ void remove_word(char text[][20], int nb_words_to_dell)
     {
         if (i != SIZE-1)
         {
-            strcpy(text[i],text[i + 1]);
-            
+            strcpy(&text[i], &text[i + 1]);
         }
         else
         {
-            strcpy(text[i], NULL);
+            strcpy(&text[i], NULL);
         }
         
-        printf("%s", text[i]);
+        printf("%s", &text[i]);
     }
 }
 
