@@ -6,7 +6,7 @@
 
 #define SIZE 5
 
-void remove_word(char text[SIZE][20], int nb_words_to_dell)
+void remove_word(char text[][20], int nb_words_to_dell)
 {
     int word_to_dell;
     printf("Insert the index of the word to dell.\n>>> ");
@@ -67,7 +67,7 @@ int main(int argc, char const *argv[])
                 //Loop until all strings after string deleted are moved
                 for ( int i = 0; i < nb_words; i++)
                 {
-                    remove_word(text[SIZE][20], nb_words);
+                    remove_word(text, nb_words);
                 }
                 //Add last word entered at the queue
                 strcpy(text[strlen(*text)], word);
