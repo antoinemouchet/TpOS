@@ -12,20 +12,21 @@ void remove_word(char text[][20], int nb_words_to_dell)
 
     printf("Insert the index of the word to dell.\n>>> ");
     scanf("%d", &word_to_dell);
+
     //Loop until all strings after string deleted are moved
-    for ( int i = word_to_dell; i < SIZE - 1; i++)
+    for ( int i = word_to_dell; i <= SIZE - 1; i++)
     {
         if (i != SIZE-1)
         {
-            strcpy(text[i][20],text[i + 1][20]);
+            strcpy(text[i],text[i + 1]);
             
         }
         else
         {
-            strcpy(text[i][20], NULL);
+            strcpy(text[i], NULL);
         }
         
-        printf("%s", text[i][20]);
+        printf("%s", text[i]);
     }
 }
 
@@ -51,7 +52,7 @@ int main(int argc, char const *argv[])
     {
         //Get string from user
         printf("Insert a word (and press enter):\n>>> ");
-        scanf("%[^\n]%*c", word);
+        scanf("%s", &word);
 
         //Check if array is not full
         if (text_ind < SIZE)
@@ -68,11 +69,8 @@ int main(int argc, char const *argv[])
             scanf("%d", &nb_words);
 
             //Do nothing if 100 is entered
-            if (nb_words == 100)
-            {}
-
             //Make sure index of word is in array
-            else if (nb_words < SIZE && nb_words > 0)
+            if (nb_words < SIZE && nb_words > 0 && nb_words != 100)
             {
                 //Loop until all strings after string deleted are moved
                 for ( int i = 0; i < nb_words; i++)
@@ -92,7 +90,7 @@ int main(int argc, char const *argv[])
             //Stop writing since array is full
             writing = 0;
 
-        } 
+        }
     }
 
     //Display array
