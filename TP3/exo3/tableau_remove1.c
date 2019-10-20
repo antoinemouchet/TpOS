@@ -65,20 +65,28 @@ int main(int argc, char const *argv[])
         else
         {
             //Get info from user
-            printf("No place left in the array, %s couldn't be inserted.\nInsert numbers of words to delete or 100 to stop writing:\n>>> ", word);
+            printf("No place left in the array, %s couldn't be inserted.\nInsert index of word to delete or 100 to stop writing:\n>>> ", word);
             scanf("%d", &nb_words);
 
             //Do nothing if 100 is entered
             //Make sure index of word is in array
-            if (nb_words != 100 && nb_words > 0 && nb_words < SIZE )
+            if (nb_words < SIZE && nb_words > 0 && nb_words != 100)
             {
                 //Loop until all strings after string deleted are moved
-                for ( int i = 0; i < nb_words; i++)
+                for ( int i = nb_words; nb_words < SIZE - 1; i++)
                 {
-                    remove_word(text, nb_words);
+                    if (i != SIZE - 1)
+                    {
+                        strcpy(text[i], text[i + 1]);
+                    }
+                    else
+                    {
+                        strcpy(text[i], NULL);
+                    }
+        
                 }
                 //Add last word entered at the queue
-                strcpy(text[strlen(*text)], word);
+                strcpy(text[SIZE-1], word);
             }
 
             //number invalid
