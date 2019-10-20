@@ -13,9 +13,18 @@ void remove_word(char text[][20], int nb_words_to_dell)
     printf("Insert the index of the word to dell.\n>>> ");
     scanf("%d", &word_to_dell);
     //Loop until all strings after string deleted are moved
-    for ( int i = word_to_dell; i < SIZE; i++)
+    for ( int i = word_to_dell; i < SIZE - 1; i++)
     {
-        strcpy((char *)(text[i][20]),(char *)(text[i + 1][20]));
+        if (i != SIZE-1)
+        {
+            strcpy((char *)(text[i][20]),(char *)(text[i + 1][20]));
+            
+        }
+        else
+        {
+            strcpy((char *)(text[i][20]), NULL);
+        }
+        
         printf("%s", (char*)(text[i][20]));
     }
 }
