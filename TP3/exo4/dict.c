@@ -2,39 +2,72 @@
 #include <stdio.h>
 #include <string.h>
 
-struct dict_element
+typedef struct DictElement
 {
     //Word itself and its definition
-    char word[100];
-    char definition[500]; 
+    char* word;
+    char* definition; 
 
-    struct dict_element *next ;
+    struct DictElement* next ;
 
-};
+} DictElement;
 
-int isEmpty(struct dict_element* head)
+int isEmpty(DictElement* head)
 {
-    //Initialize nb of elements in struct
-    int NbElements = 0;
 
     //Initialize current position of pointer
-    struct dict_element *PosPoint = head;
+    struct DictElement *PosPoint = head;
 
-    //Loop on the 
-    while (PosPoint != NULL)
-    {
-        //Increment nb of elements and move pointer
-        NbElements ++;
-        PosPoint = PosPoint -> next;
-    }
-
-    /*Check if dict is empty
-    Return a positive integrer if yes. */
-    if (NbElements == 0)
+    //If head is null then it's empty
+    if (head == NULL)
     {
         return 1;
     }
-    
+
     //Return 0 if dict is not empty
     return 0;
 }
+
+void NewHead(char* word, char* definition, DictElement** head)
+{
+    DictElement* NextEl;
+    NextEl = (DictElement*) malloc (sizeof(DictElement));
+
+    //Values of new element
+    NextEl -> word = word;
+    NextEl -> definition = definition;
+
+    //Move head pointer
+    NextEl -> next = *head;
+    *head = NextEl;
+ 
+}
+
+void NewQueue(char* word, char* definition, DictElement** head)
+{
+   
+    DictElement* NewEl = (DictElement*) malloc(sizeof(DictElement)); 
+  
+    DictElement *last = *head;  
+   
+    
+    NewEl -> word  = word;
+    NewEl -> definition = definition;
+    NewEl -> next = NULL;
+  
+    //If list is empty then
+    if (isEmpty(*head))
+    {
+        *head = NewEl;
+        return ;
+    }
+
+    //Loop to make it the last one
+    while (last -> next != NULL)
+    {
+        last = last -> next;
+    }
+    
+    last -> next = NewEl;
+}
+
