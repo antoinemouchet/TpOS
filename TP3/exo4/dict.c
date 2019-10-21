@@ -376,6 +376,7 @@ int main(int argc, char const *argv[])
     DisplayMenu(&head);
     copy = (DictElement *) malloc(sizeof(DictElement));
     copy = CopyDict(head);
+    head = CopyDict(copy);
 
     return 0;
 }
