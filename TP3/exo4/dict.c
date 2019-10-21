@@ -350,7 +350,7 @@ void DisplayMenu(DictElement** head)
 {
     int choice;
     int index = 0;
-    char word[100], definition[200];
+    char* word, *definition;
     printf(" 0. Exit\n"
            " 1. Insert an item at index\n"
            " 2. Insert new head\n"
