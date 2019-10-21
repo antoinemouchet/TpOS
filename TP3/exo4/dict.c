@@ -354,7 +354,7 @@ int main(int argc, char const *argv[])
     NewQueue("test2", "Wow un deuxieme test", &head);
     RemoveHead(&head);
     Search(head, "test2");
-    DisplayMenu(head);
+    DisplayMenu(&head);
     
 
     return 0;
