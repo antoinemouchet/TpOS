@@ -25,7 +25,7 @@ int isEmpty(DictElement* head)
     return 0;
 }
 
-void NewHead(char word[], char definition[], DictElement** head)
+void NewHead(char* word, char* definition, DictElement** head)
 {
     DictElement* NextEl;
     NextEl = (DictElement*) malloc (sizeof(DictElement));
@@ -40,7 +40,7 @@ void NewHead(char word[], char definition[], DictElement** head)
  
 }
 
-void NewQueue(char word[], char definition[], DictElement** head)
+void NewQueue(char* word, char* definition, DictElement** head)
 {
    
     DictElement* NewEl = (DictElement*) malloc(sizeof(DictElement));
@@ -69,7 +69,7 @@ void NewQueue(char word[], char definition[], DictElement** head)
     }
 }
 
-void NewElement(int InsertInd, char word[], char definition[], DictElement** head)
+void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
 {
     DictElement* PosPoint = *head;
     int pos = 0;
@@ -190,7 +190,7 @@ void RemoveQueue(DictElement** head)
     RemoveElement(lastInd, head);
 }
 
-int Search(DictElement* head, char word[]) 
+int Search(DictElement* head, char* word) 
 { 
     DictElement* PosPoint = head;
     int count = 0;
@@ -448,10 +448,12 @@ void DisplayMenu(DictElement** head)
 
         //Sort in ascending order
         case 9:
+            SortAscending(*head);
             break;
 
         //Sort in descending order
         case 10:
+            SortDescending(*head);
             break;
         
         //Display dictionary by pages of 10 words
@@ -474,7 +476,10 @@ void FreeAll(DictElement* head)
     {
         //Move head
         head = head -> next;
-        //free value
+
+        //free Element
+        free(PosPointer->word);
+        free(PosPointer->definition);
         free(PosPointer);
     }
 
@@ -493,7 +498,6 @@ int main(int argc, char const *argv[])
     NewHead("test", "encore un test", &head);
     NewQueue("lkager", "Wow un deuxieme test", &head);
     NewQueue("fgah", "omg trop de tests", &head);
-    SortAscending(head);
     DisplayMenu(&head);
 
     FreeAll(head);
