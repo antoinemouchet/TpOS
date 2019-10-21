@@ -470,10 +470,8 @@ void FreeAll(DictElement* head)
     DictElement* PosPointer;
 
     //Loop until all elements are removed
-    while (PosPointer != NULL)
+    while ((PosPointer = head) != NULL)
     {
-        //Pointer to delete
-        PosPointer = head;
         //Move head
         head = head -> next;
         //free value
