@@ -490,7 +490,7 @@ void FreeAll(DictElement* head)
 int main(int argc, char const *argv[])
 {
     //Initialize array
-    DictElement * head, *copy;
+    DictElement * head;
     head = (DictElement *) malloc(sizeof(DictElement));
 
     DisplayMenu(&head);
