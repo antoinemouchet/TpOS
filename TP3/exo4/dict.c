@@ -243,32 +243,31 @@ DictElement* CopyDict(DictElement* head)
 
 void DisplayDictByTen(DictElement* head)
 {
-    int CountEl = 0, CountPage = 0, choice = 1;
+    int CountEl = 0, CountPage = 0, choice = 0;
     
-    while (head != NULL)
+    //Loop until 10 elements are printed
+    while (CountEl != (9 + 10 * CountPage) && head != NULL)
     {
-        //Loop until 10 elements are printed
-        while (CountEl != (9 + 10 * CountPage) && head != NULL)
+        //Display element and move to next el
+        printf("%s (def): %s\n", head->word, head->definition);
+        head = head->next;
+
+        //Check if 10 elements are printed
+        if (CountEl == (9 + 10 * CountPage))
         {
-            //Display element and move to next el
-            printf("%s (def): %s\n", head->word, head->definition);
-            head = head->next;
+            //Incremenent amount of pages
+            CountPage ++;
 
-            //Increment number of elements
-            CountEl ++;
+            //Display page
+            printf("Page %d. Press Enter for next page.\n>>> ", CountPage);
+            scanf("%d", &choice);
+            printf("\n");
         }
-        
-        //Incremenent amount of pages
-        CountPage ++;
-
-        //Display page
-        printf("Page %d. Press Enter for next page.\n>>> ", CountPage);
-        scanf("%d", &choice);
-        printf("\n");
-
+        //Increment number of elements
+        CountEl ++;
     }
-    
 }
+
 
 void DisplayMenu(DictElement** head)
 {
