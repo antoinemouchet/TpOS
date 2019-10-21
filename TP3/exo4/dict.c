@@ -278,7 +278,7 @@ void DisplayDictByTen(DictElement* head)
 
 void SortAscending(DictElement** head)
 {
-    DictElement* PosPoint = *head;
+    DictElement* PosPoint = head;
 
     //Initialize sorted dict empty
     DictElement* SortedDict = NULL;
