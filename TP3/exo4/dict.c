@@ -276,46 +276,10 @@ void DisplayDictByTen(DictElement* head)
     }
 }
 
-void swap (DictElement *a, DictElement *b)
+void SortAscending(DictElement* head)
 {
-    char *word = malloc(sizeof(char) * 20);
-    //Move words
-    strcpy(word, a->word);
-    strcpy(a->word, b->word);
-    strcpy(b->word, word);
-
+    
 }
-
-void SortAscending(DictElement *head)
-{
-    int swapped;
-    DictElement *PosPoint;
-    DictElement *NextPoint = NULL;
-
-    do
-    {
-        //Initialize pointer and swap value
-        swapped = 0;
-        PosPoint = head;
-
-        //Loop until end of array is reached
-        while (PosPoint->next != NextPoint)
-        {
-            //Check which word is bigger
-            if (strcmp(PosPoint->word, PosPoint->next->word) > 0)
-            {
-                swap(PosPoint, PosPoint->next);
-                swapped = 1;
-            }
-            PosPoint = PosPoint->next;
-        }
-        NextPoint = PosPoint;
-    }
-    while (swapped);
-
-}
-
-
 
 void DisplayMenu(DictElement** head)
 {
