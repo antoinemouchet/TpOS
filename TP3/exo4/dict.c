@@ -190,3 +190,53 @@ void RemoveQueue(DictElement** head)
     int lastInd = GetSize(*head) - 1;
     RemoveElement(lastInd, head);
 }
+
+
+void RemoveWord(DictElement** head, char* word)
+{
+    int WordIndex = Search(head, word);
+    //Check that word was found
+    if (WordIndex != -1)
+    {
+        RemoveElement(WordIndex, head);
+    }  
+}
+
+int Search(DictElement* head, char* word) 
+{ 
+    DictElement* PosPoint = head;
+    int count = 0;
+    //Loop until element is found, return index of element 
+    while (PosPoint != NULL) 
+    { 
+        //Check if words matched
+        if (PosPoint->word == word)
+        {
+            printf("Word found at index: %d", count);
+            return count;
+        }
+        //Move pointer and increments counter
+        PosPoint = PosPoint->next;
+        count ++;
+    }
+
+    printf("Word not found.");
+    return -1;
+}
+
+int main(int argc, char const *argv[])
+{
+    DictElement * head, * next;
+    // allocation dynamique
+    head = (DictElement *) malloc(sizeof(DictElement));
+    (*head).word = "test";
+    (*head).definition = "Ceci est un test";
+    (*head).next = NULL;
+    (*head).next = (DictElement *) malloc(sizeof(DictElement));
+    next = (*head).next;
+
+    Search(head, "test");
+    
+    return 0;
+}
+
