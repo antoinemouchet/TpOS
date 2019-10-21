@@ -69,9 +69,9 @@ void NewQueue(char* word, char* definition, DictElement** head)
     }
 }
 
-void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
+void NewElement(int InsertInd, char* word, char* definition, DictElement* head)
 {
-    DictElement* PosPoint = *head;
+    DictElement* PosPoint = head;
     int pos = 0;
 
     //If inserted as first element then head
