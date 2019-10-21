@@ -312,6 +312,8 @@ void SortAscending(DictElement** head)
     }
 
     PosPoint = CopyDict(SortedDict);
+    printf("sorted array:");
+    DisplayDictByTen(PosPoint);
 }
 
 void DisplayMenu(DictElement** head)
@@ -447,11 +449,6 @@ int main(int argc, char const *argv[])
 
     NewQueue("lkager", "Wow un deuxieme test", &head);
     NewQueue("fgah", "omg trop de tests", &head);
-    Search(head, "test2");
-    DisplayMenu(&head);
-    copy = (DictElement *) malloc(sizeof(DictElement));
-    copy = CopyDict(head);
-    DisplayMenu(&copy);
     SortAscending(&head);
     DisplayMenu(&head);
 
