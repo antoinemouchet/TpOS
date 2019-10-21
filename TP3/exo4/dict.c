@@ -278,7 +278,7 @@ void DisplayDictByTen(DictElement* head)
 
 void SortAscending(DictElement** head)
 {
-    DictElement* PosPoint = head;
+    DictElement* PosPoint = *head;
 
     //Initialize sorted dict empty
     DictElement* SortedDict = NULL;
@@ -288,7 +288,7 @@ void SortAscending(DictElement** head)
         //Sorted dict is empty so just add the first element
         if (SortedDict == NULL)
         {
-            NewHead(PosPoint->word, PosPoint->definition, SortedDict);
+            NewHead(PosPoint->word, PosPoint->definition, &SortedDict);
         }
         else
         {
@@ -299,7 +299,7 @@ void SortAscending(DictElement** head)
                 //Check if string of unsorted dict is before word of sorted dict
                 if ( strcmp(PosPoint -> word, SortedDict -> word) <= 0 )
                 {
-                    NewElement(SortedIndex, PosPoint->word, PosPoint->definition, SortedDict);
+                    NewElement(SortedIndex, PosPoint->word, PosPoint->definition, &SortedDict);
                     NotPlaced = 1;
                 }
                 //Next sorted element
@@ -311,7 +311,7 @@ void SortAscending(DictElement** head)
         PosPoint = PosPoint -> next; 
     }
 
-    head = CopyDict(SortedDict);
+    PosPoint = CopyDict(SortedDict);
 }
 
 void DisplayMenu(DictElement** head)
