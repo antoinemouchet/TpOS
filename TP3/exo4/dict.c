@@ -167,7 +167,6 @@ void RemoveElement(int index, DictElement** head)
     }
 } 
 
-
 void RemoveHead(DictElement** head)
 {
     RemoveElement(0, head);
@@ -466,22 +465,39 @@ void DisplayMenu(DictElement** head)
     printf("\n");
 }
 
+void FreeAll(DictElement* head)
+{
+    DictElement* PosPointer;
+
+    //Loop until all elements are removed
+    while (PosPointer != NULL)
+    {
+        //Pointer to delete
+        PosPointer = head;
+        //Move head
+        head = head -> next;
+        //free value
+        free(PosPointer);
+    }
+
+    
+}
 
 //Main function
 int main(int argc, char const *argv[])
 {
     //Initialize array
     DictElement * head, *copy;
-
     head = (DictElement *) malloc(sizeof(DictElement));
-    (*head).word = "abcde";
-    (*head).definition = "Ceci est un test";
-    (*head).next = NULL;
+
+    DisplayMenu(&head);
 
     NewQueue("lkager", "Wow un deuxieme test", &head);
     NewQueue("fgah", "omg trop de tests", &head);
     SortAscending(head);
     DisplayMenu(&head);
+
+    FreeAll(head);
 
     return 0;
 }
