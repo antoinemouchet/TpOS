@@ -492,6 +492,7 @@ int main(int argc, char const *argv[])
 
     DisplayMenu(&head);
 
+    NewHead("test", "encore un test", &head);
     NewQueue("lkager", "Wow un deuxieme test", &head);
     NewQueue("fgah", "omg trop de tests", &head);
     SortAscending(head);
