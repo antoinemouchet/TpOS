@@ -223,6 +223,53 @@ void RemoveWord(char* word, DictElement** head)
     }  
 }
 
+DictElement* CopyDict(DictElement* head)
+{
+    //head of dict to copy
+    DictElement* PosPoint = head;
+    //Head of new dict
+    DictElement* NewDict = NULL;
+
+    //Loop on the whole list
+    while (PosPoint != NULL)
+    {
+        //Copy element in new dict by adding it at last position
+       NewQueue(PosPoint->word, PosPoint->definition, &NewDict);
+       PosPoint = PosPoint->next;
+    }
+    //Return
+    return NewDict;
+}
+
+void DisplayDictByTen(DictElement* head)
+{
+    int CountEl = 0, CountPage = 0, choice = 1;
+    
+    while (head != NULL)
+    {
+        //Loop until 10 elements are printed
+        while (CountEl != (9 + 10 * CountPage) && head != NULL)
+        {
+            //Display element and move to next el
+            printf("%s (def): %s\n", head->word, head->definition);
+            head = head->next;
+
+            //Increment number of elements
+            CountEl ++;
+        }
+        
+        //Incremenent amount of pages
+        CountPage ++;
+
+        //Display page
+        printf("Page %d. Press Enter for next page.\n>>> ", CountPage);
+        scanf("%d", &choice);
+        printf("\n");
+
+    }
+    
+}
+
 void DisplayMenu(DictElement** head)
 {
     int choice;
@@ -333,6 +380,7 @@ void DisplayMenu(DictElement** head)
         
         //Display dictionary by pages of 10 words
         case 11:
+            DisplayDictByTen(*head);
             break;
     
         default:
@@ -341,23 +389,6 @@ void DisplayMenu(DictElement** head)
     printf("\n");
 }
 
-DictElement* CopyDict(DictElement* head)
-{
-    //head of dict to copy
-    DictElement* PosPoint = head;
-    //Head of new dict
-    DictElement* NewDict = NULL;
-
-    //Loop on the whole list
-    while (PosPoint != NULL)
-    {
-        //Copy element in new dict by adding it at last position
-       NewQueue(PosPoint->word, PosPoint->definition, &NewDict);
-       PosPoint = PosPoint->next;
-    }
-    //Return
-    return NewDict;
-}
 
 //Main function
 int main(int argc, char const *argv[])
@@ -376,7 +407,7 @@ int main(int argc, char const *argv[])
     DisplayMenu(&head);
     copy = (DictElement *) malloc(sizeof(DictElement));
     copy = CopyDict(head);
-    head = CopyDict(copy);
+    DisplayMenu(&copy);
 
     return 0;
 }
