@@ -311,9 +311,9 @@ void SortAscending(DictElement** head)
         PosPoint = PosPoint -> next; 
     }
 
-    PosPoint = CopyDict(SortedDict);
+    *head = CopyDict(SortedDict);
     printf("sorted array:");
-    DisplayDictByTen(PosPoint);
+    DisplayDictByTen(*head);
 }
 
 void DisplayMenu(DictElement** head)
