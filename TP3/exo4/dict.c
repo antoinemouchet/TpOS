@@ -276,6 +276,16 @@ void DisplayDictByTen(DictElement* head)
     }
 }
 
+void swap (DictElement *a, DictElement *b)
+{
+    char *word = malloc(sizeof(char) * 20);
+    //Move words
+    strcpy(word, a->word);
+    strcpy(a->word, b->word);
+    strcpy(b->word, word);
+
+}
+
 void SortAscending(DictElement *head)
 {
     int swapped;
@@ -305,15 +315,7 @@ void SortAscending(DictElement *head)
 
 }
 
-void swap (DictElement *a, DictElement *b)
-{
-    char *word = malloc(sizeof(char) * 20);
-    //Move words
-    strcpy(word, a->word);
-    strcpy(a->word, b->word);
-    strcpy(b->word, word);
 
-}
 
 void DisplayMenu(DictElement** head)
 {
