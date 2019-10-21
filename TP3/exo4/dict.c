@@ -276,6 +276,43 @@ void DisplayDictByTen(DictElement* head)
     }
 }
 
+void SortAscending(DictElement** head)
+{
+    DictElement* PosPoint = head;
+
+    //Initialize sorted dict empty
+    DictElement* SortedDict = NULL;
+
+    while (PosPoint != NULL)
+    {
+        //Sorted dict is empty so just add the first element
+        if (SortedDict == NULL)
+        {
+            NewHead(PosPoint->word, PosPoint->definition, SortedDict);
+        }
+        else
+        {
+            int SortedIndex = 0, NotPlaced = 0;
+            //Loop on elements of sorted dict
+            while (SortedDict != NULL && NotPlaced == 0)
+            {
+                //Check if string of unsorted dict is before word of sorted dict
+                if ( strcmp(PosPoint -> word, SortedDict -> word) <= 0 )
+                {
+                    NewElement(SortedIndex, PosPoint->word, PosPoint->definition, SortedDict);
+                    NotPlaced = 1;
+                }
+                //Next sorted element
+                SortedDict = SortedDict -> next;
+                SortedIndex ++;
+            }
+        }
+        //Next element
+        PosPoint = PosPoint -> next; 
+    }
+
+    head = CopyDict(SortedDict);
+}
 
 void DisplayMenu(DictElement** head)
 {
@@ -404,17 +441,18 @@ int main(int argc, char const *argv[])
     DictElement * head, *copy;
 
     head = (DictElement *) malloc(sizeof(DictElement));
-    (*head).word = "test";
+    (*head).word = "abcde";
     (*head).definition = "Ceci est un test";
     (*head).next = NULL;
 
-    NewQueue("test2", "Wow un deuxieme test", &head);
+    NewQueue("lkager", "Wow un deuxieme test", &head);
+    NewQueue("fgah", "omg trop de tests", &head);
     Search(head, "test2");
     DisplayMenu(&head);
     copy = (DictElement *) malloc(sizeof(DictElement));
     copy = CopyDict(head);
-    RemoveHead(&head);
     DisplayMenu(&copy);
+    SortAscending(&head);
     DisplayMenu(&head);
 
     return 0;
