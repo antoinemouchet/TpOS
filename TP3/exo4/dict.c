@@ -285,7 +285,7 @@ void swap(DictElement *a, DictElement *b)
     b->word = tmp;
 } 
 
-void SortAscending(DictElement* head)
+void SortDescending(DictElement* head)
 {
     int swapped; 
     DictElement *PosPoint; 
@@ -316,6 +316,36 @@ void SortAscending(DictElement* head)
     }
 }
 
+void SortAscending(DictElement* head)
+{
+    int swapped; 
+    DictElement *PosPoint; 
+    DictElement *NextPoint = NULL; 
+  
+    // Checking for empty list 
+    if (head != NULL) 
+    {
+  
+        do
+        { 
+            swapped = 0; 
+            PosPoint = head; 
+    
+            while (PosPoint->next != NextPoint) 
+            { 
+                if (strcmp(PosPoint->word, PosPoint->next->word) > 0)
+                {  
+                    swap(PosPoint, PosPoint->next); 
+                    swapped = 1; 
+                }
+
+                PosPoint = PosPoint->next; 
+            } 
+            NextPoint = PosPoint; 
+        } 
+        while (swapped);
+    }
+}
 
 void DisplayMenu(DictElement** head)
 {
