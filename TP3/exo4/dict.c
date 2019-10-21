@@ -25,7 +25,7 @@ int isEmpty(DictElement* head)
     return 0;
 }
 
-void NewHead(char* word, char* definition, DictElement** head)
+void NewHead(char word[], char definition[], DictElement** head)
 {
     DictElement* NextEl;
     NextEl = (DictElement*) malloc (sizeof(DictElement));
@@ -40,7 +40,7 @@ void NewHead(char* word, char* definition, DictElement** head)
  
 }
 
-void NewQueue(char* word, char* definition, DictElement** head)
+void NewQueue(char word[], char definition[], DictElement** head)
 {
    
     DictElement* NewEl = (DictElement*) malloc(sizeof(DictElement));
@@ -69,7 +69,7 @@ void NewQueue(char* word, char* definition, DictElement** head)
     }
 }
 
-void NewElement(int InsertInd, char* word, char* definition, DictElement** head)
+void NewElement(int InsertInd, char word[], char definition[], DictElement** head)
 {
     DictElement* PosPoint = *head;
     int pos = 0;
@@ -190,7 +190,7 @@ void RemoveQueue(DictElement** head)
     RemoveElement(lastInd, head);
 }
 
-int Search(DictElement* head, char* word) 
+int Search(DictElement* head, char word[]) 
 { 
     DictElement* PosPoint = head;
     int count = 0;
@@ -350,7 +350,7 @@ void DisplayMenu(DictElement** head)
 {
     int choice;
     int index = 0;
-    char* word, *definition;
+    char word[100], definition[200];
     printf(" 0. Exit\n"
            " 1. Insert an item at index\n"
            " 2. Insert new head\n"
@@ -383,7 +383,7 @@ void DisplayMenu(DictElement** head)
             printf("Definition\n>>> ");
             scanf("%s", definition);
 
-            NewElement(index, *word, *definition, head);
+            NewElement(index, word, definition, head);
         break;
         
         //New head
@@ -395,7 +395,7 @@ void DisplayMenu(DictElement** head)
             printf("Definition\n>>> ");
             scanf("%s", definition);
 
-            NewHead(*word, *definition, head);
+            NewHead(word, definition, head);
             break;
         
         //New queue
@@ -407,7 +407,7 @@ void DisplayMenu(DictElement** head)
             printf("Definition\n>>> ");
             scanf("%s", definition);
 
-            NewQueue(*word, *definition, head);
+            NewQueue(word, definition, head);
             break;
         //Remove item at index
         case 4:
@@ -443,7 +443,7 @@ void DisplayMenu(DictElement** head)
             printf("Word\n>>> ");
             scanf("%s", word);
 
-            printf("The index of %s is\n>>>  %d", word, Search(*head, *word));
+            printf("The index of %s is\n>>>  %d", word, Search(*head, word));
             break;
 
         //Sort in ascending order
