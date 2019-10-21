@@ -213,7 +213,7 @@ int Search(DictElement* head, char* word)
     return -1;
 }
 
-void RemoveWord(DictElement** head, char* word)
+void RemoveWord(char* word, DictElement** head)
 {
     int WordIndex = Search(*head, word);
     //Check that word was found
@@ -223,12 +223,129 @@ void RemoveWord(DictElement** head, char* word)
     }  
 }
 
+void DisplayMenu(DictElement** head)
+{
+    int choice;
+    int index = 0;
+    char* word, *definition;
+    printf(" 0. Exit\n"
+           " 1. Insert an item at index\n"
+           " 2. Insert new head\n"
+           " 3. Insert at the end of the queue\n"
+           " 4. Remove item at index\n"
+           " 5. Remove head\n"
+           " 6. Remove queue\n"
+           " 7. Remove a word\n"
+           " 8. Search word\n"
+           " 9. Sort list in ascending order\n"
+           " 10. Sort list in descending order\n"
+           " 11. Display words by pages of 10\n"
+           ">>> ");
+    
+    scanf("%d", &choice);
+  
+    switch (choice) 
+    {
+        //item at index
+        case 1:
+            //Get index
+            printf("Index\n>>> ");
+            scanf("%d", &index);
 
+            //Get word
+            printf("Word\n>>> ");
+            scanf("%s", word);
+
+            //Get definition
+            printf("Definition\n>>> ");
+            scanf("%s", definition);
+
+            NewElement(index, word, definition, head);
+        break;
+        
+        //New head
+        case 2:
+            //Get word
+            printf("Word\n>>> ");
+            scanf("%s", word);
+            //get definition
+            printf("Definition\n>>> ");
+            scanf("%s", definition);
+
+            NewHead(word, definition, head);
+            break;
+        
+        //New queue
+        case 3:
+            //Get word
+            printf("Word\n>>> ");
+            scanf("%s", word);
+            //get definition
+            printf("Definition\n>>> ");
+            scanf("%s", definition);
+
+            NewQueue(word, definition, head);
+            break;
+        //Remove item at index
+        case 4:
+            //get index
+            printf("Index\n>>> ");
+            scanf("%d", &index);
+
+            RemoveElement(index, head);
+            break;
+        
+        //Remove head
+        case 5:
+            RemoveHead(head);
+            break;
+
+        //Remove Queue
+        case 6:
+            RemoveQueue(head);
+            break;
+
+        //Remove specific word
+        case 7:
+            //Get word to delete
+            printf("Word\n>>> ");
+            scanf("%s", word);
+
+            RemoveWord(word, head);
+            break;
+
+        //Search word
+        case 8:
+            //Get word to search for
+            printf("Word\n>>> ");
+            scanf("%s", word);
+
+            printf("The index of %s is\n>>>  %d", word, Search(head, word));
+            break;
+
+        //Sort in ascending order
+        case 9:
+            break;
+
+        //Sort in descending order
+        case 10:
+            break;
+        
+        //Display dictionary by pages of 10 words
+        case 11:
+            break;
+    
+        default:
+            return;
+    }
+    printf("\n");
+}
 
 int main(int argc, char const *argv[])
 {
-    DictElement * head, * next;
-    // allocation dynamique
+    //Initialize array
+    DictElement * head;
+
     head = (DictElement *) malloc(sizeof(DictElement));
     (*head).word = "test";
     (*head).definition = "Ceci est un test";
@@ -237,8 +354,8 @@ int main(int argc, char const *argv[])
     NewQueue("test2", "Wow un deuxieme test", &head);
     RemoveHead(&head);
     Search(head, "test2");
+    DisplayMenu(head);
     
 
     return 0;
 }
-
