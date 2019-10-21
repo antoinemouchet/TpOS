@@ -244,27 +244,35 @@ DictElement* CopyDict(DictElement* head)
 void DisplayDictByTen(DictElement* head)
 {
     int CountEl = 0, CountPage = 0, choice = 0;
-    
-    //Loop until 10 elements are printed
-    while (CountEl != (9 + 10 * CountPage) && head != NULL)
+
+    //Make sure there is at least one element to display
+    if (isEmpty(head))
     {
-        //Display element and move to next el
-        printf("%s (def): %s\n", head->word, head->definition);
-        head = head->next;
-
-        //Check if 10 elements are printed
-        if (CountEl == (9 + 10 * CountPage))
+        printf("There is no element in dictionary.");
+    }
+    else
+    {   
+        //Loop until all elements are printed
+        while (head != NULL)
         {
-            //Incremenent amount of pages
-            CountPage ++;
+            //Display element and move to next el
+            printf("%s (def): %s\n", head->word, head->definition);
+            head = head->next;
 
-            //Display page
-            printf("Page %d. Press Enter for next page.\n>>> ", CountPage);
-            scanf("%d", &choice);
-            printf("\n");
+            //Check if 10 elements are printed
+            if (CountEl == (9 + 10 * CountPage))
+            {
+                //Incremenent amount of pages
+                CountPage ++;
+
+                //Display page
+                printf("Page %d. Press Enter for next page.\n>>> ", CountPage);
+                scanf("%d", &choice);
+                printf("\n");
+            }
+            //Increment number of elements
+            CountEl ++;
         }
-        //Increment number of elements
-        CountEl ++;
     }
 }
 
@@ -401,12 +409,13 @@ int main(int argc, char const *argv[])
     (*head).next = NULL;
 
     NewQueue("test2", "Wow un deuxieme test", &head);
-    RemoveHead(&head);
     Search(head, "test2");
     DisplayMenu(&head);
     copy = (DictElement *) malloc(sizeof(DictElement));
     copy = CopyDict(head);
+    RemoveHead(&head);
     DisplayMenu(&copy);
+    DisplayMenu(&head);
 
     return 0;
 }
