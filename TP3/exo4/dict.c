@@ -278,7 +278,7 @@ void DisplayDictByTen(DictElement* head)
 
 void SortAscending(DictElement** head)
 {
-    DictElement* PosPoint = head;
+    DictElement* PosPoint = *head;
 
     //Initialize sorted dict empty
     DictElement* SortedDict = NULL;
@@ -311,9 +311,9 @@ void SortAscending(DictElement** head)
         PosPoint = PosPoint -> next; 
     }
 
-    *head = CopyDict(SortedDict);
+    head = CopyDict(SortedDict);
     printf("sorted array:");
-    DisplayDictByTen(*head);
+    DisplayDictByTen(&head);
 }
 
 void DisplayMenu(DictElement** head)
