@@ -449,7 +449,7 @@ int main(int argc, char const *argv[])
 
     NewQueue("lkager", "Wow un deuxieme test", &head);
     NewQueue("fgah", "omg trop de tests", &head);
-    SortAscending(&head);
+    SortAscending(head);
     DisplayMenu(&head);
 
     return 0;
