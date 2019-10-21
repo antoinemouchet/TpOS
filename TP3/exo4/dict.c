@@ -227,15 +227,17 @@ void RemoveWord(DictElement** head, char* word)
 
 int main(int argc, char const *argv[])
 {
-    DictElement * head;
+    DictElement * head, * next;
     // allocation dynamique
     head = (DictElement *) malloc(sizeof(DictElement));
     (*head).word = "test";
     (*head).definition = "Ceci est un test";
     (*head).next = NULL;
-    (*head).next = (DictElement *) malloc(sizeof(DictElement));
 
-    Search(head, "test");
+    NewQueue("test2", "Wow un deuxieme test", head);
+    RemoveHead(head);
+    Search(head, "test2");
+    
 
     return 0;
 }
