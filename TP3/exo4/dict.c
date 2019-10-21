@@ -434,7 +434,7 @@ void DisplayMenu(DictElement** head)
             printf("Word\n>>> ");
             scanf("%s", word);
 
-            RemoveWord(*word, head);
+            RemoveWord(word, head);
             break;
 
         //Search word
