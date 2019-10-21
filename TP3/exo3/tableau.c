@@ -31,7 +31,7 @@ void remove_word(char text[][SIZE_WORD])
 
 void DisplayArray(char text[][SIZE_WORD])
 {
-    printf("Array is: ");
+    printf("\nArray is: ");
     for (int j = 0; j < SIZE; j++)
         {
             printf("%s ", text[j]);
@@ -84,7 +84,12 @@ int main(int argc, char const *argv[])
                 {
                     remove_word(text);
                     //tab updated with nbwords less
-                    DisplayArray(text);
+
+                    //Display array when there is at least another word to remove
+                    if (i < nb_words - 1)
+                    {
+                        DisplayArray(text);
+                    }
                 }
 
                 //Add last word entered at the queue
@@ -105,7 +110,7 @@ int main(int argc, char const *argv[])
 
     //Display array
     DisplayArray(text);
-    
+
 
     return 0;
 
