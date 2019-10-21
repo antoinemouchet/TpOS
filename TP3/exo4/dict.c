@@ -234,8 +234,8 @@ int main(int argc, char const *argv[])
     (*head).definition = "Ceci est un test";
     (*head).next = NULL;
 
-    NewQueue("test2", "Wow un deuxieme test", head);
-    RemoveHead(head);
+    NewQueue("test2", "Wow un deuxieme test", &head);
+    RemoveHead(&head);
     Search(head, "test2");
     
 
