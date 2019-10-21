@@ -227,7 +227,7 @@ void DisplayMenu(DictElement** head)
 {
     int choice;
     int index = 0;
-    char* word, *definition;
+    char word[100], definition[200];
     printf(" 0. Exit\n"
            " 1. Insert an item at index\n"
            " 2. Insert new head\n"
@@ -320,7 +320,7 @@ void DisplayMenu(DictElement** head)
             printf("Word\n>>> ");
             scanf("%s", word);
 
-            printf("The index of %s is\n>>>  %d", word, Search(head, word));
+            printf("The index of %s is\n>>>  %d", word, Search(*head, word));
             break;
 
         //Sort in ascending order
