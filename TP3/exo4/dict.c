@@ -53,7 +53,7 @@ void NewQueue(char* word, char* definition, DictElement** head)
     NewEl -> next = NULL;
   
     //If list is empty then
-    if (isEmpty(head))
+    if (isEmpty(*head))
     {
         *head = NewEl;
     }
@@ -114,7 +114,7 @@ void RemoveElement(int index, DictElement** head)
     }
     
    // If linked list is empty 
-   else if (isEmpty(head)) 
+   else if (isEmpty(*head)) 
     {
         printf("There is nothing to delete.\n");
     }
@@ -187,6 +187,6 @@ int GetSize(DictElement* head)
 
 void RemoveQueue(DictElement** head)
 {
-    int lastInd = GetSize(head) - 1;
+    int lastInd = GetSize(*head) - 1;
     RemoveElement(lastInd, head);
 }
