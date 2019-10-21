@@ -191,17 +191,6 @@ void RemoveQueue(DictElement** head)
     RemoveElement(lastInd, head);
 }
 
-
-void RemoveWord(DictElement** head, char* word)
-{
-    int WordIndex = Search(head, word);
-    //Check that word was found
-    if (WordIndex != -1)
-    {
-        RemoveElement(WordIndex, head);
-    }  
-}
-
 int Search(DictElement* head, char* word) 
 { 
     DictElement* PosPoint = head;
@@ -224,19 +213,31 @@ int Search(DictElement* head, char* word)
     return -1;
 }
 
+void RemoveWord(DictElement** head, char* word)
+{
+    int WordIndex = Search(head, word);
+    //Check that word was found
+    if (WordIndex != -1)
+    {
+        RemoveElement(WordIndex, head);
+    }  
+}
+
+
+
 int main(int argc, char const *argv[])
 {
-    DictElement * head, * next;
+    DictElement * head;
     // allocation dynamique
     head = (DictElement *) malloc(sizeof(DictElement));
     (*head).word = "test";
     (*head).definition = "Ceci est un test";
     (*head).next = NULL;
     (*head).next = (DictElement *) malloc(sizeof(DictElement));
-    next = (*head).next;
+
 
     Search(head, "test");
-    
+
     return 0;
 }
 
