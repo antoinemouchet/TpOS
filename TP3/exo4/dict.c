@@ -296,7 +296,7 @@ void SortAscending(DictElement *head)
     {
         //Initialize pointer and swap value
         swapped = 0;
-        PosPoint = head->next;
+        PosPoint = head;
 
         //Loop until end of array is reached
         while (PosPoint->next != NextPoint)
