@@ -276,44 +276,43 @@ void DisplayDictByTen(DictElement* head)
     }
 }
 
-void SortAscending(DictElement* head)
+void SortAscending(DictElement *head)
 {
-    DictElement* PosPoint = head;
+    int swapped;
+    DictElement *PosPoint;
+    DictElement *NextPoint = NULL;
 
-    //Initialize sorted dict empty
-    DictElement* SortedDict = NULL;
-
-    while (PosPoint != NULL)
+    do
     {
-        //Sorted dict is empty so just add the first element
-        if (SortedDict == NULL)
-        {
-            NewHead(PosPoint->word, PosPoint->definition, &SortedDict);
-        }
-        else
-        {
-            int SortedIndex = 0, NotPlaced = 0;
-            //Loop on elements of sorted dict
-            while (SortedDict != NULL && NotPlaced == 0)
-            {
-                //Check if string of unsorted dict is before word of sorted dict
-                if ( strcmp(PosPoint -> word, SortedDict -> word) <= 0 )
-                {
-                    NewElement(SortedIndex, PosPoint->word, PosPoint->definition, &SortedDict);
-                    NotPlaced = 1;
-                }
-                //Next sorted element
-                SortedDict = SortedDict -> next;
-                SortedIndex ++;
-            }
-        }
-        //Next element
-        PosPoint = PosPoint -> next; 
-    }
+        //Initialize pointer and swap value
+        swapped = 0;
+        PosPoint = head->next;
 
-    head = CopyDict(SortedDict);
-    printf("sorted array:");
-    DisplayDictByTen(head);
+        //Loop until end of array is reached
+        while (PosPoint->next != NextPoint)
+        {
+            //Check which word is bigger
+            if (strcmp(PosPoint->word, PosPoint->next->word) > 0)
+            {
+                swap(PosPoint, PosPoint->next);
+                swapped = 1;
+            }
+            PosPoint = PosPoint->next;
+        }
+        NextPoint = PosPoint;
+    }
+    while (swapped);
+
+}
+
+void swap (DictElement *a, DictElement *b)
+{
+    char *word = malloc(sizeof(char) * 20);
+    //Move words
+    strcpy(word, a->word);
+    strcpy(a->word, b->word);
+    strcpy(b->word, word);
+
 }
 
 void DisplayMenu(DictElement** head)
