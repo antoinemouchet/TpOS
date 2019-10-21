@@ -341,10 +341,29 @@ void DisplayMenu(DictElement** head)
     printf("\n");
 }
 
+DictElement* CopyDict(DictElement* head)
+{
+    //head of dict to copy
+    DictElement* PosPoint = head;
+    //Head of new dict
+    DictElement* NewDict = NULL;
+
+    //Loop on the whole list
+    while (PosPoint != NULL)
+    {
+        //Copy element in new dict by adding it at last position
+       NewQueue(PosPoint->word, PosPoint->definition, &NewDict);
+       PosPoint = PosPoint->next;
+    }
+    //Return
+    return NewDict;
+}
+
+//Main function
 int main(int argc, char const *argv[])
 {
     //Initialize array
-    DictElement * head;
+    DictElement * head, *copy;
 
     head = (DictElement *) malloc(sizeof(DictElement));
     (*head).word = "test";
@@ -355,7 +374,8 @@ int main(int argc, char const *argv[])
     RemoveHead(&head);
     Search(head, "test2");
     DisplayMenu(&head);
-    
+    copy = (DictElement *) malloc(sizeof(DictElement));
+    copy = CopyDict(head);
 
     return 0;
 }
