@@ -313,7 +313,7 @@ void SortAscending(DictElement** head)
 
     *head = CopyDict(SortedDict);
     printf("sorted array:");
-    DisplayDictByTen(head);
+    DisplayDictByTen(*head);
 }
 
 void DisplayMenu(DictElement** head)
