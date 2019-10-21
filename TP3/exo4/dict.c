@@ -383,7 +383,7 @@ void DisplayMenu(DictElement** head)
             printf("Definition\n>>> ");
             scanf("%s", definition);
 
-            NewElement(index, word, definition, head);
+            NewElement(index, *word, *definition, head);
         break;
         
         //New head
@@ -395,7 +395,7 @@ void DisplayMenu(DictElement** head)
             printf("Definition\n>>> ");
             scanf("%s", definition);
 
-            NewHead(word, definition, head);
+            NewHead(*word, *definition, head);
             break;
         
         //New queue
@@ -407,7 +407,7 @@ void DisplayMenu(DictElement** head)
             printf("Definition\n>>> ");
             scanf("%s", definition);
 
-            NewQueue(word, definition, head);
+            NewQueue(*word, *definition, head);
             break;
         //Remove item at index
         case 4:
@@ -434,7 +434,7 @@ void DisplayMenu(DictElement** head)
             printf("Word\n>>> ");
             scanf("%s", word);
 
-            RemoveWord(word, head);
+            RemoveWord(*word, head);
             break;
 
         //Search word
@@ -443,7 +443,7 @@ void DisplayMenu(DictElement** head)
             printf("Word\n>>> ");
             scanf("%s", word);
 
-            printf("The index of %s is\n>>>  %d", word, Search(*head, word));
+            printf("The index of %s is\n>>>  %d", word, Search(*head, *word));
             break;
 
         //Sort in ascending order
