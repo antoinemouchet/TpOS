@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
     }
     else if (n == 0)
     {
-        printf("Je suis le fils. Pid:>>> %d\n\t\t Pid père:>>> %d", n, pidFather);
+        printf("Je suis le fils. Pid:>>> %d\n\t\t Pid père:>>> %d\n", pidCurr, pidFather);
     }
     else
     {
