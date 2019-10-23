@@ -10,7 +10,7 @@ int get_rest(int num_1, int num_2)
     return num_1 - (num_2 * (num_1/num_2));
 }
 
-int pgcd (int num_1, int num_2)
+int GetPGCD (int num_1, int num_2)
 {
     int rest;
 
@@ -28,7 +28,7 @@ int pgcd (int num_1, int num_2)
     {
         //get the highest common divisor possible based on rest of division
         rest = get_rest(num_1, num_2);
-        return pgcd(num_2, rest);
+        return GetPGCD(num_2, rest);
     }
 
     //Num 2 greater than num 1
@@ -36,28 +36,28 @@ int pgcd (int num_1, int num_2)
     {
         //get the highest common divisor possible based on rest of division
         rest = get_rest(num_2, num_1);
-        return pgcd(num_1, rest);
+        return GetPGCD(num_1, rest);
     }
 }
 
 
-pid_t create_process(void) {
-    int pid;
+int create_process(void) {
+    int n;
 
     do
     {
-        pid = fork()
+        n = fork()
     }
 
-    while ((pid == -1) && (errno == EAGAIN))
+    while ((n == -1) && (errno == EAGAIN))
 
-    return pid;
+    return n;
 }
 
 
 int main(int argc, char const *argv[])
 {
-    int num_1, num_2, num_3, divider_n12, divider_n13, divider_n21, divider_n23, pgcd;
+    int num_1, num_2, pgcd;
 
     //Get numbers
     printf("Insérez le premier nombre:\n>>> ");
@@ -67,28 +67,43 @@ int main(int argc, char const *argv[])
 
     //initialize pgcd at 0
     pgcd = 0;
-    pid_t pid = create_process();
+    int n = create_process();
     
-    switch (pid)
+    switch (n)
     {
-    case -1:
-        perror("fork");
-        return EXIT_FAILURE;
-        break;
-    case 0:
-    /*Son case*/
-        if (num_1 == 0 || num_2 == 0)
-    {
-        printf("One of the number is equal to 0, no divisor possible.");
-        return 1;
+        //Error case
+        case -1:
+            perror("fork");
+            return EXIT_FAILURE;
+
+        /*Son case
+        Get PGCD of numbers*/
+        case 0:
+
+            //Make sure there is no 0
+            if (num_1 == 0 || num_2 == 0)
+            {
+                printf("One of the number is equal to 0, no divisor possible.");
+                
+                //Error return 1 and terminate program
+                return 1;
+            }
+            else
+            {
+                pgcd = GetPGCD(num_1, num_2);
+            }
+
+        //Display PGCD
+        printf("Le PGCD de %d et %d est: %d\n", num_1, num_2, pgcd);
+        printf("Fils fini.")
+
+        /*father Case*/
+        default:
+        
+            wait(NULL);
+            printf("Papa fini.")
+            break;
     }
 
-    //Display PGCD
-    printf("Le PGCD de %d et %d est: %d\n", num_1, num_2, pgcd);
-    default:
-    /*father Case*/
-    wait(NULL);
-        break;
-    }
-    return EXIT_SUCCESS;
+    return 0;
 }

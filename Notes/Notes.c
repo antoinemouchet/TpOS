@@ -9,8 +9,6 @@ int main(int argc, char const *argv[])
     int n, pidCurr, pidFather;
 
     n = fork();
-    pidCurr = getpid();
-    pidFather = getppid();
 
     //Père
     if (n > 0)
