@@ -46,10 +46,10 @@ int create_process(void) {
 
     do
     {
-        n = fork()
+        n = fork();
     }
 
-    while ((n == -1) && (errno == EAGAIN))
+    while ((n == -1) && (errno == EAGAIN));
 
     return n;
 }
@@ -95,13 +95,13 @@ int main(int argc, char const *argv[])
 
         //Display PGCD
         printf("Le PGCD de %d et %d est: %d\n", num_1, num_2, pgcd);
-        printf("Fils fini.")
+        printf("Fils fini.");
 
         /*father Case*/
         default:
         
             wait(NULL);
-            printf("Papa fini.")
+            printf("Papa fini.");
             break;
     }
 
