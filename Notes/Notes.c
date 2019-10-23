@@ -18,14 +18,14 @@ int main(int argc, char const *argv[])
         printf("Je suis le père. Pid:>>> %d\n", getpid());
         /* Utile pour attendre que le fils décède ce qui permet de ne pas avoir de problèmes
           si ce dernier demande des informations venant de père particulièrement. */
-        wait(NULL);
+        //wait(NULL);
     }
     //Fils
     else if (n == 0)
     {
         printf("Je suis le fils. Pid:>>> %d\n\t\t Pid père:>>> %d\n", getpid(), getppid());
         //Fais en sorte que le processus fils s'arrête ici.
-        exit(0);
+        //exit(0);
     }
     else
     {
