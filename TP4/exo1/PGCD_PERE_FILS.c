@@ -104,7 +104,7 @@ int main(int argc, char const *argv[])
         
             wait(NULL);
             printf("Papa fini.");
-            printf("Pid dad is %d\n", getpid())
+            printf("Pid dad is %d\n", getpid());
             break;
     }
 
