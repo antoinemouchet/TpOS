@@ -94,10 +94,11 @@ int main(int argc, char const *argv[])
                 pgcd = GetPGCD(num_1, num_2);
             }
 
-        //Display PGCD
-        printf("Le PGCD de %d et %d est: %d\n", num_1, num_2, pgcd);
-        printf("Fils fini.\n");
-        printf("My pid is:>>> %d\n", getpid());
+            //Display PGCD
+            printf("Le PGCD de %d et %d est: %d\n", num_1, num_2, pgcd);
+            printf("Fils fini.\n");
+            printf("My pid is:>>> %d\n", getpid());
+            break;
 
         /*father Case*/
         default:
