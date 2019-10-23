@@ -44,6 +44,7 @@ int GetPGCD (int num_1, int num_2)
 int create_process(void) {
     int n;
 
+    //Loop until a fork can be created
     do
     {
         n = fork();
@@ -83,7 +84,7 @@ int main(int argc, char const *argv[])
             //Make sure there is no 0
             if (num_1 == 0 || num_2 == 0)
             {
-                printf("One of the number is equal to 0, no divisor possible.");
+                printf("One of the number is equal to 0, no pgcd possible.");
                 
                 //Error return 1 and terminate program
                 return 1;
@@ -95,13 +96,15 @@ int main(int argc, char const *argv[])
 
         //Display PGCD
         printf("Le PGCD de %d et %d est: %d\n", num_1, num_2, pgcd);
-        printf("Fils fini.");
+        printf("Fils fini.\n");
+        printf("My pid is:>>> %d\n", getpid());
 
         /*father Case*/
         default:
         
             wait(NULL);
             printf("Papa fini.");
+            printf("Pid dad is %d\n", getpid())
             break;
     }
 
