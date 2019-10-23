@@ -61,9 +61,9 @@ int main(int argc, char const *argv[])
     int num_1, num_2, pgcd;
 
     //Get numbers
-    printf("Insérez le premier nombre:\n>>> ");
+    printf("Insert first number:\n>>> ");
     scanf("%d", &num_1);
-    printf("Insérez le second nombre:\n>>> ");
+    printf("Insert second number:\n>>> ");
     scanf("%d", &num_2);
 
     //initialize pgcd at 0
@@ -95,17 +95,17 @@ int main(int argc, char const *argv[])
             }
 
             //Display PGCD
-            printf("Le PGCD de %d et %d est: %d\n", num_1, num_2, pgcd);
-            printf("Fils fini.\n");
-            printf("My pid is:>>> %d\n", getpid());
+            printf("The GCD of %d and %d is: %d\n", num_1, num_2, pgcd);
+            printf("Son is done.\n");
+            printf("Son's pid is:>>> %d\n", getpid());
             break;
 
         /*father Case*/
         default:
         
             wait(NULL);
-            printf("Papa fini.");
-            printf("Pid dad is %d\n", getpid());
+            printf("Dad is done.\n");
+            printf("Dad's pid is %d\n", getpid());
             break;
     }
 
