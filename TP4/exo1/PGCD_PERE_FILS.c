@@ -97,7 +97,7 @@ int main(int argc, char const *argv[])
             //Display PGCD
             printf("The GCD of %d and %d is: %d\n", num_1, num_2, pgcd);
             printf("Son is done.\n");
-            printf("Son's pid is:>>> %d\n", getpid());
+            printf("Son's pid is %d\n", getpid());
             break;
 
         /*father Case*/
