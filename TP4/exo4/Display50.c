@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
     else if (n1 == 0)
     {
         //Display number of first child
-        printf("\nFirst child: ")
+        printf("\nFirst child: ");
         for (int i = 1; i < 26; i++)
         {
             printf("%d ", i);
@@ -38,7 +38,7 @@ int main(int argc, char const *argv[])
         if (n2 == 0)
         {
             //Display numbers of second child
-            printf("\nSecond child: ")
+            printf("\nSecond child: ");
             for (int i = 26; i < 51; i++)
             {
                 printf("%d ", i);
@@ -52,6 +52,6 @@ int main(int argc, char const *argv[])
             displayGenerationError();
         }   
     }
-    printf("Dad is here.\n")
+    printf("Dad is here.\n");
     return 0;
 }
