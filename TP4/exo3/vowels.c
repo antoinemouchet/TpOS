@@ -3,6 +3,7 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <ctype.h>
 
 int AllVowels(char *word)
 {
@@ -15,7 +16,7 @@ int AllVowels(char *word)
     for (int PosCheck = 0; PosCheck < 5; PosCheck++)
     {
         //If one vowel is not in the word then return false
-        if (strchr(word, vowels[PosCheck]) == NULL)
+        if (strchr(word, vowels[PosCheck]) == NULL && strchr(word, toupper(vowels[PosCheck])) == NULL)
         {
             return 0;
         }
