@@ -19,16 +19,21 @@ int main(int argc, char const *argv[])
         printf("I'm the first child. My pid is: %d. \
         Parent's pid is: %d.\n", getpid(), getppid());
 
+        wait(NULL);
+        wait(NULL);
+
         //Generate first child of first child
         int n14 = fork();
 
         //Child case
         if (n14 == 0)
         {
-            wait(NULL);
-            wait(NULL);
             printf("I'm the fourth child. My pid is: %d. \
             Parent's pid is: %d.\n", getpid(), getppid());
+
+            //Wait some time
+            wait(NULL);
+            wait(NULL);
 
             //Child of child of child
             int n147 = fork();
@@ -81,6 +86,12 @@ int main(int argc, char const *argv[])
         { 
             printf("I'm the second child. My pid is: %d. \
             Parent's pid is: %d.\n", getpid(), getppid());
+
+            //wait some time to let previous childs die.
+            wait(NULL);
+            wait(NULL);
+            wait(NULL);
+
             //Child of child
             int n16 = fork();
             
