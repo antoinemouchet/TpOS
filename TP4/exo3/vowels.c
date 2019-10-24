@@ -15,7 +15,8 @@ int AllVowels(char *word)
     //Loop to see if all vowels are in word
     for (int PosCheck = 0; PosCheck < 5; PosCheck++)
     {
-        //If one vowel is not in the word then return false
+        /* If one vowel is not in the word then return false
+        Check for both lower and upper case. */
         if (strchr(word, vowels[PosCheck]) == NULL && strchr(word, toupper(vowels[PosCheck])) == NULL)
         {
             return 0;
