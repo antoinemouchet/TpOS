@@ -62,7 +62,7 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            printf("%s does not contain all vowels", word);
+            printf("%s does not contain all vowels.\n", word);
         }
     }
     return 0;
