@@ -56,6 +56,7 @@ int main(int argc, char const *argv[])
             //Child of child
             int n15 = fork();
 
+            //wait
             wait(NULL);
 
             //Child case
@@ -123,13 +124,6 @@ int main(int argc, char const *argv[])
             //Parent process
             else if (n3 > 0)
             {
-                //6 childs
-                wait(NULL);
-                wait(NULL);
-                wait(NULL);
-                wait(NULL);
-                wait(NULL);
-                wait(NULL);
 
                 printf("I'm the father, my pid is: %d\n", getpid());
             }
