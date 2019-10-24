@@ -24,7 +24,8 @@ int main(int argc, char const *argv[])
         {
             printf("%d ", i);
         }
-        exit();
+        //Terminate child
+        exit(0);
     }
     //Father case
     else
@@ -44,7 +45,7 @@ int main(int argc, char const *argv[])
                 printf("%d ", i);
             }
             //Terminate child when numbers printed
-            exit();
+            exit(0);
         }
         //Error case
         else if (n2 == -1)
