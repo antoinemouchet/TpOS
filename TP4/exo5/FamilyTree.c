@@ -25,6 +25,8 @@ int main(int argc, char const *argv[])
         //Child case
         if (n14 == 0)
         {
+            wait(NULL);
+            wait(NULL);
             printf("I'm the fourth child. My pid is: %d. \
             Parent's pid is: %d.\n", getpid(), getppid());
 
