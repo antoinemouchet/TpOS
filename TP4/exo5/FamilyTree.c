@@ -16,6 +16,11 @@ int main(int argc, char const *argv[])
     //Child case
     if (n1 == 0)
     {
+        //3 childs processes here
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
+
         printf("I'm the first child. My pid is: %d. \
         Parent's pid is: %d.\n", getpid(), getppid());
 
@@ -25,6 +30,9 @@ int main(int argc, char const *argv[])
         //Child case
         if (n14 == 0)
         {
+            //1child
+            wait(NULL);
+
             printf("I'm the fourth child. My pid is: %d. \
             Parent's pid is: %d.\n", getpid(), getppid());
 
@@ -77,9 +85,12 @@ int main(int argc, char const *argv[])
         //Child case
         if (n2 == 0)
         { 
+            //1child
+            wait(NULL);
+
             printf("I'm the second child. My pid is: %d. \
             Parent's pid is: %d.\n", getpid(), getppid());
-            
+
             //Child of child
             int n16 = fork();
             
@@ -109,7 +120,15 @@ int main(int argc, char const *argv[])
   
             //Parent process
             else if (n3 > 0)
-            { 
+            {
+                //6 childs
+                wait(NULL);
+                wait(NULL);
+                wait(NULL);
+                wait(NULL);
+                wait(NULL);
+                wait(NULL);
+                
                 printf("I'm the father, my pid is: %d\n", getpid());
             }
             //Error case
