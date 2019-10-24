@@ -12,10 +12,12 @@ int main(int argc, char const *argv[])
 {
     int n1 = fork();
 
+    //Error case
     if (n1 < 0)
     {
         displayGenerationError();
     }
+    //Child case
     else if (n1 == 0)
     {
         //Display number of first child
@@ -55,7 +57,7 @@ int main(int argc, char const *argv[])
     }
     //Wait second child to die.
     wait(NULL);
-    
+
     //Make sure father is ending after childs
     printf("\nDad is here.\n");
     return 0;
