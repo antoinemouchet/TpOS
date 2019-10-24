@@ -16,16 +16,16 @@ int main(int argc, char const *argv[])
     //Child case
     if (n1 == 0)
     {
-        //3 childs processes here
-        wait(NULL);
-        wait(NULL);
-        wait(NULL);
-
         printf("I'm the first child. My pid is: %d. \
         Parent's pid is: %d.\n", getpid(), getppid());
 
         //Generate first child of first child
         int n14 = fork();
+
+        //3 childs processes here
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
 
         //Child case
         if (n14 == 0)
@@ -49,6 +49,12 @@ int main(int argc, char const *argv[])
             {
                 displayGenerationError();
             }
+            //Parent case
+            else
+            {
+                exit(0);
+            }
+            
         }
 
         //Parent case
@@ -57,7 +63,6 @@ int main(int argc, char const *argv[])
             //Child of child
             int n15 = fork();
 
-            //wait
             wait(NULL);
 
             //Child case
@@ -72,8 +77,12 @@ int main(int argc, char const *argv[])
             {
                 displayGenerationError();
             }
+            //Parent case
+            else
+            {
+                exit(0);
+            }  
         }
-
         //Error case
         else
         {
@@ -87,12 +96,11 @@ int main(int argc, char const *argv[])
         //Second child
         int n2 = fork(); 
 
+        wait(NULL);
+
         //Child case
         if (n2 == 0)
-        { 
-            //1child
-            wait(NULL);
-
+        {
             printf("I'm the second child. My pid is: %d. \
             Parent's pid is: %d.\n", getpid(), getppid());
 
@@ -111,6 +119,11 @@ int main(int argc, char const *argv[])
             {
                 displayGenerationError();
             }
+            //Parent case
+            else
+            {
+                exit(0);
+            }
         }
 
         //Parent case in first and second child
@@ -128,7 +141,6 @@ int main(int argc, char const *argv[])
             //Parent process
             else if (n3 > 0)
             {
-
                 printf("I'm the father, my pid is: %d\n", getpid());
             }
             //Error case
