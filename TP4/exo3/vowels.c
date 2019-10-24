@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 int AllVowels(char *word)
 {
@@ -10,11 +11,8 @@ int AllVowels(char *word)
     (average of apparition in French and English)*/
     char* vowels = "uoiae";
 
-    //Initialize counter
-    int PosCheck = 0;
-
     //Loop to see if all vowels are in word
-    for ( PosCheck; PosCheck < 5; PosCheck++)
+    for (int PosCheck = 0; PosCheck < 5; PosCheck++)
     {
         //If one vowel is not in the word then return false
         if (strchr(word, vowels[PosCheck]) == NULL)
