@@ -47,7 +47,7 @@ int main(int argc, char const *argv[])
     Check if all vowels are in the word and return the result to father process. */
     else if (n == 0)
     {
-        return AllVowels(*word);
+        return AllVowels(word);
     }
     // Father case
     else
