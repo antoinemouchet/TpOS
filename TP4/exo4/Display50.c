@@ -53,6 +53,10 @@ int main(int argc, char const *argv[])
             displayGenerationError();
         }   
     }
-    printf("Dad is here.\n");
+    //Wait second child to die.
+    wait(NULL);
+    
+    //Make sure father is ending after childs
+    printf("\nDad is here.\n");
     return 0;
 }
