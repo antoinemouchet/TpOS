@@ -19,11 +19,10 @@ int main(int argc, char const *argv[])
         printf("I'm the first child. My pid is: %d. \
         Parent's pid is: %d.\n", getpid(), getppid());
 
-        wait(NULL);
-        wait(NULL);
-
         //Generate first child of first child
         int n14 = fork();
+        wait(NULL);
+        wait(NULL);
 
         //Child case
         if (n14 == 0)
