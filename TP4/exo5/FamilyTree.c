@@ -22,17 +22,9 @@ int main(int argc, char const *argv[])
         //Generate first child of first child
         int n14 = fork();
 
-        //3 childs processes here
-        wait(NULL);
-        wait(NULL);
-        wait(NULL);
-
         //Child case
         if (n14 == 0)
         {
-            //1child
-            wait(NULL);
-
             printf("I'm the fourth child. My pid is: %d. \
             Parent's pid is: %d.\n", getpid(), getppid());
 
@@ -42,19 +34,12 @@ int main(int argc, char const *argv[])
             {
                 printf("I'm the seventh child. My pid is: %d. \
                 Parent's pid is: %d.\n", getpid(), getppid());
-                exit(0);
             }
             //Error
             else if (n147 < 0)
             {
                 displayGenerationError();
             }
-            //Parent case
-            else
-            {
-                exit(0);
-            }
-            
         }
 
         //Parent case
@@ -63,25 +48,17 @@ int main(int argc, char const *argv[])
             //Child of child
             int n15 = fork();
 
-            wait(NULL);
-
             //Child case
             if (n15 == 0)
             {
                 printf("I'm the fifth child. My pid is: %d. \
-                Parent's pid is: %d.\n", getpid(), getppid());
-                exit(0);
+                Parent's pid is: %d.\n", getpid(), getppid());  
             }
             //Error
             else if (n15 < 0)
             {
                 displayGenerationError();
             }
-            //Parent case
-            else
-            {
-                exit(0);
-            }  
         }
         //Error case
         else
@@ -96,8 +73,6 @@ int main(int argc, char const *argv[])
         //Second child
         int n2 = fork(); 
 
-        wait(NULL);
-
         //Child case
         if (n2 == 0)
         {
@@ -111,18 +86,12 @@ int main(int argc, char const *argv[])
             if (n16 == 0)
             {
                 printf("I'm the sixth child. My pid is: %d. \
-                Parent's pid is: %d.\n", getpid(), getppid());
-                exit(0);
+                Parent's pid is: %d.\n", getpid(), getppid());   
             }
             //Error
             else if (n16 < 0)
             {
                 displayGenerationError();
-            }
-            //Parent case
-            else
-            {
-                exit(0);
             }
         }
 
@@ -134,8 +103,7 @@ int main(int argc, char const *argv[])
             if (n3 == 0)
             { 
                 printf("I'm the third child. My pid is: %d. \
-                Parent's pid is: %d.\n", getpid(), getppid());
-                exit(0);
+                Parent's pid is: %d.\n", getpid(), getppid());  
             } 
   
             //Parent process
