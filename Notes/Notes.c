@@ -25,6 +25,10 @@ int main(int argc, char const *argv[])
         //Fais en sorte que le processus fils s'arrête ici.
         //exit(0);
     }
+
+    /* ERREUR
+    Il est bon de noter que normalement, lorsqu'on est en présence
+    d'un problème de générations de nouveau process, la valeur retournée est -1. */
     else
     {
         printf("Erreur");
