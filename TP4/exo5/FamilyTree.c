@@ -42,6 +42,7 @@ int main(int argc, char const *argv[])
             {
                 printf("I'm the seventh child. My pid is: %d. \
                 Parent's pid is: %d.\n", getpid(), getppid());
+                exit(0);
             }
             //Error
             else if (n147 < 0)
@@ -64,6 +65,7 @@ int main(int argc, char const *argv[])
             {
                 printf("I'm the fifth child. My pid is: %d. \
                 Parent's pid is: %d.\n", getpid(), getppid());
+                exit(0);
             }
             //Error
             else if (n15 < 0)
@@ -102,6 +104,7 @@ int main(int argc, char const *argv[])
             {
                 printf("I'm the sixth child. My pid is: %d. \
                 Parent's pid is: %d.\n", getpid(), getppid());
+                exit(0);
             }
             //Error
             else if (n16 < 0)
@@ -118,7 +121,8 @@ int main(int argc, char const *argv[])
             if (n3 == 0)
             { 
                 printf("I'm the third child. My pid is: %d. \
-                Parent's pid is: %d.\n", getpid(), getppid()); 
+                Parent's pid is: %d.\n", getpid(), getppid());
+                exit(0);
             } 
   
             //Parent process
