@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
         wait(NULL);
         wait(NULL);
         wait(NULL);
-        
+
         printf("I'm the father.");
         printf("My pid is %d.\n", getpid());
 
@@ -30,22 +30,26 @@ int main(int argc, char const *argv[])
     }
     //First child 1
     else if (n1 == 0 && n2 > 0 && n3 > 0)
-    {
-        printf("I'm the first child.\n");
-        DisplayPid();
-
+    {   
         //Wait for children to die
         wait(NULL);
         wait(NULL);
+
+        printf("I'm the first child.\n");
+        DisplayPid();
+
+       
     }
     //Second child 1
     else if (n1 > 0 && n2 == 0 && n3 > 0)
-    {
+    {   
+        //Wait its kid
+        wait(NULL);
+
         printf("I'm the second child.\n");
         DisplayPid();
 
-        //Wait its kid
-        wait(NULL);
+        
     }
     //Third child 1
     else if (n1 > 0 && n2 > 0 && n3 == 0)
@@ -56,12 +60,12 @@ int main(int argc, char const *argv[])
 
     //First child 2 of first child 1
     else if (n1 == 0 && n2 == 0 && n3 > 0)
-    {
-        printf("I'm the fourth child.\n");
-        DisplayPid();
-
+    {   
         //wait its kid
         wait(NULL);
+
+        printf("I'm the fourth child.\n");
+        DisplayPid();
     }
     //Second child 2 of first child 1
     else if (n1 == 0 && n2 > 0 && n3 == 0)
