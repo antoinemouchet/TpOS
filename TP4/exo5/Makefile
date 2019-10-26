@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = FamilyTreev2.c
+SOURCES = FamilyTree.c
 #Debug
 DEBUG = gdb
 #Flags

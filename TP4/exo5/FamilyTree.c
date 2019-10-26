@@ -1,126 +1,95 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <sys/wait.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
-void displayGenerationError()
+void DisplayPid(void)
 {
-    printf("There was an error generating new process.\n");
+    printf("My pid is: %d. Parent's pid is: %d.\n", getpid(), getppid());
 }
 
 int main(int argc, char const *argv[])
 {
-    //Generate first child
-    int n1 = fork(); 
-  
-    //Child case
-    if (n1 == 0)
+    int n1, n2 , n3;
+    n1 = fork();
+    n2 = fork();
+    n3 = fork();
+    
+    //Father
+    if (n1 > 0 && n2 > 0 && n3 > 0)
     {
-        printf("I'm the first child. My pid is: %d. \
-        Parent's pid is: %d.\n", getpid(), getppid());
+        //wait the 3 direct kids
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
 
-        //Generate first child of first child
-        int n14 = fork();
-
-        //Child case
-        if (n14 == 0)
-        {
-            printf("I'm the fourth child. My pid is: %d. \
-            Parent's pid is: %d.\n", getpid(), getppid());
-
-            //Child of child of child
-            int n147 = fork();
-            if (n147 == 0)
-            {
-                printf("I'm the seventh child. My pid is: %d. \
-                Parent's pid is: %d.\n", getpid(), getppid());
-            }
-            //Error
-            else if (n147 < 0)
-            {
-                displayGenerationError();
-            }
-        }
-
-        //Parent case
-        else if (n14 > 0)
-        {
-            //Child of child
-            int n15 = fork();
-
-            //Child case
-            if (n15 == 0)
-            {
-                printf("I'm the fifth child. My pid is: %d. \
-                Parent's pid is: %d.\n", getpid(), getppid());  
-            }
-            //Error
-            else if (n15 < 0)
-            {
-                displayGenerationError();
-            }
-        }
-        //Error case
-        else
-        {
-            displayGenerationError();
-        }
-        
-    } 
-    //Parent case in first child
-    else if (n1 > 0)
-    {
-        //Second child
-        int n2 = fork(); 
-
-        //Child case
-        if (n2 == 0)
-        {
-            printf("I'm the second child. My pid is: %d. \
-            Parent's pid is: %d.\n", getpid(), getppid());
-
-            //Child of child
-            int n16 = fork();
-            
-            //Child case
-            if (n16 == 0)
-            {
-                printf("I'm the sixth child. My pid is: %d. \
-                Parent's pid is: %d.\n", getpid(), getppid());   
-            }
-            //Error
-            else if (n16 < 0)
-            {
-                displayGenerationError();
-            }
-        }
-
-        //Parent case in first and second child
-        else if (n2 > 0)
-        {
-            //Third child
-            int n3 = fork(); 
-            if (n3 == 0)
-            { 
-                printf("I'm the third child. My pid is: %d. \
-                Parent's pid is: %d.\n", getpid(), getppid());  
-            } 
-  
-            //Parent process
-            else if (n3 > 0)
-            {
-                printf("I'm the father, my pid is: %d\n", getpid());
-            }
-            //Error case
-            else
-            {
-                displayGenerationError();
-            }
-        }
+        printf("I'm the father.\n");
+        printf("My pid is: %d.\n", getpid());
     }
+
+    //First child 1
+    else if (n1 == 0 && n2 > 0 && n3 > 0)
+    {   
+        //Wait for children to die
+        wait(NULL);
+        wait(NULL);
+
+        printf("I'm the first child.\n");
+        DisplayPid();
+    }
+
+    //Second child 1
+    else if (n1 > 0 && n2 == 0 && n3 > 0)
+    {   
+        //Wait its kid
+        wait(NULL);
+
+        printf("I'm the second child.\n");
+        DisplayPid();
+    }
+
+    //Third child 1
+    else if (n1 > 0 && n2 > 0 && n3 == 0)
+    {
+        printf("I'm the third child.\n");
+        DisplayPid();
+    }
+
+    //First child 2 of first child 1
+    else if (n1 == 0 && n2 == 0 && n3 > 0)
+    {   
+        //wait its kid
+        wait(NULL);
+
+        printf("I'm the fourth child.\n");
+        DisplayPid();
+    }
+
+    //Second child 2 of first child 1
+    else if (n1 == 0 && n2 > 0 && n3 == 0)
+    {
+        printf("I'm the fifth child.\n");
+        DisplayPid();
+    }
+
+    //First child 2 of second child 1
+    else if (n1 > 0 && n2 == 0 && n3 == 0)
+    {
+        printf("I'm the sixth child.\n");
+        DisplayPid();
+    }
+
+    //First child 3 of first child 2 of first child 1
+    else if (n1 == 0 && n2 == 0 && n3 == 0)
+    {
+        printf("I'm the seventh child.\n");
+        DisplayPid();
+    }
+    
+    //Error
     else
     {
-        displayGenerationError();
+        printf("There was an error generating new process.\n");
     }
     
     return 0;
