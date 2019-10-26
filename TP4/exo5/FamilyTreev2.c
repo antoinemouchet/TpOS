@@ -19,8 +19,12 @@ int main(int argc, char const *argv[])
     if (n1 > 0 && n2 > 0 && n3 > 0)
     {
         printf("I'm the father.");
-        printf("My pid is %d", getpid());
+        printf("My pid is %d.\n", getpid());
 
+        //wait the 3 direct kids
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
     }
     //First child 1
     else if (n1 == 0 && n2 > 0 && n3 > 0)
