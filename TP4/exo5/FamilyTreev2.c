@@ -23,8 +23,8 @@ int main(int argc, char const *argv[])
         wait(NULL);
         wait(NULL);
 
-        printf("I'm the father.");
-        printf("My pid is %d.\n", getpid());
+        printf("I'm the father.\n");
+        printf("My pid is: %d.\n", getpid());
 
         
     }
