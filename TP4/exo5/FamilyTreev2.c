@@ -11,7 +11,7 @@ void DisplayPid(void)
 
 int main(int argc, char const *argv[])
 {
-    int n1, n2, n3;
+    int n1, n2 , n3;
     n1 = fork();
     n2 = fork();
     n3 = fork();
@@ -19,16 +19,36 @@ int main(int argc, char const *argv[])
     if (n1 > 0 && n2 > 0 && n3 > 0)
     {
         printf("I'm the father.");
-        DisplayPid();
+        printf("My pid is %d", getpid());
+
     }
     else if (n1 == 0 && n2 > 0 && n3 > 0)
     {
         printf("I'm the first child.\n");
         DisplayPid();
+
+        //Wait for children to die
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
     }
+    else if (n1 > 0 && n2 == 0 && n3 > 0)
+    {
+        printf("I'm the second child.\n");
+        DisplayPid();
+
+        wait(NULL);
+    }
+    else if (n1 > 0 && n2 > 0 && n3 == 0)
+    {
+        printf("I'm the third child.\n");
+        DisplayPid();
+    }
+
     else if (n1 == 0 && n2 == 0 && n3 > 0)
     {
-       // 
+        printf("I'm the fourth child.\n");
+        DisplayPid();
     }
     else if (n1 == 0 && n2 == 0 && n3 == 0)
     {
