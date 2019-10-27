@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = 
+SOURCES = PGCD_PERE_FILS.c
 #Debug
 DEBUG = gdb
 #Flags

@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = 
+SOURCES = Display50.c
 #Debug
 DEBUG = gdb
 #Flags
