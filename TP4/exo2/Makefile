@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = 4sons_4numbers.c
+SOURCES = randomnum.c
 #Debug
 DEBUG = gdb
 #Flags
