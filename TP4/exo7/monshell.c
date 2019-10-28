@@ -3,6 +3,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
 
 
 pid_t create_process(void)
@@ -24,7 +25,7 @@ int main(int argc, char const *argv[])
 {
     char exit_key[] = "quit";
     int quit = 0;
-    while (quit = 0)
+    while (quit == 0)
     {
         
         char commande[300];
@@ -36,7 +37,7 @@ int main(int argc, char const *argv[])
         //check if the user want to leave monshell
         if (strcmp(commande, exit_key) == 0)
         {
-            int quit = 1;
+            quit = 1;
         }
         
         //run programm
