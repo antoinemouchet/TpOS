@@ -47,6 +47,7 @@ int main(int argc, char const *argv[])
             switch (son)
             {   //error case
                 case -1:
+                    perror("fork");
                     return EXIT_FAILURE;
                 //son case
                 case 0:
