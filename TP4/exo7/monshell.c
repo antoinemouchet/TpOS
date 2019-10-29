@@ -56,11 +56,11 @@ int main(int argc, char const *argv[])
                     char *array[3];
                     array[0] = "sh";
                     array[1] = "-c";
-                    array[2] = command;
+                    array[2] = commande;
                     array[3] = NULL;
                     execvp(array[0],array);
                     break;
-                    
+
                 //father case
                 default:
                     wait(NULL);
