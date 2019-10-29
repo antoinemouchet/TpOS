@@ -28,7 +28,12 @@ int main(int argc, char const *argv[])
         sprintf(writing, "echo %s > %s ", string, FileName);
 
         //Actual writing in the file
-        system(writing);
+        char *array[3];
+        array[0] = "sh";
+        array[1] = "-c";
+        array[2] = writing;
+        array[3] = NULL;
+        execvp(array[0],array);
     }
 
     //Parent
@@ -41,7 +46,13 @@ int main(int argc, char const *argv[])
         sprintf(counting, "wc %s", FileName);
 
         //Actual execution of command
-        system(counting);
+        char *array[3];
+        array[0] = "sh";
+        array[1] = "-c";
+        array[2] = counting;
+        array[3] = NULL;
+        execvp(array[0],array);
+
     }
     
     //Error 

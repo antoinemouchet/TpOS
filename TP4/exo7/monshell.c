@@ -50,10 +50,17 @@ int main(int argc, char const *argv[])
                 case -1:
                     perror("fork");
                     return EXIT_FAILURE;
+
                 //son case
                 case 0:
-                    system(commande);
+                    char *array[3];
+                    array[0] = "sh";
+                    array[1] = "-c";
+                    array[2] = command;
+                    array[3] = NULL;
+                    execvp(array[0],array);
                     break;
+                    
                 //father case
                 default:
                     wait(NULL);
