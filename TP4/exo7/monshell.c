@@ -44,6 +44,7 @@ int main(int argc, char const *argv[])
         else
         { 
             pid_t son = create_process();
+            char *array[3];
             
             switch (son)
             {   //error case
@@ -53,7 +54,6 @@ int main(int argc, char const *argv[])
 
                 //son case
                 case 0:
-                    char *array[3];
                     array[0] = "sh";
                     array[1] = "-c";
                     array[2] = commande;
