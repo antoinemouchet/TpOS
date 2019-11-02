@@ -20,6 +20,7 @@ int main(int argc, char const *argv[])
         while (1)
         {
             number += number;
+            printf("%d", number);
             sleep(5);
         } 
     }
@@ -73,7 +74,7 @@ int main(int argc, char const *argv[])
 
             //Kill son
             case 'q':
-                success = kill(n, SIGTERM);
+                success = kill(n, SIGKILL);
 
                 //Make sure signal was sent
                 if (!success)
