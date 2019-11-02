@@ -88,10 +88,6 @@ int main(int argc, char const *argv[])
                 looping = 0;
 
                 break;
-
-            default:
-                printf("Choice unknown.");
-                break;
             }
         }
         

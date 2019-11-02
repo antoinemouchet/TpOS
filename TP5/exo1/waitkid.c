@@ -4,15 +4,15 @@
 #include <signal.h>
 #include <unistd.h>
 #include <errno.h>
+#include <sys/types.h>
 
 int NbAlarm = 0;
 
 void handler(int signum)
 {
-    if (signum == SIGALRM)
-    {
-        NbAlarm ++;
-    }
+    //increment nb alarms and print amount of times it was already printed
+    NbAlarm ++;
+    printf("Number of alarms: %d.\n", NbAlarm);
 }
 
 int main(int argc, char const *argv[])
@@ -25,7 +25,7 @@ int main(int argc, char const *argv[])
     //Child process
     if (n == 0)
     {
-        //modify action of sigarlm and ignore all signals except it
+        //modify action of sigalrm and ignore all signals except it
         struct sigaction act;
         sigset_t set;
         act.sa_handler = handler;
@@ -45,7 +45,6 @@ int main(int argc, char const *argv[])
             {
                 kill(getpid(), SIGTERM);
             }
-            printf("Alarm done");
             sleep(3);
         }   
     }
