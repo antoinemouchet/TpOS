@@ -100,10 +100,10 @@ int main(int argc, char const *argv[])
     }
     else
     {
-        printf("There was an error generating the process.");
+        printf("There was an error generating the process.\n");
     }
 
-    printf("End of program.");
+    printf("End of program.\n");
 
     return 0;
 }
