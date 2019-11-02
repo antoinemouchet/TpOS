@@ -16,13 +16,12 @@ int main(int argc, char const *argv[])
     //Child case
     if (n == 0)
     {
-        printf("I'm here: %d\n", getpid());
         //Infinite loop
         while (1)
         {
             number += number;
-            printf("%d\n", number);
-            sleep(2);
+            printf("Number(from son) is at: %d.\n", number);
+            sleep(3);
         } 
     }
     //Father case
