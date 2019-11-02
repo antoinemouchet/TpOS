@@ -16,11 +16,12 @@ int main(int argc, char const *argv[])
     //Child case
     if (n == 0)
     {
+        printf("I'm here: %d\n", getpid());
         //Infinite loop
         while (1)
         {
             number += number;
-            printf("%d", number);
+            printf("%d\n", number);
             sleep(2);
         } 
     }
@@ -94,7 +95,6 @@ int main(int argc, char const *argv[])
             default:
                 printf("Unknow character.\n");
                 break;
-            
             }
         }
         
