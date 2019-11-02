@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <sys/wait.h>
+#include <sys/wait.h>
 #include <signal.h>
 #include <unistd.h>
 #include <errno.h>
@@ -103,7 +103,7 @@ int main(int argc, char const *argv[])
         printf("There was an error generating the process.");
     }
 
-    printf("Son was killed.");
-    
+    printf("End of program.");
+
     return 0;
 }
