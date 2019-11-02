@@ -38,7 +38,8 @@ int main(int argc, char const *argv[])
         //Loop
         while (1)
         {
-            raise(SIGALRM);
+            //Send signal
+            kill(getpid(), SIGALRM);
             //terminate child if 3 alarms sent
             if (NbAlarm == 3)
             {
@@ -54,6 +55,7 @@ int main(int argc, char const *argv[])
     {
         //Wait for child
         wait(NULL);
+        printf("Dad here.\n")
     }
     else
     {
