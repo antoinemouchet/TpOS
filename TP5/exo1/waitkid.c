@@ -18,9 +18,7 @@ void handler(int signum)
 int main(int argc, char const *argv[])
 {
     struct sigaction act;
-    sigset_t set;
-
-    act.sa_handler = handler;
+    act.sa_flags = SA_SIGINFO;
     act.sa_sigaction = handler;
 
     int n;
@@ -33,6 +31,7 @@ int main(int argc, char const *argv[])
         while (1)
         {
             raise(SIGALRM);
+            sigaction(SIGALRM, &act, NULL);
             //terminate child if 3 alarms sent
             if (NbAlarm == 3)
             {
