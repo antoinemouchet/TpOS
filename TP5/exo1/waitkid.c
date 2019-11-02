@@ -21,6 +21,7 @@ int main(int argc, char const *argv[])
     sigset_t set;
 
     act.sa_handler = handler;
+    act.sa_sigaction = handler;
 
     int n;
     n = fork();
