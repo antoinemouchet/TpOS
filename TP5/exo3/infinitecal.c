@@ -89,6 +89,10 @@ int main(int argc, char const *argv[])
 
                 break;
             }
+            
+            default:
+                printf("Unknow character.\n");
+                break;
         }
         
         //End of process
