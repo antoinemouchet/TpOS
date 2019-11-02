@@ -88,11 +88,13 @@ int main(int argc, char const *argv[])
                 looping = 0;
 
                 break;
-            }
             
+            //Default case.
             default:
                 printf("Unknow character.\n");
                 break;
+            
+            }
         }
         
         //End of process
