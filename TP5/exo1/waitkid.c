@@ -1,14 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/wait.h>
+//#include <sys/wait.h>
 #include <signal.h>
 #include <unistd.h>
 #include <errno.h>
 
+int NbAlarm = 0;
+
+void handler(int signum)
+{
+    if (signum == SIGALRM)
+    {
+        NbAlarm ++;
+    }
+}
 
 int main(int argc, char const *argv[])
 {
-    int n, NbAlarm = 0;
+    struct sigaction act;
+    sigset_t set;
+
+    act.sa_handler = handler;
+
+    int n;
     n = fork();
 
     //Child process
@@ -18,12 +32,12 @@ int main(int argc, char const *argv[])
         while (1)
         {
             raise(SIGALRM);
-            NbAlarm ++;
             //terminate child if 3 alarms sent
             if (NbAlarm == 3)
             {
                 kill(getpid(), SIGTERM);
             } 
+            printf("Alarm done");
             sleep(3);
         }   
     }
