@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
                     "-q to kill son.\n");
 
             //Get choice from user
-            scanf("%c", &choice);
+            choice = getchar();
 
             switch (choice)
             {
