@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
     {
         //Wait for child
         wait(NULL);
-        printf("Dad here.\n")
+        printf("Dad here.\n");
     }
     else
     {
