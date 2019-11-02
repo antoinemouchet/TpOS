@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
         {
             number += number;
             printf("%d", number);
-            sleep(5);
+            sleep(2);
         } 
     }
     //Father case
