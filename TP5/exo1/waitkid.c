@@ -17,9 +17,7 @@ void handler(int signum)
 
 int main(int argc, char const *argv[])
 {
-    struct sigaction act;
-    act.sa_flags = SA_SIGINFO;
-    act.sa_sigaction = handler;
+
 
     int n;
     n = fork();
@@ -27,16 +25,25 @@ int main(int argc, char const *argv[])
     //Child process
     if (n == 0)
     {
+        //modify action of sigarlm and ignore all signals except it
+        struct sigaction act;
+        sigset_t set;
+        act.sa_handler = handler;
+        act.sa_flags = 0;
+        sigaction(SIGALRM, &act, NULL);
+        sigfillset(&set);
+        sigdelset(&set, SIGALRM);
+        sigprocmask(SIG_SETMASK, &set, NULL);
+
         //Loop
         while (1)
         {
             raise(SIGALRM);
-            sigaction(SIGALRM, &act, NULL);
             //terminate child if 3 alarms sent
             if (NbAlarm == 3)
             {
                 kill(getpid(), SIGTERM);
-            } 
+            }
             printf("Alarm done");
             sleep(3);
         }   
