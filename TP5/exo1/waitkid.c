@@ -43,7 +43,7 @@ int main(int argc, char const *argv[])
             //terminate child if 3 alarms sent
             if (NbAlarm == 3)
             {
-                kill(getpid(), SIGTERM);
+                kill(getpid(), SIGKILL);
             }
             sleep(3);
         }   
