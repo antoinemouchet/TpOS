@@ -94,15 +94,6 @@ int main(int argc, char const *argv[])
         //Create a child
         forkReturn = fork();
         
-        // Father case
-        if (forkReturn > 0)
-        {
-            // Loop until all kids have sent their sums
-            while (NbKidDone < m)
-            {
-                pause();
-            }
-        }
         // Son case
         // Here we want to compute a sum
         else if (forkReturn == 0)
@@ -146,7 +137,11 @@ int main(int argc, char const *argv[])
             return 1;
         }
     }
-
+    // Loop until all kids have sent their sums
+    while (NbKidDone < m)
+    {
+        pause();
+    }
     // Display final result
     if (NbKidDone == m)
     {
