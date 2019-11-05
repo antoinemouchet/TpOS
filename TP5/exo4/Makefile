@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = 
+SOURCES = nInteger_mSon
 #Debug
 DEBUG = gdb
 #Flags
