@@ -96,7 +96,7 @@ int main(int argc, char const *argv[])
         
         // Son case
         // Here we want to compute a sum
-        else if (forkReturn == 0)
+        if (forkReturn == 0)
         {
             int result;
             // Declare structure to send 
