@@ -130,7 +130,6 @@ int main(int argc, char const *argv[])
             sigqueue(parentPid, SIGRTMIN, value);
             
             id = 1;
-            exit(0);
             
         }
         
