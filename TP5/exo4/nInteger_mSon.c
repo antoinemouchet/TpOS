@@ -38,8 +38,6 @@ int ComputeSum(int StartValue, int EndValue)
     return sum;
 }
 
-
-
 int main(int argc, char const *argv[])
 {
     int division, m, n, forkReturn, id = 0;
@@ -131,7 +129,6 @@ int main(int argc, char const *argv[])
             
             id = 1;
             exit(0);
-            
         }
         
         // Error case
@@ -143,7 +140,9 @@ int main(int argc, char const *argv[])
         }
         else
         {
+            id = 1;
             pause();
+            
         }
         
     }
