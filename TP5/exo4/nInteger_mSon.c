@@ -7,6 +7,7 @@
 #include <sys/types.h>
 
 int FinalResult = 0;
+int NbKidDone = 0;
 
 void handler(int signum, siginfo_t *info, void *ucontext)
 {
@@ -15,6 +16,9 @@ void handler(int signum, siginfo_t *info, void *ucontext)
 
     // Display which child sent this sum
     printf("The child with pid %d sent the result: %d.\n", info -> si_pid, info -> si_value.sival_int);
+
+    // Increase the nb of kid done by 1
+    NbKidDone++;
 }
 
 int ComputeSum(int StartValue, int EndValue)
@@ -38,7 +42,7 @@ int ComputeSum(int StartValue, int EndValue)
 
 int main(int argc, char const *argv[])
 {
-    int  id = 0, division, start_value = 0, end_value = 0, total = 0;
+    int  id = 0, division;
 
     int m, n, forkReturn;
 
@@ -89,7 +93,7 @@ int main(int argc, char const *argv[])
     division = n / m;
  
     // Looping to get all sums (by creating sons)
-    for (int i = 0; i < m && id == 0; i++)
+    for (int i = 0; i < m; i++)
     {   
         //Create a child
         forkReturn = fork();
@@ -125,9 +129,6 @@ int main(int argc, char const *argv[])
             //Display and send informations to parent process
             printf("Child (pid: %d) sends %d to its parent (pid: %d).\n", getpid(), result, parentPid);
             sigqueue(parentPid, SIGRTMIN, value);
-            
-            // Make sure to leave loop in this process.
-            id = 1;
 
             // Kill child - Suicide
             kill(getpid(), SIGKILL);
@@ -138,18 +139,15 @@ int main(int argc, char const *argv[])
         {
             perror("There was an error generating the process: ");
             // Make sure to leave loop
-            id = -1;
             return 1;
         }
-
-        // Parent case
-        else
-        {
-            // Pause to wait each child in parent process
-            pause();
-        }
     }
-    
+
+    while (NbKidDone != m)
+    {
+        pause();
+    }
+
     // Display final result
     printf("The sum to %d is: %d.\n", n, FinalResult);
     return 0;
