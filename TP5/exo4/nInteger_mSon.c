@@ -6,7 +6,7 @@
 #include <errno.h>
 #include <sys/types.h>
 
-#define SIGRTMIN  (SIGRTMIN+5)
+#define SIGRTMIN 42
 
 int FinalResult = 0;
 int NbKidDone = 0;
