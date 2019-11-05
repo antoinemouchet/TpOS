@@ -27,13 +27,13 @@ int ComputeSum(int StartValue, int EndValue)
     int sum = 0;
 
     // Loop to get all the integers at sum
-    for (int i = StartValue; i < EndValue; i++)
+    for (int i = StartValue; i <= EndValue; i++)
     {
         // Add number to sum
         sum += i;
     }
 
-    printf("Child with pid (%d) computed sum from %d to %d.\nThe result was: %d.\n", getpid(), StartValue, EndValue - 1, sum);
+    printf("Child with pid (%d) computed sum from %d to %d.\nThe result was: %d.\n", getpid(), StartValue, EndValue, sum);
     // Return the sum
     return sum;
 }
@@ -108,14 +108,14 @@ int main(int argc, char const *argv[])
             if (i < m - 1)
             {
                 // Get the sum of each segment
-                result = ComputeSum(i * division, division * (i + 1));
+                result = ComputeSum(i * division + 1, division * (i + 1));
             }
 
             // Last segment, get sum to last number
             else
             {
                 // The sum of last segment is till n is reached
-                result = ComputeSum(i * division, n);
+                result = ComputeSum(i * division + 1, n);
             }
 
             // Store result of the sum
@@ -129,8 +129,7 @@ int main(int argc, char const *argv[])
             sigqueue(parentPid, SIGRTMIN, value);
 
             printf("Je suis ici.\n");
-            kill(getpid(), SIGKILL);
-            //Leave child process
+            exit(0);
             id = 1;
         }
         
