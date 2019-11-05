@@ -141,14 +141,24 @@ int main(int argc, char const *argv[])
             // Make sure to leave loop
             return 1;
         }
+        else
+        {
+            pause();
+            id = 1;
+        }
+        
     }
 
-    while (NbKidDone != m)
+    /*while (NbKidDone != m)
     {
         pause();
-    }
+    }*/
 
     // Display final result
-    printf("The sum to %d is: %d.\n", n, FinalResult);
+    if (NbKidDone == m)
+    {
+        printf("The sum to %d is: %d.\n", n, FinalResult);
+    }
+    
     return 0;
 }
