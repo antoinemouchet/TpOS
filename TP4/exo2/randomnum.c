@@ -30,7 +30,7 @@ int main(int argc, char const *argv[])
         // Error
         else if (identificators[i] < 0)
         {
-            printf("There was an error generating the process.")
+            printf("There was an error generating the process.");
 
             //Stop the loop
             id = -1;
