@@ -1,0 +1,2 @@
+Le signal SIGSTOP ne peut pas être ignoré. Donc lorsque le père envoie ce signal au fils, celui-ci va s'arrêter.
+Le signal SIGINT peut être ignoré donc cela n'arrêtera pas le fils car on a réattribué une action à SIGINT.

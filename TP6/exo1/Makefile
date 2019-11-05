@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = signals.c
+SOURCES = read.c
 #Debug
 DEBUG = gdb
 #Flags
