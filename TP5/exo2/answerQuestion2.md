@@ -1,0 +1,1 @@
+On implémente une fonction ```handler``` dont le but va être de changer l'action de SIGINT (signal de CTRL-C) afin que celui-ci soit ignoré. On attribuera cette fonction UNIQUEMENT au signal SIGINT en utilisant la fonction ```sigaction```.
