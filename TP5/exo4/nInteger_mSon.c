@@ -42,9 +42,7 @@ int ComputeSum(int StartValue, int EndValue)
 
 int main(int argc, char const *argv[])
 {
-    int  id = 0, division;
-
-    int m, n, forkReturn;
+    int division, m, n, forkReturn;
 
     struct sigaction act;
             
@@ -129,9 +127,6 @@ int main(int argc, char const *argv[])
             //Display and send informations to parent process
             printf("Child (pid: %d) sends %d to its parent (pid: %d).\n", getpid(), result, parentPid);
             sigqueue(parentPid, SIGRTMIN, value);
-
-            // Kill child - Suicide
-            kill(getpid(), SIGKILL);
         }
         
         // Error case
