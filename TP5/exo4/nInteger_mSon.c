@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <sys/wait.h>
+#include <sys/wait.h>
 #include <signal.h>
 #include <unistd.h>
 #include <errno.h>
@@ -130,6 +130,7 @@ int main(int argc, char const *argv[])
             sigqueue(parentPid, SIGRTMIN, value);
             
             id = 1;
+            exit(0);
             
         }
         
@@ -140,18 +141,12 @@ int main(int argc, char const *argv[])
             // Make sure to leave loop
             return 1;
         }
-        else
-        {
-            wait(NULL);
-            id = 1;
-        }
-        
     }
 
-    /*while (NbKidDone != m)
+    while (NbKidDone != m)
     {
         pause();
-    }*/
+    }
 
     // Display final result
     if (NbKidDone == m)
