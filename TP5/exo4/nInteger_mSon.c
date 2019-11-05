@@ -9,32 +9,37 @@
 
 int main(int argc, char const *argv[])
 {
-    int i, id, m, n, remember_me, division, start_value, end_value, total;
-    printf("Write an int");
-    scanf("%d", n);
-    printf("Write the number of son, it must be an int");
-    scanf("%d", m);
+    int  id, m, n, remember_me, division, start_value, end_value, total;
+
+    //get number to sum to
+    printf("Write an int.\n");
+    scanf("%d", &n);
+
+    //Get the number of child process
+    printf("Write the number of son, it must be an int.\n");
+    scanf("%d", &m);
+
     id = 0;
-    i = 0;
     start_value = 0;
     end_value = 0;
     division = n/m;
-    total = 0
+    total = 0;
+
     //looping to create sons
-    for ( i = 0; i <= m && id == 0; i++)
+    for (int i = 0; i <= m && id == 0; i++)
     {   
-        //choosing right values for the son
+        // Choosing right values for the son
         
-        //get last int used by the son (or 0 at first)
+        // Get last int used by the son (or 0 at first)
         start_value = end_value;
         
-        //last son won't be equal to the other sometimes
+        // Last son won't be equal to the other sometimes
         if (i == m)
             end_value = n;
         else
         {
             // add to be equal
-            end_value += division
+            end_value += division;
         }
         
         identificator[i] = fork();
@@ -42,18 +47,17 @@ int main(int argc, char const *argv[])
         //Son case
         if (identificator[i] == 0)
         {
-            remember_me = i 
+            remember_me = i;
             id = 1;
         }
         
         //Error case
         else if (identificator[i] < 0)
         {
-            printf("there was an error generating the process");
+            perror("There was an error generating the process: ");
             id = -1;
             return 1;
-        }
-        
+        }    
 
     }
 
@@ -64,11 +68,11 @@ int main(int argc, char const *argv[])
         //son case    
         case 0:
             int result;
-            result = 0
+            result = 0;
             start_value++;
 
             //add integer
-            for ( start_value; start_value <= end_value; start_value++)
+            for (start_value; start_value <= end_value; start_value++)
             {
                 result += start_value;
             }
