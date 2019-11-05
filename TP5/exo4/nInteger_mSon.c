@@ -40,7 +40,7 @@ int ComputeSum(int StartValue, int EndValue)
 
 int main(int argc, char const *argv[])
 {
-    int division, m, n, forkReturn, id = 0;
+    int division, m, n, forkReturn;
 
     struct sigaction act;
             
@@ -89,14 +89,23 @@ int main(int argc, char const *argv[])
     division = n / m;
  
     // Looping to get all sums (by creating sons)
-    for (int i = 0; i < m && id == 0; i++)
+    for (int i = 0; i < m; i++)
     {   
         //Create a child
         forkReturn = fork();
-
+        
+        // Father case
+        if (forkReturn > 0)
+        {
+            // Loop until all kids have sent their sums
+            while (NbKidDone < m)
+            {
+                pause();
+            }
+        }
         // Son case
         // Here we want to compute a sum
-        if (forkReturn == 0)
+        else if (forkReturn == 0)
         {
             int result;
             // Declare structure to send 
@@ -126,8 +135,6 @@ int main(int argc, char const *argv[])
             //Display and send informations to parent process
             printf("Child (pid: %d) sends %d to its parent (pid: %d).\n", getpid(), result, parentPid);
             sigqueue(parentPid, SIGRTMIN, value);
-            
-            id = 1;
             exit(0);
         }
         
@@ -138,19 +145,7 @@ int main(int argc, char const *argv[])
             // Make sure to leave loop
             return 1;
         }
-        else
-        {
-            id = 1;
-            pause();
-            
-        }
-        
     }
-
-    /* while (NbKidDone != m)
-    {
-        pause();
-    } */
 
     // Display final result
     if (NbKidDone == m)
