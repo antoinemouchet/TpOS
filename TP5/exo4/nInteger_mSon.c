@@ -116,6 +116,7 @@ int main(int argc, char const *argv[])
             {
                 // The sum of last segment is till n is reached
                 result = ComputeSum(i * division + 1, n);
+                printf("Ici? %d\n", result);
             }
 
             // Store result of the sum
@@ -129,6 +130,7 @@ int main(int argc, char const *argv[])
             sigqueue(parentPid, SIGRTMIN, value);
 
             exit(0);
+            printf("Je passe ici\n");
             id = 1;
         }
         
