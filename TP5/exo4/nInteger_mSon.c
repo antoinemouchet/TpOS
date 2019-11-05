@@ -142,7 +142,7 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            pause();
+            wait(NULL);
             id = 1;
         }
         
