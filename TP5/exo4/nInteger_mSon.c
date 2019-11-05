@@ -128,7 +128,6 @@ int main(int argc, char const *argv[])
             printf("Child (pid: %d) sends %d to its parent (pid: %d).\n", getpid(), result, parentPid);
             sigqueue(parentPid, SIGRTMIN, value);
 
-            printf("Je suis ici.\n");
             exit(0);
             id = 1;
         }
@@ -142,7 +141,7 @@ int main(int argc, char const *argv[])
         }
     }
 
-    while (NbKidDone < m)
+    while (NbKidDone != m)
     {
         pause();
     }
