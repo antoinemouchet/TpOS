@@ -48,7 +48,11 @@ int main(int argc, char const *argv[])
         {
             pause();
         }
+        //Display child is done
         printf("Child is done (pid: %d).\n", getpid());
+        
+        //Kill child
+        kill(getpid(), SIGKILL);
     }
 
     else
