@@ -141,12 +141,17 @@ int main(int argc, char const *argv[])
             // Make sure to leave loop
             return 1;
         }
+        else
+        {
+            pause();
+        }
+        
     }
 
-    while (NbKidDone != m)
+    /* while (NbKidDone != m)
     {
         pause();
-    }
+    } */
 
     // Display final result
     if (NbKidDone == m)
