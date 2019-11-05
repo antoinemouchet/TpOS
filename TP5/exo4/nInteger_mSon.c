@@ -128,10 +128,10 @@ int main(int argc, char const *argv[])
             //Display and send informations to parent process
             printf("Child (pid: %d) sends %d to its parent (pid: %d).\n", getpid(), result, parentPid);
             sigqueue(parentPid, SIGRTMIN, value);
-
-            exit(0);
-            printf("Je passe ici\n");
+            
             id = 1;
+            exit(0);
+            
         }
         
         // Error case
@@ -159,6 +159,6 @@ int main(int argc, char const *argv[])
     {
         printf("The sum to %d is: %d.\n", n, FinalResult);
     }
-    
+
     return 0;
 }
