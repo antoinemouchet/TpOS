@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/wait.h>
+//#include <sys/wait.h>
 #include <signal.h>
 #include <unistd.h>
 #include <errno.h>
@@ -10,6 +10,8 @@
 int main(int argc, char const *argv[])
 {
     int  id, m, n, remember_me, division, start_value, end_value, total;
+
+    int identificator[500];
 
     //get number to sum to
     printf("Write an int.\n");
@@ -83,7 +85,7 @@ int main(int argc, char const *argv[])
         
         //father case
         default:
-            for (i = 0; i <= m; i++)
+            for (int i = 0; i <= m; i++)
             {
                 //waiting the son's result
                 wait(NULL);
