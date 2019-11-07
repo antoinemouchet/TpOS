@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
     // SIGRTMIN is a real-time signal. The advantage is that they'll queue up when multiple are sent
     int success = sigaction(SIGRTMIN, &act, NULL);
 
-    // Error while modifyinf 
+    // Error while modifying
     if (success == -1)
     {
         perror("An error occured: ");
