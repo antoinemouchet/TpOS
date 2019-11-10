@@ -12,6 +12,10 @@
 
 int main(int argc, char const *argv[])
 {
+    ssize_t nrd;
+    int fd;
+    int fd1;
+    
     // Check that the good amount of arguments was given.
     if (argc != 3)
     {
@@ -19,10 +23,20 @@ int main(int argc, char const *argv[])
         // Error case
         return 1;
     }
-
-    // Get names of files from the arguments passed in the command line.
-    char fileName1[] = argv[1];
-    char fileName2[] = argv[2];
+    
+    //Opening files
+    fd = open(argc[1], O_RDONLY);
+    fd1 = open(argc[2], O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
+    
+    //Write fd into fd1
+    while (nrd = read(fd,buffer,50)) 
+    {
+        write(fd1,buffer,nrd);
+    }
+    
+    //Closing files
+    close(fd);
+    close(fd1);
 
 
     return 0;
