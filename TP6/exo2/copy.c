@@ -12,7 +12,7 @@
 
 int main(int argc, char const *argv[])
 {
-    ssize_t nrd;
+    ssize_t n;
     int fd;
     int fd1;
     
@@ -29,9 +29,9 @@ int main(int argc, char const *argv[])
     fd1 = open(argc[2], O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
     
     //Write fd into fd1
-    while (nrd = read(fd,buffer,50)) 
+    while (n = read(fd,buffer,50)) 
     {
-        write(fd1,buffer,nrd);
+        write(fd1,buffer,n);
     }
     
     //Closing files
