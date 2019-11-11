@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
     
 
     // Loop to add the 2 first files into the third
-    for (int i = 0; i < 2; i++)
+    for (int i = 1; i < 3; i++)
     {
        // Get stats from file
         struct stat statfile;
