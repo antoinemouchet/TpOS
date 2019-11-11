@@ -46,7 +46,7 @@ int main(int argc, char const *argv[])
         char buf[fileSize];
 
         // Display file name
-        printf("File %s:\n", argv[i]);
+        printf("File added: %s\n", argv[i]);
 
         // Get descriptor of file
         int fd = open(argv[i], O_RDONLY);
