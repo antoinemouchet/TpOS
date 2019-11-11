@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = 
+SOURCES = entrelacer.c
 #Debug
 DEBUG = gdb
 #Flags
