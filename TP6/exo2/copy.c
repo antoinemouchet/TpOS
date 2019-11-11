@@ -36,7 +36,7 @@ int main(int argc, char const *argv[])
     char buffer[BUFFER_SIZE];
 
     //Write fd into fd1
-    n = read(fd, buffer, 50);
+    n = read(fd, buffer, statfile.st_size);
     int w = write(fd1 ,buffer, n);
 
     // Check that wrting happened correctly
