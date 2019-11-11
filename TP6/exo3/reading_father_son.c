@@ -22,13 +22,16 @@ void PrintCharInfFile(int fileDescriptor, int number, char *filename)
     // Read whole file
     nbread = read(fileDescriptor, buffer, statfile.st_size);
 
+    int i = 0;
     // Adding char to the sentence (5 if father, 10 if son)
     // Make sure you don't add anymore characters if there is None to add anymore
-    for (int i = 0; i < number && i < nbread; i++)
+    for (i; i < number && i < nbread; i++)
     {
         // Move pointer to get next character
         sentence[i] = (char) getc(*(buffer + i));
     }
+    // Add EOF char
+    sentence[i+1]='\0';
 
     // Display final sentence
     printf("%s", sentence);
@@ -47,14 +50,14 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-    char file[] = *argv[1];
+    char* file = argv[1];
     // Create son
     son = fork();
 
     // Open file
     int fileDescriptor = open(file, O_RDONLY);
     // Check error
-    if (fileDescriptor == NULL)
+    if (fileDescriptor == -1)
     {
         perror("Error encountered: ");
         return 1; 
