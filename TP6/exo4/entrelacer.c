@@ -13,7 +13,7 @@ int main(int argc, char const *argv[])
     // Check that correct amount of arguments was given
     if (argc != 4)
     {
-        printf("Wrong amount of arguments. Please insert 3 arguments.");
+        printf("Wrong amount of arguments. Please insert 3 arguments.\n");
         // Terminate with error
         return 1;
     }
