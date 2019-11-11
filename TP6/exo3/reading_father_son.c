@@ -38,11 +38,12 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
+    char* file = argv[1];
     // Create son
     son = fork();
 
     // Open file
-    int fileDescriptor = open(argv[1], O_RDONLY);
+    int fileDescriptor = open(file, O_RDONLY);
     // Check error
     if (fileDescriptor == -1)
     {
@@ -59,11 +60,11 @@ int main(int argc, char const *argv[])
     //son case
 
     case 0:
-        PrintCharInfFile(fileDescriptor ,5, argv[1]);
+        PrintCharInfFile(fileDescriptor ,5, file);
         break;
     //father case
     default:
-        PrintCharInfFile(fileDescriptor, 10, argv[1]);
+        PrintCharInfFile(fileDescriptor, 10, file);
         break;
     }
     close(fileDescriptor);
