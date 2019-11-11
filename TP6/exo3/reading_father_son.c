@@ -9,7 +9,7 @@
 
 #define BUF_SIZE 1024
 
-void PrintCharInfFile(int fileDescriptor, int number)
+void PrintCharInfFile(int fileDescriptor, int number, char *filename)
 {
     char sentence[number];
     char buffer[BUF_SIZE];
@@ -17,7 +17,7 @@ void PrintCharInfFile(int fileDescriptor, int number)
     
     // Get stats from original file
     struct stat statfile;
-    stat(fileDescriptor, &statfile);
+    stat(*filename, &statfile);
 
     // Read whole file
     nbread = read(fileDescriptor, buffer, statfile.st_size);
@@ -27,11 +27,11 @@ void PrintCharInfFile(int fileDescriptor, int number)
     for (int i = 0; i < number && i < nbread; i++)
     {
         // Move pointer to get next character
-        sentence[i] = (char) getc(buffer + i);
+        sentence[i] = (char) getc(*(buffer + i));
     }
 
     // Display final sentence
-    printf(sentence);
+    printf("%s", sentence);
 }
 
 
@@ -47,7 +47,7 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-    char file[] = argv[1];
+    char file[] = *argv[1];
     // Create son
     son = fork();
 
@@ -69,11 +69,11 @@ int main(int argc, char const *argv[])
     //son case
 
     case 0:
-        PrintCharInfFile(fileDescriptor ,5);
+        PrintCharInfFile(fileDescriptor ,5, file);
         break;
     //father case
     default:
-        PrintCharInfFile(fileDescriptor, 10);
+        PrintCharInfFile(fileDescriptor, 10, file);
         break;
     }
     return 0;
