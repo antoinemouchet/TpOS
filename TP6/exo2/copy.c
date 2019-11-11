@@ -7,8 +7,7 @@
 #include <sys/types.h>
 #include <sys/stat.h> 
 
-
-#define FILE_SIZE 1024
+#define BUFFER_SIZE 1024
 
 int main(int argc, char const *argv[])
 {
@@ -25,19 +24,32 @@ int main(int argc, char const *argv[])
     }
     
     //Opening files
-    fd = open(argc[1], O_RDONLY);
-    fd1 = open(argc[2], O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
+    fd = open(argv[1], O_RDONLY);
+
+    // Get stats from original file
+    struct stat statfile;
+    stat(argv[1], &statfile);
+
+    // Create document in which we want to copy
+    fd1 = open(argv[2], O_CREAT | O_WRONLY, statfile.st_mode);
     
+    char buffer[BUFFER_SIZE];
+
     //Write fd into fd1
-    while (n = read(fd,buffer,50)) 
+    n = read(fd, buffer, 50);
+    int w = write(fd1 ,buffer, n);
+
+    // Check that wrting happened correctly
+    if (w == -1)
     {
-        write(fd1,buffer,n);
+       perror("Problem while writing encountered: ");
+       // Error
+       return 1;
     }
     
     //Closing files
     close(fd);
     close(fd1);
-
 
     return 0;
 }

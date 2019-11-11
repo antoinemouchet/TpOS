@@ -6,40 +6,52 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h> 
- void PrintCharInfFile(char *filePath, number)
-{
-    int *file = open(filePath, O_RDONLY);
-    char *sentence;
-    size_t n = 0;
-    int c;
 
-    //check error
-    if (file == NULL)
-        return 1; 
-    
-    //initiate sentence
-    sentence = malloc(1000);
-    int i = 0;
-    
-    //adding char to the sentence (5 if father, 10 if son)
-    while ((c = read(fd,buffer,50) && i != number)
+#define BUF_SIZE 1024
+
+void PrintCharInfFile(char *filePath, int number)
+{
+    int fileDescriptor = open(filePath, O_RDONLY);
+    char sentence[number];
+    char buffer[BUF_SIZE];
+    int nbread;
+    // Check error
+    if (fileDescriptor == NULL)
     {
-        sentence[n++] = (char) c;
+        return 1; 
+    }
+    // Get stats from original file
+    struct stat statfile;
+    stat(fileDescriptor, &statfile);
+
+    // Read whole file
+    nbread = read(fileDescriptor, buffer, statfile.st_size);
+
+    // Adding char to the sentence (5 if father, 10 if son)
+    // Make sure you don't add anymore characters if there is None to add anymore
+    for (int i = 0; i < number && i < nbread; i++)
+    {
+        // Move pointer to get next character
+        sentence[i] = getc(buffer + i);
     }
 
+    // Display final sentence
     printf(sentence);
 }
+
+
 int main(int argc, char const *argv[])
 {
+
     int son;
 
     if (argc != 2)
     {
-        //error case
+        // Error case
         printf("argument error. 1 file waited");
         return 1;
     }
-    //create son
+    // Create son
     son = fork();
 
     switch (son)
@@ -50,12 +62,12 @@ int main(int argc, char const *argv[])
     
     //son case
     case 0:
-        PrintCharInfFile(argc[1], 5);
+        PrintCharInfFile(argv[1], 5);
         break;
     
     //father case
     default:
-        PrintCharInfFile(argc[1], 10);
+        PrintCharInfFile(argv[1], 10);
         break;
     }
     return 0;
