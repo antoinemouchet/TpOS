@@ -9,17 +9,12 @@
 
 #define BUF_SIZE 1024
 
-void PrintCharInfFile(char *filePath, int number)
+void PrintCharInfFile(int fileDescriptor, int number)
 {
-    int fileDescriptor = open(filePath, O_RDONLY);
     char sentence[number];
     char buffer[BUF_SIZE];
     int nbread;
-    // Check error
-    if (fileDescriptor == NULL)
-    {
-        return 1; 
-    }
+    
     // Get stats from original file
     struct stat statfile;
     stat(fileDescriptor, &statfile);
@@ -32,7 +27,7 @@ void PrintCharInfFile(char *filePath, int number)
     for (int i = 0; i < number && i < nbread; i++)
     {
         // Move pointer to get next character
-        sentence[i] = getc(buffer + i);
+        sentence[i] = (char) getc(buffer + i);
     }
 
     // Display final sentence
@@ -51,8 +46,19 @@ int main(int argc, char const *argv[])
         printf("argument error. 1 file waited");
         return 1;
     }
+
+    char file[] = argv[1];
     // Create son
     son = fork();
+
+    // Open file
+    int fileDescriptor = open(file, O_RDONLY);
+    // Check error
+    if (fileDescriptor == NULL)
+    {
+        perror("Error encountered: ");
+        return 1; 
+    }
 
     switch (son)
     {
@@ -61,13 +67,13 @@ int main(int argc, char const *argv[])
         return EXIT_FAILURE;
     
     //son case
+
     case 0:
-        PrintCharInfFile(argv[1], 5);
+        PrintCharInfFile(fileDescriptor ,5);
         break;
-    
     //father case
     default:
-        PrintCharInfFile(argv[1], 10);
+        PrintCharInfFile(fileDescriptor, 10);
         break;
     }
     return 0;
