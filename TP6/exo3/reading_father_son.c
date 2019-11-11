@@ -11,21 +11,21 @@
 
 void PrintCharInfFile(int fileDescriptor, int number, char *filename)
 {
-    char sentence[number];
+    char sentence[number + 1];
     char buffer[BUF_SIZE];
     int nbread;
     
     // Get stats from original file
     struct stat statfile;
-    stat(*filename, &statfile);
+    stat(filename, &statfile);
 
     // Read whole file
     nbread = read(fileDescriptor, buffer, statfile.st_size);
 
-    int i = 0;
+    int i;
     // Adding char to the sentence (5 if father, 10 if son)
     // Make sure you don't add anymore characters if there is None to add anymore
-    for (i; i < number && i < nbread; i++)
+    for (i = 0; i < number && i < nbread; i++)
     {
         // Move pointer to get next character
         sentence[i] = (char) getc(*(buffer + i));
