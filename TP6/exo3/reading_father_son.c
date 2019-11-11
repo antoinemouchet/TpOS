@@ -28,7 +28,7 @@ void PrintCharInfFile(int fileDescriptor, int number, char *filename)
     for (i = 0; i < number && i < nbread; i++)
     {
         // Move pointer to get next character
-        sentence[i] = (char) getc(filename + i);
+        sentence[i] = (char) fgetc(filename+i);
     }
     // Add EOF char
     sentence[i+1]='\0';
