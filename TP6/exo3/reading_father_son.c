@@ -22,8 +22,8 @@ void PrintCharInfFile(int fileDescriptor, int number, char *filename)
     // Read whole file
     nbread = read(fileDescriptor, buffer, statfile.st_size);
 
-    FILE *filename = filename;
-    
+    FILE *filebuf = filename;
+
     int i;
     // Adding char to the sentence (5 if father, 10 if son)
     // Make sure you don't add anymore characters if there is None to add anymore
@@ -31,7 +31,7 @@ void PrintCharInfFile(int fileDescriptor, int number, char *filename)
     {
         
         // Move pointer to get next character
-        sentence[i] = (char) fgetc(filename+i);
+        sentence[i] = (char) fgetc(filebuf+i);
     }
     // Add EOF char
     sentence[i+1]='\0';
