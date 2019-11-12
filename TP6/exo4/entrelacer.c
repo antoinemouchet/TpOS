@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
         stat(argv[i], &statfile);
         
         // Get size of file
-        off_t fileSize = statfile.st_size;
+        int fileSize = statfile.st_size;
 
         // Initialize a buffer with size of file
         char buf[fileSize];
