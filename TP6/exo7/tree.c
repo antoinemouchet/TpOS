@@ -1,67 +1,86 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
+#include <string.h>
 #include <sys/stat.h>
 #include<unistd.h>
 #include <fcntl.h> 
 #include <errno.h>
 #include <dirent.h>
-#include <string.h>
 
-int main(void)
+
+#define BUF_SIZE 1024
+
+int main(int argc, char *argv[])
 {
-    // Set directory
-    DIR *initDir = opendir("/proc");
+    DIR *directory = opendir("/proc");
 
-    // Structure for directory
-    struct dirent *directory;
+    // Structure of directory
+    struct dirent *dirStruct;
+    // pid, ppid, and file descriptor 
+    int pid, ppid, fileDescriptor;
 
-    // Pid's and file descriptor
-    int pid, fd;
+    // Path string
     char path[256];
-    char displayInfo[3];
 
-    // for each subfolder of /proc
-    while ((directory = readdir(initDir)) != NULL)
+    // Buffers
+    char buffer[BUF_SIZE] ;
+    char buffercopy = buffer;
+
+    // Separator pointer and command name
+    char *separation = NULL, *command = NULL;
+
+    // Loop to get every subfolder of /proc
+    while ((dirStruct = readdir(directory)) != NULL)
     {
-        // Change pid to int and store pid number into display informations
-        pid = atoi(directory->d_name);
-        displayInfo[0] = directory->d_name;
-        
-        // Get path of status file
-        sprintf(path, "/initDir/%d/status", pid);
+        // Convert pid
+        pid = atoi(dirStruct->d_name);
+    
+        // Update path
+        sprintf(path, "/proc/%d/stat", pid);
+
         // Open file
-        fd = open(path, O_RDONLY);
+        fileDescriptor = open(path, O_RDONLY);
 
-        // Initialize line
-        char *line = NULL;
-        // Initialize return value of getline and 
-        int read, len;
-        // Loop on every line
-        while ((read = getline(&line, &len, fd)) != -1)
+        // Get stats from file
+        struct stat statfile;
+        stat(path, &statfile);
+
+        // Get size of file
+        int fileSize = statfile.st_size;
+
+        read(fileDescriptor, buffer, fileSize);
+        // init buffer copy to the start of buffer
+        buffercopy = buffer;
+
+        // Loop to get every information needed
+        for (int i = 0; i < 4; i++)
         {
-            // Check if line with command name
-            if (strstr(line, "Name:"))
+            // split the string
+            separation = strsep(&buffercopy, " ");
+            // Second split is the commande name
+            if (i == 1)
             {
-                strcpy(displayInfo[2], strtok(line, "Name:"));
+                command = separation;
             }
-            // Check if line with PPID
-            else if(strstr(line, "PPID:"))
+            // Fourth split is the ppid
+            if (i == 3)
             {
-                strcpy(displayInfo[1], strtok(line, "PPID:"));
+                ppid = atoi(separation);
             }
-            printf("%s", line);
         }
-        // Free the line
-        free(line);
-
         // Display result
-        printf("- PID: %d  \tPPID: %d  \tCOMMAND: %s\n", displayInfo[0], displayInfo[1], displayInfo[2]);
-        // Close file
-        close(fd);
+        printf("%s (command) has pid: %d and its ppid is: %d\n", command, pid, ppid);
+        // close the file
+        close(fileDescriptor);
+    }
+    // Check if there is something in the buffer, clear it if yes
+    if (buffer)
+    {
+        free(buffer);
     }
     // Close directory
-    closedir(initDir);
+    closedir(directory);
 
     return 0;
 }
