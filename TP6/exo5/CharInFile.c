@@ -28,7 +28,7 @@ int main(int argc, char const *argv[])
         else
         {   
             //write sentence into fd
-            int w = write(fd, buffer, sentence);
+            int w = write(fd,  sentence, buffer);
             
             //Check if written correctly
             if (w == -1)
@@ -54,13 +54,14 @@ int main(int argc, char const *argv[])
                 
                 strcpy(command, "wc ReadHereMySon"); /* .txt ? */
                 system(command);
+                break;
             default:
                 wait(NULL);
                 break;
             }
-    
+    }
     //Close file
     close(fd);
-    }
+    
     return 0;
 }
