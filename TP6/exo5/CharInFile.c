@@ -6,7 +6,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h> 
-#include <sys/wait.h>
+//#include <sys/wait.h>
 
 
 #define buffer 1024
@@ -14,12 +14,15 @@
 int main(int argc, char const *argv[])
 {
     int KeepRolling = 0;
-    char sentence[buffer];
+    
     char StopRolling[] = "quit";
     int fd = open("./ReadHereMySon", O_RDWR|O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 
     while(KeepRolling == 0)
     {
+        // Reset sentence
+        char sentence[buffer]= "";
+        // free(sentence);
         // Ask sentence to write in the file
         printf("write something\n");
         // Get input from keyboard until enter is pressed
