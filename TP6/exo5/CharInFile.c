@@ -15,14 +15,14 @@ int main(int argc, char const *argv[])
 {
     int KeepRolling = 0;
     char sentence[250];
-    char StopRolling[5] = "quit";
+    char StopRolling[] = "quit\0";
     int fd = open("./ReadHereMySon", O_RDWR|O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 
     while(KeepRolling == 0)
     {
         // Ask sentence to write in the file
         printf("write something\n");
-        scanf("%s", sentence);
+        read(STDIN_FILENO, sentence, 250);
         printf("\n%s\n", sentence);
         // Check the user want to leave the programm
         if (sentence == StopRolling)
