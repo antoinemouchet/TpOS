@@ -23,6 +23,7 @@ int main(int argc, char const *argv[])
         // Ask sentence to write in the file
         printf("write something\n");
         scanf("%s", sentence);
+        printf("\n%s\n", sentence);
         // Check the user want to leave the programm
         if (sentence == StopRolling)
         {
