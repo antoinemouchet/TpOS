@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
         printf("write something\n");
         // Get input from keyboard until enter is pressed
         int n = read(STDIN_FILENO, sentence, buffer);
-        printf("\n%s=?=%s\n", sentence, StopRolling);
+        
         // Check if the user wants to leave the programm
         if (strcmp(sentence, StopRolling) == 0)
         {
