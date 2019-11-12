@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
     {
         // Ask sentence to write in the file
         printf("write something\n");
-        read(STDIN_FILENO, sentence, 250);
+        int n = read(STDIN_FILENO, sentence, 250);
         // printf("\n%s\n", sentence);
         // Check the user want to leave the programm
         if (strcmp(sentence, StopRolling) == 0)
@@ -31,10 +31,10 @@ int main(int argc, char const *argv[])
         }
         else
         {   
-            //write sentence into fd
-            int w = write(fd,  sentence, buffer);
+            // write sentence into fd
+            int w = write(fd,  sentence, n);
             
-            //Check if written correctly
+            // Check if written correctly
             if (w == -1)
             {
                 printf("error");
