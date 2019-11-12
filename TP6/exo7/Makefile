@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = 
+SOURCES = tree.c
 #Debug
 DEBUG = gdb
 #Flags
