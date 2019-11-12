@@ -6,6 +6,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h> 
+#include <sys/wait.h>
 
 
 #define buffer 1024
@@ -13,7 +14,7 @@
 int main(int argc, char const *argv[])
 {
     int KeepRolling = 0;
-    int sentence[250];
+    char sentence[250];
     char StopRolling[5] = "quit";
     int fd = open("./ReadHereMySon", O_RDWR|O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 
@@ -40,9 +41,11 @@ int main(int argc, char const *argv[])
             }  
         }
     }
-    
+
     //wc 
     int MySonIsReading = fork();
+    char command[65];
+
     switch (MySonIsReading)
     {
     case -1:
@@ -52,8 +55,6 @@ int main(int argc, char const *argv[])
     //son case
     case 0: 
         //using wc linux command
-        char command[65];
-        
         strcpy(command, "wc ReadHereMySon"); /* .txt ? */
         system(command);
         break;
