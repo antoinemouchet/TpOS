@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
 {
     int KeepRolling = 0;
     char sentence[buffer];
-    char StopRolling[] = "quit\n\0";
+    char StopRolling[] = "quit";
     int fd = open("./ReadHereMySon", O_RDWR|O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 
     while(KeepRolling == 0)
@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
         printf("write something\n");
         // Get input from keyboard until enter is pressed
         int n = read(STDIN_FILENO, sentence, buffer);
-        printf("\n%s =?= %s\n", sentence, StopRolling);
+        printf("\n%s=?=%s\n", sentence, StopRolling);
         // Check if the user wants to leave the programm
         if (strcmp(sentence, StopRolling) == 0)
         {
