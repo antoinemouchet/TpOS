@@ -6,6 +6,8 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h> 
+
+
 #define buffer 1024
 
 int main(int argc, char const *argv[])
@@ -35,31 +37,31 @@ int main(int argc, char const *argv[])
             {
                 printf("error");
                 return 1;
-            } 
-            
+            }  
         }
-        
-        //wc 
-        int MySonIsReading = fork();
-            switch (MySonIsReading)
-            {
-            case -1:
-                perror("fork");
-                return 2;
-            
-            //son case
-            case 0: 
-                //using wc linux command
-                char command[65];
-                
-                strcpy(command, "wc ReadHereMySon"); /* .txt ? */
-                system(command);
-                break;
-            default:
-                wait(NULL);
-                break;
-            }
     }
+    
+    //wc 
+    int MySonIsReading = fork();
+    switch (MySonIsReading)
+    {
+    case -1:
+        perror("fork");
+        return 2;
+    
+    //son case
+    case 0: 
+        //using wc linux command
+        char command[65];
+        
+        strcpy(command, "wc ReadHereMySon"); /* .txt ? */
+        system(command);
+        break;
+    default:
+        wait(NULL);
+        break;
+    }
+
     //Close file
     close(fd);
     
