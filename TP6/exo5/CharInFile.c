@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
 {
     int KeepRolling = 0;
     char sentence[250];
-    char StopRolling[] = "quit";
+    char StopRolling[] = "quit\0";
     int fd = open("./ReadHereMySon", O_RDWR|O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 
     while(KeepRolling == 0)
