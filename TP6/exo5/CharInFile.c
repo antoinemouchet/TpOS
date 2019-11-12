@@ -15,14 +15,14 @@ int main(int argc, char const *argv[])
 {
     int KeepRolling = 0;
     
-    char StopRolling[] = "quit";
+    char StopRolling[] = "quit\n";
     int fd = open("./ReadHereMySon", O_RDWR|O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 
     while(KeepRolling == 0)
     {
         // Reset sentence
-        char sentence[buffer]= "";
-        // free(sentence);
+        char sentence[buffer] = "";
+
         // Ask sentence to write in the file
         printf("write something\n");
         // Get input from keyboard until enter is pressed
