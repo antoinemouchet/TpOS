@@ -57,7 +57,7 @@ int main(int argc, char const *argv[])
         //using wc linux command
         strcpy(command, "wc ReadHereMySon"); /* .txt ? */
         system(command);
-        break;
+        exit(0);
     default:
         wait(NULL);
         break;
