@@ -14,7 +14,7 @@
 int main(int argc, char const *argv[])
 {
     int KeepRolling = 0;
-    char sentence[250];
+    char sentence[buffer];
     char StopRolling[] = "quit\n";
     int fd = open("./ReadHereMySon", O_RDWR|O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 
@@ -22,9 +22,10 @@ int main(int argc, char const *argv[])
     {
         // Ask sentence to write in the file
         printf("write something\n");
-        int n = read(STDIN_FILENO, sentence, 250);
-        // printf("\n%s\n", sentence);
-        // Check the user want to leave the programm
+        // Get input from keyboard until enter is pressed
+        int n = read(STDIN_FILENO, sentence, buffer);
+        printf("\n%s =?= %s\n", sentence, StopRolling);
+        // Check if the user wants to leave the programm
         if (strcmp(sentence, StopRolling) == 0)
         {
             KeepRolling = 1;
@@ -39,7 +40,7 @@ int main(int argc, char const *argv[])
             {
                 printf("error");
                 return 1;
-            }  
+            }
         }
     }
 
