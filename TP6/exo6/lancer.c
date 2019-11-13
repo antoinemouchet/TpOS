@@ -7,66 +7,79 @@
 #include <sys/types.h>
 #include <sys/stat.h> 
 
+#define BUF_SIZE 1024
+
+// Fonction to check if path is a directory
+int isDir(const char *path)
+{
+    struct stat statFile;
+    stat(path, &statFile);
+
+    // 1 if path is a directory
+    return S_ISREG(statFile.st_mode);
+}
+
+
 int main(int argc, char* argv[])
 {
-    // Initialisation 
+    // Counter
+    int  n, j;
+    // Strings
+    char command[BUF_SIZE] = "";
+    char data[BUF_SIZE];
 
-    // Variables
-    int i, j;
-    // Boards
-    char command[1024] = "";
-    char data[1024];
-    // Pointers
-    FILE* file_data_in;
-    FILE* file_data_out;
+    // Files
+    FILE* input;
+    // Output file is last argument
+    FILE* output = argv[argc-1];
     
-    
-
-    // Read command argument
-    j = 0;
-    for (i = 1; i < argc-1; ++i) 
+    // Loop to get every argument
+    for (n = 1; n < argc-1; n++) 
     {
         // String command will end at j-1
-        strcpy(&command[j], argv[i]);
-        j += strlen(argv[i]);
-        command[j++] = ' ';
+        strcat(command, argv[n]);
+        strcat(command, ' ');
     }
+
     // Mark end of the string
-    command[j - 1] = '\0';
+    command[strlen(command)-1] = '\0';
 
-    // Test if the command exist and raise error if it doesn't
-    char bin_path[100];
-    sprintf(bin_path, "/bin/%s",command); 
-    int file_tester;
-    file_tester = access(bin_path,X_OK);
+    // Initialize path of potential command.
+    // Command name is 2nd argument 
+    char binPath[100];
+    sprintf(binPath, "/bin/%s", argv[1]); 
 
-    if (file_tester==0)
+    // Check if command can be executed
+    int fileTest;
+    fileTest = access(binPath, X_OK);
+
+    // Supposed command is a command
+    if (!fileTest)
     {
-        // If file exist
-        printf("Your command %s has been treated to the appropriate file.\n",command);
+        printf("Command: %s treated successfully.\n",command);
+    }
+    // Command not executable
+    else if (fileTest != -1)
+    {
+        printf("Command: %s can not be executed.\n",command);
+        return 1;
     }
     else
     {
-        // if command doesn't exist
-        printf("Sorry, the command %s doesn't exist \n",command);
+        perror("Unknow error");
     }
     
     // Launch command
-    file_data_in = open(command, O_RDONLY);
-    if (file_data_in == NULL) 
-    {
-        return 1;
-    }
+    input = popen(command, 'r');
+    
+    // Save output to file
+    int fdOut = open(argv[argc - 1], O_WRONLY|O_CREAT, S_IRWXU);
+    // Write Output data into file
+    write(fdOut, input, strlen(input));
 
-    // Save command output data
-    file_data_out = open(argv[argc - 1], O_WRONLY|O_CREAT, S_IRWXU);
-    while (i = read(data, sizeof(char), 1024, file_data_in)) 
-    {
-        write(data, sizeof(char), i, file_data_out);
-    }
-    // Files closing
-    close(file_data_in);
-    close(file_data_out);
+    // Close files
+    pclose(input);
+    close(output);
 
     return 0;
 }
