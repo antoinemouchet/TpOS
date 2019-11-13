@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
     // Buffers
     char *buffer = malloc(BUF_SIZE* sizeof(char));
-    char *buffercopy = buffer;
+    char *copyBuffer = buffer;
 
     // Separator pointer and command name
     char *separation = NULL, *command = NULL;
@@ -41,23 +41,17 @@ int main(int argc, char *argv[])
 
         // Open file
         fileDescriptor = open(path, O_RDONLY, 0666);
-
-        // Get stats from file
-        //struct stat statfile;
-        //stat(path, &statfile);
-
-        // Get size of file
-        //int fileSize = statfile.st_size;
-
+        
+        // Read file
         read(fileDescriptor, buffer, BUF_SIZE);
-        // init buffer copy to the start of buffer
-        buffercopy = buffer;
+        // Set copy of buffer to the start of buffer
+        copyBuffer = buffer;
 
         // Loop to get every information needed
         for (int i = 0; i < 4; i++)
         {
             // split the string
-            separation = strsep(&buffercopy, " ");
+            separation = strsep(&copyBuffer, " ");
             // Second split is the commande name
             if (i == 1)
             {
@@ -74,11 +68,8 @@ int main(int argc, char *argv[])
         // close the file
         close(fileDescriptor);
     }
-    // Check if there is something in the buffer, clear it if yes
-    if (buffer)
-    {
-        free(buffer);
-    }
+    // Free memory allocated to buffer
+    free(buffer);
     // Close directory
     closedir(directory);
 
