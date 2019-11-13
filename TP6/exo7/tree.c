@@ -35,38 +35,42 @@ int main(int argc, char *argv[])
     {
         // Convert pid
         pid = atoi(dirStruct->d_name);
-    
-        // Update path
-        sprintf(path, "/proc/%d/stat", pid);
 
-        // Open file
-        fileDescriptor = open(path, O_RDONLY, 0666);
-        
-        // Read file
-        read(fileDescriptor, buffer, BUF_SIZE);
-        // Set copy of buffer to the start of buffer
-        copyBuffer = buffer;
-
-        // Loop to get every information needed
-        for (int i = 0; i < 4; i++)
+        // Make sure we're looping on process folder
+        if (pid > 0)
         {
-            // split the string
-            separation = strsep(&copyBuffer, " ");
-            // Second split is the commande name
-            if (i == 1)
+            // Update path
+            sprintf(path, "/proc/%d/stat", pid);
+
+            // Open file
+            fileDescriptor = open(path, O_RDONLY, 0666);
+            
+            // Read file
+            read(fileDescriptor, buffer, BUF_SIZE);
+            // Set copy of buffer to the start of buffer
+            copyBuffer = buffer;
+
+            // Loop to get every information needed
+            for (int i = 0; i < 4; i++)
             {
-                command = separation;
+                // split the string
+                separation = strsep(&copyBuffer, " ");
+                // Second split is the commande name
+                if (i == 1)
+                {
+                    command = separation;
+                }
+                // Fourth split is the ppid
+                if (i == 3)
+                {
+                    ppid = atoi(separation);
+                }
             }
-            // Fourth split is the ppid
-            if (i == 3)
-            {
-                ppid = atoi(separation);
-            }
+            // Display result
+            printf("%s (command) has pid: %d and its ppid is: %d\n", command, pid, ppid);
+            // close the file
+            close(fileDescriptor);
         }
-        // Display result
-        printf("%s (command) has pid: %d and its ppid is: %d\n", command, pid, ppid);
-        // close the file
-        close(fileDescriptor);
     }
     // Free memory allocated to buffer
     free(buffer);
