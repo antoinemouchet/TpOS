@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
         sprintf(path, "/proc/%d/stat", pid);
 
         // Open file
-        fileDescriptor = open(path, O_RDONLY);
+        fileDescriptor = open(path, O_RDONLY, 0666);
 
         // Get stats from file
         struct stat statfile;
