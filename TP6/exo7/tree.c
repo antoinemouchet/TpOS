@@ -43,13 +43,13 @@ int main(int argc, char *argv[])
         fileDescriptor = open(path, O_RDONLY, 0666);
 
         // Get stats from file
-        struct stat statfile;
-        stat(path, &statfile);
+        //struct stat statfile;
+        //stat(path, &statfile);
 
         // Get size of file
-        int fileSize = statfile.st_size;
+        //int fileSize = statfile.st_size;
 
-        read(fileDescriptor, buffer, fileSize);
+        read(fileDescriptor, buffer, BUF_SIZE);
         // init buffer copy to the start of buffer
         buffercopy = buffer;
 
