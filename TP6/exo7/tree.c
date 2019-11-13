@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     char path[256];
 
     // Buffers
-    char *buffer = malloc(BUF_SIZE);
+    char *buffer = malloc(BUF_SIZE* sizeof(char));
     char *buffercopy = buffer;
 
     // Separator pointer and command name
