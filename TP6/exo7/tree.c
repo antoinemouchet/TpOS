@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
             sprintf(path, "/proc/%d/stat", pid);
 
             // Open file
-            fileDescriptor = open(path, O_RDONLY, 0666);
+            fileDescriptor = open(path, O_RDONLY);
             
             // Read file
             read(fileDescriptor, buffer, BUF_SIZE);
@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
                 }
             }
             // Display result
-            printf("%s (command) has pid: %d and its ppid is: %d\n", command, pid, ppid);
+            printf("%s (command) had pid: %d and its ppid is: %d\n", command, pid, ppid);
             // close the file
             close(fileDescriptor);
         }
