@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = sendData.c
+SOURCES = sendDatav2.c
 #Debug
 DEBUG = gdb
 #Flags
