@@ -71,7 +71,6 @@ int main(int argc, char const *argv[])
         sprintf(command, "%s%s%s", arg[0], arg[1], pipePath);
         command[strlen(command)] = '\0';
 
-        printf("%s\n", command);
         // Actually use command
         system(command);
     }
