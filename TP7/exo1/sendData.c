@@ -77,11 +77,11 @@ int main(int argc, char const *argv[])
         close(fdPipe[0]);
 
         // Command name
-        *arg[0] = "od ";
+        strcpy(arg[0], "od ");
         // Option
-        *arg[1] = "-c ";
+        strcpy(arg[1], "-c ");
         // Data
-        *arg[2] = received;
+        strcpy(arg[2], received);
 
         // Build command using format
         sprintf(command, "%s%s%s", arg[0], arg[1], arg[2]);
