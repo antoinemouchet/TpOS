@@ -84,7 +84,9 @@ int main(int argc, char const *argv[])
         strcpy(arg[2], received);
 
         // Build command using format
-        sprintf(command, "%s%s%s\0", arg[0], arg[1], arg[2]);
+        sprintf(command, "%s%s%s", arg[0], arg[1], arg[2]);
+        strcat(command, "\0");
+        
     
         // Actually use command
         system(command);
