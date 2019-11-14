@@ -71,7 +71,7 @@ int main(int argc, char const *argv[])
         
         // Read data from pipe and store it into array received
         read(fdPipe[0], received, 24);
-        received[25] = '\0';
+        received[25] = '\n';
 
         // Close reading end of pipe 
         // Data was received
