@@ -1,16 +1,19 @@
 #include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+
 
 int main(int argc, char const *argv[])
 {
-    // Array for pipe
-    int fdPipe[2];
+    char pipePath[] = "/tmp/fdPipe";
+    int fdPipe;
 
     // Create pipe
-    int pipeReturn = pipe(fdPipe);
+    int pipeReturn = mkfifo(pipePath);
 
     // Check if there was an error creating pipe
     if (pipeReturn == -1)
@@ -33,21 +36,19 @@ int main(int argc, char const *argv[])
     // Parent case
     else if (forkReturn > 0)
     {
+        // Open file
+        fdPipe = open(pipePath, O_WRONLY);
+
         // Initialize data to send
         char data[] = "je t'envoie des données";
         // Initialize nb of bytes sent by process
         int nbBytes = 0;
 
-        // Close the reading end of the pipe for the parent
-        // We want to send data not read some here
-        close(fdPipe[0]);
-
         // Send data
-        // Writing end of pipe is at 1 in the array
-        nbBytes = write(fdPipe[1], data, strlen(data));
+        nbBytes = write(fdPipe, data, strlen(data));
 
-        // Close writing end of pipe now that we sent data
-        close(fdPipe[1]);
+        // Close file
+        close(fdPipe);
 
         // Display number of bytes sent and pid.
         printf("I'm the parent. My pid is: %d and I sent %d bytes.\n", getpid(), nbBytes);
@@ -55,45 +56,26 @@ int main(int argc, char const *argv[])
     // Child case
     else
     {
-        /* The child inherited the same pipe as the parent process
-        except that both ends are still open for the child.*/
-
-        // Initialize array for data to receive
-        char received[100];
         // Initialize command to execute
         char command[256];
         // List of argument for command
-        char arg[3][100];
-
-        // Close writing end of pipe
-        // Receiving data not sending
-        close(fdPipe[1]);
-        
-        // Read data from pipe and store it into array received
-        read(fdPipe[0], received, 100);
-        // Terminate string
-        received[strlen(received)] = '\0';
-
-        // Close reading end of pipe 
-        // Data was received
-        //close(fdPipe[0]);
+        char arg[2][10];
 
         // Command name
         strcpy(arg[0], "od ");
         // Option
         strcpy(arg[1], "-c ");
-        // Data
-        strcpy(arg[2], received);
+
      
         // Build command using format
-        sprintf(command, "%s%s%d", arg[0], arg[1], fdPipe[0]);
+        sprintf(command, "%s%s%d", arg[0], arg[1], pipePath);
         command[strlen(command)] = '\0';
 
         printf("%s\n", command);
         // Actually use command
         system(command);
-
-        close(fdPipe[0]);
     }
+
+    unlink(pipePath);
     return 0;
 }
