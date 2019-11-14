@@ -73,7 +73,7 @@ int main(int argc, char const *argv[])
         read(fdPipe[0], received, 100);
         // Terminate string
         received[strlen(received)] = '\0';
-        
+
         // Close reading end of pipe 
         // Data was received
         close(fdPipe[0]);
@@ -84,14 +84,9 @@ int main(int argc, char const *argv[])
         strcpy(arg[1], "-c ");
         // Data
         strcpy(arg[2], received);
-
-        for (int i = 0; i < 3; i++)
-        {
-            printf("%s\n", arg[i]);
-        }
-        
+     
         // Build command using format
-        sprintf(command, "%s%s%s", arg[0], arg[1], arg[2]);
+        sprintf(command, "%s%s\"%s\"", arg[0], arg[1], arg[2]);
 
         printf("%s\n", command);
         // Actually use command
