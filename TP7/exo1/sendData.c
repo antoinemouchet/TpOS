@@ -83,6 +83,11 @@ int main(int argc, char const *argv[])
         // Data
         strcpy(arg[2], received);
 
+        for (int i = 0; i < 3; i++)
+        {
+            printf("%s\n", arg[i]);
+        }
+        
         // Build command using format
         sprintf(command, "%s%s%s", arg[0], arg[1], arg[2]);
         strcat(command, "\0");
