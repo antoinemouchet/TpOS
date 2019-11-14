@@ -63,7 +63,7 @@ int main(int argc, char const *argv[])
         // Initialize command to execute
         char command[256];
         // List of argument for command
-        char arg[3];
+        char arg[3][100];
 
         // Close writing end of pipe
         // Receiving data not sending
@@ -77,11 +77,11 @@ int main(int argc, char const *argv[])
         close(fdPipe[0]);
 
         // Command name
-        arg[0] = "od ";
+        *arg[0] = "od ";
         // Option
-        arg[1] = "-c ";
+        *arg[1] = "-c ";
         // Data
-        arg[2] = received;
+        *arg[2] = received;
 
         // Build command using format
         sprintf(command, "%s%s%s", arg[0], arg[1], arg[2]);
