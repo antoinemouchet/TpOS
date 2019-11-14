@@ -86,8 +86,8 @@ int main(int argc, char const *argv[])
         // Build command using format
         sprintf(command, "%s%s%s", arg[0], arg[1], arg[2]);
         strcat(command, "\0");
-        
-    
+
+        printf("%s\n", command);
         // Actually use command
         system(command);
     }
