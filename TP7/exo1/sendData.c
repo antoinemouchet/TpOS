@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
         except that both ends are still open for the child.*/
 
         // Initialize array for data to receive
-        char received[24];
+        char received[25];
         // Initialize command to execute
         char command[256];
         // List of argument for command
@@ -71,6 +71,7 @@ int main(int argc, char const *argv[])
         
         // Read data from pipe and store it into array received
         read(fdPipe[0], received, 24);
+        received[25] = '\0';
 
         // Close reading end of pipe 
         // Data was received
@@ -90,7 +91,6 @@ int main(int argc, char const *argv[])
         
         // Build command using format
         sprintf(command, "%s%s%s", arg[0], arg[1], arg[2]);
-        strcat(command, "\0");
 
         printf("%s\n", command);
         // Actually use command
