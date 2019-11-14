@@ -13,7 +13,7 @@ int main(int argc, char const *argv[])
     int fdPipe;
 
     // Create pipe
-    int pipeReturn = mkfifo(pipePath);
+    int pipeReturn = mkfifo(pipePath, 0666);
 
     // Check if there was an error creating pipe
     if (pipeReturn == -1)
@@ -68,7 +68,7 @@ int main(int argc, char const *argv[])
 
      
         // Build command using format
-        sprintf(command, "%s%s%d", arg[0], arg[1], pipePath);
+        sprintf(command, "%s%s%s", arg[0], arg[1], pipePath);
         command[strlen(command)] = '\0';
 
         printf("%s\n", command);
