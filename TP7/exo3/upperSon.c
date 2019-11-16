@@ -11,14 +11,15 @@
 
 int main(int argc, char const *argv[])
 {
-    // Array for pipe
-    int fdPipe[2];
+    // Array for pipes
+    int fdPipeSending[2], fdPipeReturning[2];
 
-    // Create pipe
-    int pipeReturn = pipe(fdPipe);
+    // Create pipes
+    int pipeReturn1 = pipe(fdPipeSending);
+    int pipeReturn2 = pipe(fdPipeReturning);
 
     // Check if there was an error creating pipe
-    if (pipeReturn == -1)
+    if (pipeReturn1 == -1 || pipeReturn2 == -1)
     {
         // Display error and exit program
         perror("Error creating pipe");
@@ -38,36 +39,32 @@ int main(int argc, char const *argv[])
     // Parent case
     else if (forkReturn > 0)
     {
+        // Close reading end of sending pipe
+        close(fdPipeSending[0]);
+        // Close writing end of returning pipe
+        close(fdPipeReturning[1]);
+
         // Initialize list of characters sent and received
         char charList[charListSize], finalCharList[charListSize];
-        // Variable to get inserted character
-        char character;
-
-       // Position counter
-        // int i = 0;
-
-        read(0, &charList, charListSize);
-        // Read until end of line
-        // 0 is standard input (keyboard)
-       /*while(read(0, &character, 1) != 0)
-        {
-            charList[i] = character;
-            i++;
-
-        } */
         
+        // Get sentence
+        printf("Insert some characters:\n>>> ");
+        // 0 is standard input (keyboard)
+        read(0, &charList, charListSize);
+        // Terminate string
+        charList[strlen(charList)] = '\0';
         // Send data
         // Writing end of pipe is at 1 in the array
-        write(fdPipe[1], charList, strlen(charList));
+        write(fdPipeSending[1], charList, strlen(charList));
 
         // Close writing end of pipe now that we sent data
-        close(fdPipe[1]);
+        close(fdPipeSending[1]);
 
         // Read data from child
-        read(fdPipe[0], finalCharList, charListSize);
+        read(fdPipeReturning[0], finalCharList, charListSize);
 
         // Close reading end of parent
-        close(fdPipe[0]);
+        close(fdPipeReturning[0]);
 
         // Display result
         printf("Sting entered was %s.\nFinal string is: %s.\n", charList, finalCharList);
@@ -75,18 +72,21 @@ int main(int argc, char const *argv[])
     // Child process
     else
     {
-        /* The child inherited the same pipe as the parent process
+        /* The child inherited the same pipes as the parent process
         except that both ends are still open for the child.*/
+
+        // Close writing end of pipe from which data was sent in parent process
+        close(fdPipeSending[1]);
+        // Close reading end of pipe with which we return updated char
+        close(fdPipeReturning[0]);
 
         // Initialize array for data to receive
         char charListReceived[charListSize];
         // Read data from pipe and store it into array received
-        read(fdPipe[0], charListReceived, charListSize);
-        // Terminate string
-        charListReceived[strlen(charListReceived)] = '\0';
+        read(fdPipeSending[0], charListReceived, charListSize);
 
         // Close reading end of son pipe
-        close(fdPipe[0]);
+        close(fdPipeSending[0]);
 
         // Make every character of the list upper case
         for (int j = 0; j < strlen(charListReceived); j++)
@@ -133,10 +133,10 @@ int main(int argc, char const *argv[])
             */
         }
         // Send data back to parent process
-        write(fdPipe[1], charListReceived, strlen(charListReceived));
+        write(fdPipeReturning[1], charListReceived, strlen(charListReceived));
 
         // Close writing end of son pipe
-        close(fdPipe[1]);
+        close(fdPipeReturning[1]);
 
     }
 
