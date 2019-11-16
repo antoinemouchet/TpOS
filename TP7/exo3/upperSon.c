@@ -49,7 +49,7 @@ int main(int argc, char const *argv[])
         char charList[charListSize], finalCharList[charListSize];
         
         // Get sentence
-        write(1, "Insert some characters:\n>>> ", 29);
+        write(1, "Insert some characters (press enter after your last character):\n>>> ", 69);
         // 0 is standard input (keyboard)
         read(0, charList, charListSize);
 
