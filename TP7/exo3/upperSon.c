@@ -91,14 +91,24 @@ int main(int argc, char const *argv[])
         // Close reading end of son pipe
         close(fdPipeSending[0]);
 
+        char alphabet[] = "abcdefghijklmnopqrstuvwxyz";
+
         // Make every character of the list upper case
         for (int j = 0; j < strlen(charListReceived) - 1; j++)
         {
             
             printf("%c", charListReceived[j]);
 
-            // Method 1 using toupper defined in ctype.h
-            charListReceived[j] = toupper(charListReceived[j]);
+            char *returnValue;
+
+            returnValue = strchr(alphabet, charListReceived[j]);
+
+            if (returnValue != NULL && charListReceived[j] != '\0' && charListReceived[j] != '\n')
+            {
+                // Method 1 using toupper defined in ctype.h
+                charListReceived[j] = toupper(charListReceived[j]);
+            }
+            
             
             /* Method 2
             We can use a case - switch statement to check each letter
@@ -127,10 +137,10 @@ int main(int argc, char const *argv[])
             check if character is in the string using strchr, making it upper case
             only if the return value was different from NULL;
 
-            char alphabet[26] = "abcdefghijklmnopqrstuvwxyz";
+            char alphabet[] = "abcdefghijklmnopqrstuvwxyz";
             char *returnValue;
 
-            returnValue = strchr(alphabet, charListReceived[j])
+            returnValue = strchr(alphabet, charListReceived[j]);
 
             if (returnValue != NULL)
             {
