@@ -49,7 +49,7 @@ int main(int argc, char const *argv[])
         char charList[charListSize], finalCharList[charListSize];
         
         // Get sentence
-        printf("Insert some characters:\n>>> ");
+        write(1, "Insert some characters:\n>>> ", 29);
         // 0 is standard input (keyboard)
         read(0, &charList, charListSize);
         // Terminate string
@@ -95,6 +95,7 @@ int main(int argc, char const *argv[])
         // Make every character of the list upper case
         for (int j = 0; j < strlen(charListReceived); j++)
         {
+            printf("%c", charListReceived[j]);
             // Method 1 using toupper defined in ctype.h
             charListReceived[j] = toupper(charListReceived[j]);
 
