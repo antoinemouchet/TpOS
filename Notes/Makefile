@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = test.c
+SOURCES = testLowToUp.c
 #Debug
 DEBUG = gdb
 #Flags
