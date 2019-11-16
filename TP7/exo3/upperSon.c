@@ -64,13 +64,13 @@ int main(int argc, char const *argv[])
         wait(NULL);
 
         // Read data from child
-        int nbBytes = read(fdPipeReturning[0], finalCharList, charListSize);
+       read(fdPipeReturning[0], finalCharList, charListSize);
 
         // Close reading end of parent
         close(fdPipeReturning[0]);
 
         // Display result (1 is standard output)
-        write(1, finalCharList, nbBytes);
+        write(1, finalCharList, strlen(finalCharList) - 1);
     }
     // Child process
     else
