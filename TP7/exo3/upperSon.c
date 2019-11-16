@@ -52,8 +52,7 @@ int main(int argc, char const *argv[])
         write(1, "Insert some characters:\n>>> ", 29);
         // 0 is standard input (keyboard)
         read(0, &charList, charListSize);
-        // Terminate string
-        charList[strlen(charList)] = '\0';
+
         // Send data
         // Writing end of pipe is at 1 in the array
         write(fdPipeSending[1], charList, strlen(charList));
