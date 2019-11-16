@@ -53,6 +53,7 @@ int main(int argc, char const *argv[])
         // 0 is standard input (keyboard)
         read(0, &charList, charListSize);
 
+        printf("%s", charList);
         // Send data
         // Writing end of pipe is at 1 in the array
         write(fdPipeSending[1], charList, strlen(charList));
@@ -69,8 +70,6 @@ int main(int argc, char const *argv[])
         // Close reading end of parent
         close(fdPipeReturning[0]);
 
-        // Clear output buffer
-        fflush(stdout);
         // Display result (1 is standard output)
         write(1, finalCharList, nbBytes);
     }
