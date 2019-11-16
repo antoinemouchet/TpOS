@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = Notes.c
+SOURCES = test.c
 #Debug
 DEBUG = gdb
 #Flags
