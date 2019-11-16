@@ -52,8 +52,8 @@ int main(int argc, char const *argv[])
         {
             charList[i] = character;
             i++;
+            printf("%s", charList);
         }
-
         // Send data
         // Writing end of pipe is at 1 in the array
         write(fdPipe[1], charList, strlen(charList));
