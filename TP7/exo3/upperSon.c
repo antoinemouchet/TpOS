@@ -67,7 +67,7 @@ int main(int argc, char const *argv[])
         close(fdPipeReturning[0]);
 
         // Display result
-        printf("Sting entered was %s.\nFinal string is: %s.\n", charList, finalCharList);
+        printf("Sting entered was %s\nFinal string is: %s\n", charList, finalCharList);
     }
     // Child process
     else
