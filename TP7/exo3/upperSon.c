@@ -49,7 +49,7 @@ int main(int argc, char const *argv[])
 
         // Read until end of line
         // 0 is standard input (keyboard)
-       while(read(0, &character, 1) > 0)
+       while(read(0, &character, 1) != 0)
         {
             charList[i] = character;
             i++;
@@ -69,7 +69,7 @@ int main(int argc, char const *argv[])
         close(fdPipe[0]);
 
         // Display result
-        printf("Sting entered was %s.\nFinal string is: %s", charList, finalCharList);
+        printf("Sting entered was %s.\nFinal string is: %s.\n", charList, finalCharList);
     }
     // Child process
     else
