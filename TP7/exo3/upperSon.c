@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
 
         // Send data
         // Writing end of pipe is at 1 in the array
-        write(fdPipeSending[1], charList, strlen(charList) - 1);
+        write(fdPipeSending[1], charList, strlen(charList));
 
         // Close writing end of pipe now that we sent data
         close(fdPipeSending[1]);
@@ -136,7 +136,7 @@ int main(int argc, char const *argv[])
             */
         }
         // Send data back to parent process
-        write(fdPipeReturning[1], charListReceived, strlen(charListReceived) - 1);
+        write(fdPipeReturning[1], charListReceived, strlen(charListReceived));
 
         // Close writing end of son pipe
         close(fdPipeReturning[1]);
