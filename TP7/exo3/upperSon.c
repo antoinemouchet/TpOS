@@ -70,8 +70,8 @@ int main(int argc, char const *argv[])
         // Close reading end of parent
         close(fdPipeReturning[0]);
 
-        // Display result
-        printf("Sting entered was %s\nFinal string is: %s\n", charList, finalCharList);
+        // Display result (1 is standard output)
+        write(1, finalCharList, strlen(finalCharList));
     }
     // Child process
     else
