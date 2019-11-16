@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <ctype.h>
+#include <sys/wait.h>
 
 #define charListSize 1024
 
@@ -59,6 +60,9 @@ int main(int argc, char const *argv[])
 
         // Close writing end of pipe now that we sent data
         close(fdPipeSending[1]);
+
+        // Wait for child to do its job
+        wait(NULL);
 
         // Read data from child
         read(fdPipeReturning[0], finalCharList, charListSize);
@@ -137,7 +141,8 @@ int main(int argc, char const *argv[])
 
         // Close writing end of son pipe
         close(fdPipeReturning[1]);
-
+        // Exit child
+        exit(0);
     }
 
     return 0;
