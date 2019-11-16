@@ -123,7 +123,7 @@ int main(int argc, char const *argv[])
 
             returnValue = strchr(alphabet, charListReceived[j]);
 
-            if (returnValue != NULL)
+            if (returnValue != NULL && charListReceived[j] != '\n' && charListReceived[j] != '\0')
             {
                 charListReceived[j] = charListReceived[j] - 32;
             }
