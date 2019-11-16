@@ -44,16 +44,18 @@ int main(int argc, char const *argv[])
         char character;
 
        // Position counter
-        int i = 0;
+        // int i = 0;
 
+        read(0, &charList, charListSize);
         // Read until end of line
         // 0 is standard input (keyboard)
-       while(read(0, &character, 1) != 0)
+       /*while(read(0, &character, 1) != 0)
         {
             charList[i] = character;
             i++;
-            printf("%s", charList);
-        }
+
+        } */
+        
         // Send data
         // Writing end of pipe is at 1 in the array
         write(fdPipe[1], charList, strlen(charList));
