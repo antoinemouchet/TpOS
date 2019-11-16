@@ -70,7 +70,7 @@ int main(int argc, char const *argv[])
         close(fdPipeReturning[0]);
 
         // Clear output buffer
-        fflush(1);
+        fflush(stdout);
         // Display result (1 is standard output)
         write(1, finalCharList, nbBytes);
     }
