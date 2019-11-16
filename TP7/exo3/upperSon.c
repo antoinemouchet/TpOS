@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <ctype.h>
 
+#define charListSize 1024
+
 int main(int argc, char const *argv[])
 {
     // Array for pipe
@@ -23,12 +25,6 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-    // Initialize list of characters sent
-    char charList[1024];
-    // Variable to get inserted character
-    char character;
-    
-
     // Create child process
     int forkReturn = fork();
 
@@ -42,9 +38,12 @@ int main(int argc, char const *argv[])
     // Parent case
     else if (forkReturn > 0)
     {
+        // Initialize list of characters sent and received
+        char charList[charListSize], finalCharList[charListSize];
+        // Variable to get inserted character
+        char character;
         // Initialize nb of bytes sent by process
         int nbBytes = 0;
-
        // Position counter
         int i = 0;
 
@@ -63,18 +62,30 @@ int main(int argc, char const *argv[])
         // Close writing end of pipe now that we sent data
         close(fdPipe[1]);
 
+        // Read data from child
+        read(fdPipe[0], finalCharList, charListSize);
+
+        // Close reading end of parent
+        close(fdPipe[0]);
+
+        // Display result
+        printf("Sting entered was %s.\nFinal string is: %s", charList, finalCharList);
     }
+    // Child process
     else
     {
         /* The child inherited the same pipe as the parent process
         except that both ends are still open for the child.*/
 
         // Initialize array for data to receive
-        char charListReceived[1024];
+        char charListReceived[charListSize];
         // Read data from pipe and store it into array received
-        read(fdPipe[0], charListReceived, 1024);
+        read(fdPipe[0], charListReceived, charListSize);
         // Terminate string
         charListReceived[strlen(charListReceived)] = '\0';
+
+        // Close reading end of son pipe
+        close(fdPipe[0]);
 
         // Make every character of the list upper case
         for (int j = 0; j < strlen(charListReceived); j++)
@@ -92,12 +103,41 @@ int main(int argc, char const *argv[])
                     charListReceived[j] = 'A';
                     break;
             }
-            
             */
 
-           
+            /* Method 3
+            If we take a look at the ASCII table we realise that each upper case value
+            is 32 (in decimal) less than the lower case. So something like
+
+            charListReceived[j] = charListReceived[j] - 32;
+
+            should work.
+            */
+
+            /* NOTE
+            If we want to be able to remove non-classical alphabetical letter
+            from being set to uppercase we can use an alphabet variable and
+            check if character is in the string using strchr, making it upper case
+            only if the return value was different from NULL;
+
+            char alphabet[26] = "abcefghijklmnopqrstuvwxyz";
+            char *returnValue;
+
+            returnValue = strchr(alphabet, charListReceived[j])
+
+            if (returnValue != NULL)
+            {
+                // MAKE UPPER CASE
+            }
+            */
         }
-        
+        // Send data back to parent process
+        write(fdPipe[1], charListReceived, strlen(charListReceived));
+
+        // Close writing end of son pipe
+        close(fdPipe[1]);
+
+    }
 
     return 0;
 }
