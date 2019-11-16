@@ -96,17 +96,18 @@ int main(int argc, char const *argv[])
 
         // Make every character of the list upper case
         for (int j = 0; j < strlen(charListReceived) - 1; j++)
-        
+        {
             char *returnValue;
 
-            returnValue = strchr(alphabet, charListReceived[j])
+            returnValue = strchr(alphabet, charListReceived[j]);
 
             if (returnValue != NULL)
             {
                 // Method 1 using toupper defined in ctype.h
-                charListReceived[j] = toupper(charListReceived[j]);
+            charListReceived[j] = toupper(charListReceived[j]);
             }
             
+
             /* Method 2
             We can use a case - switch statement to check each letter
             and make it upper case by just writing it, it would look like
