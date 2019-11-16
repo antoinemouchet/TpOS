@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
         // Get sentence
         write(1, "Insert some characters:\n>>> ", 29);
         // 0 is standard input (keyboard)
-        read(0, &charList, charListSize);
+        read(0, charList, charListSize);
 
         // Send data
         // Writing end of pipe is at 1 in the array
@@ -91,16 +91,12 @@ int main(int argc, char const *argv[])
         // Close reading end of son pipe
         close(fdPipeSending[0]);
 
-        char alphabet[] = "abcdefghijklmnopqrstuvwxyz";
-
         // Make every character of the list upper case
         for (int j = 0; j < strlen(charListReceived) - 1; j++)
         {
-            
-            printf("%c", charListReceived[j]);
 
             // Method 1 using toupper defined in ctype.h
-            // charListReceived[j] = toupper(charListReceived[j]);
+            charListReceived[j] = toupper(charListReceived[j]);
             
             /* Method 2
             We can use a case - switch statement to check each letter
@@ -116,18 +112,11 @@ int main(int argc, char const *argv[])
 
             /* Method 3
             If we take a look at the ASCII table we realise that each upper case value
-            is 32 (in decimal) less than the lower case. So something like the cide below 
-            should work */
+            is 32 (in decimal) less than the lower case. So something like the code below 
+            should work
 
-            char *returnValue;
-
-            returnValue = strchr(alphabet, charListReceived[j]);
-
-            if (returnValue != NULL && charListReceived[j] != '\n' && charListReceived[j] != '\0')
-            {
-                charListReceived[j] = charListReceived[j] - 32;
-            }
-
+            charListReceived[j] = charListReceived[j] - 32;            
+            */
 
             /* NOTE
             If we want to be able to remove non-classical alphabetical letter
