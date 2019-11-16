@@ -99,16 +99,8 @@ int main(int argc, char const *argv[])
             
             printf("%c", charListReceived[j]);
 
-            char *returnValue;
-
-            returnValue = strchr(alphabet, charListReceived[j]);
-
-            if (returnValue != NULL && charListReceived[j] != '\0' && charListReceived[j] != '\n')
-            {
-                // Method 1 using toupper defined in ctype.h
-                charListReceived[j] = toupper(charListReceived[j]);
-            }
-            
+            // Method 1 using toupper defined in ctype.h
+            // charListReceived[j] = toupper(charListReceived[j]);
             
             /* Method 2
             We can use a case - switch statement to check each letter
@@ -124,12 +116,18 @@ int main(int argc, char const *argv[])
 
             /* Method 3
             If we take a look at the ASCII table we realise that each upper case value
-            is 32 (in decimal) less than the lower case. So something like
+            is 32 (in decimal) less than the lower case. So something like the cide below 
+            should work */
 
-            charListReceived[j] = charListReceived[j] - 32;
+            char *returnValue;
 
-            should work.
-            */
+            returnValue = strchr(alphabet, charListReceived[j]);
+
+            if (returnValue != NULL)
+            {
+                charListReceived[j] = charListReceived[j] - 32;
+            }
+
 
             /* NOTE
             If we want to be able to remove non-classical alphabetical letter
