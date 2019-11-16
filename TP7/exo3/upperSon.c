@@ -42,8 +42,7 @@ int main(int argc, char const *argv[])
         char charList[charListSize], finalCharList[charListSize];
         // Variable to get inserted character
         char character;
-        // Initialize nb of bytes sent by process
-        int nbBytes = 0;
+
        // Position counter
         int i = 0;
 
@@ -57,7 +56,7 @@ int main(int argc, char const *argv[])
 
         // Send data
         // Writing end of pipe is at 1 in the array
-        nbBytes = write(fdPipe[1], charList, strlen(charList));
+        write(fdPipe[1], charList, strlen(charList));
 
         // Close writing end of pipe now that we sent data
         close(fdPipe[1]);
