@@ -92,7 +92,7 @@ int main(int argc, char const *argv[])
         close(fdPipeSending[0]);
 
         // Make every character of the list upper case
-        for (int j = 0; j < strlen(charListReceived); j++)
+        for (int j = 0; j < strlen(charListReceived) - 1; j++)
         {
             printf("%c", charListReceived[j]);
             // Method 1 using toupper defined in ctype.h
