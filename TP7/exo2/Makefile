@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = 
+SOURCES = NoWriteOrRead.c
 #Debug
 DEBUG = gdb
 #Flags
