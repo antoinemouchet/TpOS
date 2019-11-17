@@ -1,24 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
-typedef struct DictElement
-{
-    //Word itself and its definition
-    char* word;
-    char* definition; 
-
-    struct DictElement* next ;
-
-} DictElement;
-
-typedef struct Dictionary
-{
-    // Size of dictionary
-    int size;
-    struct DictElement *head;
-
-} Dict;
+#include "dictHeader.h"
 
 // Create a new element
 DictElement* NewElement(const char* word, const char* definition)
@@ -96,8 +79,8 @@ void AddElement(Dict* list, const char* word, const char* definition)
     
 }
 
-// Remove element from dict
-void RemoveElement(Dict* list, const char* word)
+// Remove word from dict
+void RemoveWord(Dict* list, const char* word)
 {
     // Get index of word to delete
     int index = Search(list, word);

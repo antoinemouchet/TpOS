@@ -7,7 +7,10 @@
 #include <sys/stat.h>
 
 #define BUF_SIZE 1024
-#define NAMED_PIPE "/tmp/sgbd"
+
+#define SEND_REQ "/tmp/sgbd/request"
+#define GET_RES "/tmp/sgbd/result"
+
 
 int main(int argc, char const *argv[])
 {
