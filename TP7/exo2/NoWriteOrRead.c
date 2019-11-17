@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
         
         //make ls and sort at the same time
         pid = fork();
-        
+        int ftxt;
         switch (pid)
         {
             case -1:
@@ -30,14 +30,13 @@ int main(int argc, char const *argv[])
                 close(fpipe[0]);
                 // receive the input 
                 dup2(fpipe[1], STDOUT_FILENO); 
-                execlp("ls", "ls");
+                execlp("ls", "ls", NULL);
                 //close pipe
                 close(fpipe[1]);
                 break;
             default:
                 //father case
                 //execute sort -d                
-                int ftxt;
                 //writing in the pipe
                 close(fpipe[1]);
 
@@ -46,7 +45,7 @@ int main(int argc, char const *argv[])
                 dup2(fpipe[0], STDIN_FILENO); 
                 //send file.txt to the son in the pipe 
                 dup2(ftxt, STDOUT_FILENO); 
-                execlp("sort", "sort", "-d");
+                execlp("sort", "sort", "-d", NULL);
                 
                 
                 //Close file and pipe 
