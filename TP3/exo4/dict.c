@@ -384,7 +384,7 @@ void DisplayMenu(DictElement** head)
             scanf("%s", definition);
 
             NewElement(index, word, definition, head);
-        break;
+            break;
         
         //New head
         case 2:
