@@ -4,13 +4,16 @@
 
 int main (int argc, char* argv[])
 {
-   int day, year;
+   int day;
    char weekday[20], month[20], dtm[100];
 
-   strcpy( dtm, "Saturday March 25 1989" );
-   sscanf( dtm, "%s %s %d", weekday, month, &day);
+   strcpy( dtm, "25:Saturday:March 1989" );
+   sscanf( dtm, "%s:%s", weekday, month);
 
-   printf("%s %d = %s\n", month, day, weekday );
+   printf("%s ::::: %s\n", month, weekday);
+   printf("%s\n", dtm);
     
    return(0);
 }
+
+/* sscanf CAN EXTRACT THE FIRST VALUE THAT'S SOOOOOOO  GREAAAAAAAT FUCK IT*/
