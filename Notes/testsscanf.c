@@ -4,11 +4,11 @@
 
 int main (int argc, char* argv[])
 {
-   int day;
+   int day, year;
    char weekday[20], month[20], dtm[100];
 
-   strcpy( dtm, "25:Saturday:March 1989" );
-   sscanf( dtm, "%d:%s:%s", &day, weekday, month);
+   strcpy( dtm, "25 Saturday March 1989" );
+   sscanf( dtm, "%d %s %s %d", &day, weekday, month, &year);
 
    printf("%s ::::: %s\n", month, weekday);
    printf("%s\n", dtm);
