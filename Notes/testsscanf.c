@@ -8,7 +8,7 @@ int main (int argc, char* argv[])
    char weekday[20], month[20], dtm[100];
 
    strcpy( dtm, "25:Saturday:March 1989" );
-   sscanf( dtm, "%s:%s", weekday, month);
+   sscanf( dtm, "%d:%s:%s", &day, weekday, month);
 
    printf("%s ::::: %s\n", month, weekday);
    printf("%s\n", dtm);
