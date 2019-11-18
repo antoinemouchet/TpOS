@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 #Linker
-SOURCES = 
+SOURCES = client.c dictionnary.c server.c dictHeader.h
 #Debug
 DEBUG = gdb
 #Flags
