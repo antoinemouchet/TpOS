@@ -151,3 +151,33 @@ int Search(const Dict* list, const char* word)
     return -1;
 }
 
+int displayWord(const Dict* list, const char* word)
+{
+    // Check if word is in dict
+    int isIn = Search(list, word);
+    if (isIn == -1)
+    {
+        printf("Word not in dictionary");
+        return 1;
+    }
+
+    // Element is in dict
+    DictElement* Element = list->head;
+
+    // Loop on all elements
+    while (Element != NULL)
+    {
+        // Check if it's the element we're looking for
+        if (strcmp(word, Element->word) == 0)
+        {
+            // Display informations about element
+            printf("WORD: %s\nDEFINITION: %s\n", Element->word, Element->definition);
+            // Terminate function
+            return 0;
+        }
+        
+        // Move pointer to next element
+        Element = Element->next;
+    }
+}
+

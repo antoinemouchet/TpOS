@@ -42,4 +42,7 @@ void RemoveWord(Dict*, const char*);
 // Look for element in dictionary
 int Search(const Dict*, const char*);
 
+// Display word and its definition
+int displayWord(const Dict*, const char*);
+
 #endif

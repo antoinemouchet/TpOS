@@ -19,68 +19,74 @@ int main(int argc, char const *argv[])
     char requestSentence[1024];
     char resultSentence[1024];
     int requestPipe, resultPipe, requestTag;
+
+    // Open pipes
     requestPipe = open(SEND_REQ, O_WRONLY);
     resultPipe = open(GET_RES, O_RDONLY);
-    // check if it reached the server
+    // Check if it reached the server
+    // Means that pipes were opened by server.
     if ((requestPipe == -1) || (resultPipe == -1))
     {
-        printf("couldn't reach the server");
+        printf("Couldn't reach the server\n");
         return 1;
     }
-    printf("server has been reached");
-    //start request
+    printf("Server has been reached\n");
+    // Start request
     do
     {
         // ASK A REQUEST
-        printf("choose one request:\n 0. Add a word + definition\n 1. Remove a word \n 2. Select a word from dict\n 3. Exit\n >");
+        printf("Choose one request:\n 0. Add a word + definition\n 1. Remove a word \n 2. Select a word from dict\n 3. Exit\n >");
         scanf("%d", &requestTag);
         switch (requestTag)
         {
-            //Add a word
+            // Add a word
             case 0:
-                printf("you choose to add a word in the dict.");
-                //choose a word
+                printf("\nYou choose to add a word in the dict.\n");
+                // Choose a word
                 printf("write a word: ");
                 scanf("%s", word);
-                //choose his definition
-                printf("write its definition: ");
+                // Choose his definition
+                printf("\nwrite its definition: ");
                 scanf("%s", definition);
 
                 // Init to send word and definition and adding tag in the pipe
-                // requestSentence is written Tag:word:its definition
-                sprintf(requestSentence, "%d:%s:%s", &requestTag, word, definition);
-                printf("Request send");
+                // RequestSentence is written Tag:word:its definition
+                sprintf(requestSentence, "%d %s %s", requestTag, word, definition);
+                printf("\nRequest send\n");
                 break;
 
-            //Remove a word from dict
+            // Remove a word from dict
             case 1:
-                printf("you choose to remove a word from dict.");
+                printf("\nYou choose to remove a word from dict.\n");
                 printf("choose a word to delete: ");
                 scanf("%s", word);
 
                 // Init to send the word to delete and deleting tag in the pipe
-                sprintf(requestSentence, "%d:%s", &requestTag, word);
-                printf("Request send");
+                sprintf(requestSentence, "%d %s", requestTag, word);
+                printf("\nRequest send\n");
                 break;
-            //select a word from dict
+
+            // Select a word from dict
             case 2:
-                printf("you choose to select a word from dict.");
-                printf("Wich word want you to know ? ");
+                printf("\nYou choose to select a word from dict.\n");
+                printf("Which word do you want to know ? ");
                 scanf("%s", word);
                 // Init to send the word to find and finding tag in the pipe
-                sprintf(requestSentence, "%d:%s", &requestTag, word);
-                printf("Request send");
+                sprintf(requestSentence, "%d %s", requestTag, word);
+                printf("\nRequest send\n");
                 break;
-            //leaving process
+
+            // Leaving process
             case 3:
-                printf("you choose to exit");
+                printf("\nYou choose to exit\n");
+                sprintf(requestSentence, "%d", requestTag);
                 break;
         }
         // Send requestSentence in the pipe 
         write(requestPipe, requestSentence, strlen(requestSentence));
         
 
-        // RECIEVE RESULT 
+        // RECEIVE RESULT 
         // Don't wait for a result if  requestTag >=3
         if(requestTag < 3)
         {
@@ -89,7 +95,7 @@ int main(int argc, char const *argv[])
         }
         
     } while (requestTag < 3);
-    //closing pipe
+    // Closing pipe
     close(resultPipe);
     close(requestPipe);
     return 0;
