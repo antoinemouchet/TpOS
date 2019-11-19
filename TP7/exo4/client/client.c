@@ -37,8 +37,7 @@ int main(int argc, char const *argv[])
         char definition[512] = "";
         char requestSentence[1024] = "";
         char resultSentence[1024] = "";
-        printf("%s\n", requestSentence);
-        
+
         // ASK A REQUEST
         printf("Choose one request:\n 0. Add a word + definition\n 1. Remove a word \n 2. Select a word from dict\n 3. Exit\n >");
         scanf("%d", &requestTag);
@@ -63,7 +62,7 @@ int main(int argc, char const *argv[])
                 // Init to send word and definition and adding tag in the pipe
                 // RequestSentence is written Tag:size of word:size of definition:word:definition
                 sprintf(requestSentence, "%d:%d:%d:%s:%s", requestTag, strlen(word), strlen(definition), word, definition);
-                printf("\nRequest send\n");
+                printf("\nRequest sent\n");
                 break;
 
             // Remove a word from dict
@@ -76,7 +75,7 @@ int main(int argc, char const *argv[])
 
                 // Init to send the word to delete and deleting tag in the pipe
                 sprintf(requestSentence, "%d:%d:%s", requestTag,strlen(word), word);
-                printf("\nRequest send\n");
+                printf("\nRequest sent\n");
                 break;
 
             // Select a word from dict
@@ -88,7 +87,7 @@ int main(int argc, char const *argv[])
                 getchar();
                 // Init to send the word to find and finding tag in the pipe
                 sprintf(requestSentence, "%d:%d:%s", requestTag, strlen(word), word);
-                printf("\nRequest send\n");
+                printf("\nRequest sent\n");
                 break;
 
             // Leaving process
@@ -97,6 +96,7 @@ int main(int argc, char const *argv[])
                 sprintf(requestSentence, "%d", requestTag);
                 break;
         }
+        printf("%s\n", requestSentence);
         // Send requestSentence in the pipe 
         write(requestPipe, requestSentence, strlen(requestSentence));
         
