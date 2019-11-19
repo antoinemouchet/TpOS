@@ -83,20 +83,19 @@ void AddElement(Dict* list, const char* word, const char* definition)
     else
     {
         DictElement* prev = list->head;
-        DictElement* next;
+        DictElement* following;
         // Loop until we reach the end
         while (dictSize-- > 0)
         {
             prev = prev->next;
         }
         // Move pointer to next element
-        next = prev->next;
+        following = prev->next;
         prev->next = NewEl;
-        NewEl->next = next;
+        NewEl->next = following;
     }
-
-    // Increase size of dictionary
-    list->size++;
+    // Increase size of dict
+    list ->size ++;
 }
 
 // Remove word from dict
