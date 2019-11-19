@@ -101,7 +101,7 @@ int main(int argc, char const *argv[])
                 sprintf(requestSentence, "%d", requestTag);
                 break;
         }
-        printf("%s\n", requestSentence);
+
         // Send requestSentence in the pipe 
         write(requestPipe, requestSentence, strlen(requestSentence));
         

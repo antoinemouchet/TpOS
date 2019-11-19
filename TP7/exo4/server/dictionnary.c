@@ -191,9 +191,7 @@ DictElement* getWord(const Dict* list, const char* word)
             // Check if it's the element we're looking for
             if (strcmp(word, element->word) == 0)
             {
-                // Display informations about element
-                printf("WORD: %s\nDEFINITION: %s\n", element->word, element->definition);
-                // Terminate function
+                // Terminate function by returning this element
                 return element;
             }
             // Move pointer to next element
