@@ -69,8 +69,6 @@ void AddElement(Dict* list, const char* word, const char* definition)
     // Create element
     DictElement* NewEl = NewElement(word, definition);
 
-
-
     // Get size of actual dict
     int dictSize = list -> size;
 
@@ -95,10 +93,10 @@ void AddElement(Dict* list, const char* word, const char* definition)
         next = prev->next;
         prev->next = NewEl;
         NewEl->next = next;
-
-        // Increase size
-        list->size++;
     }
+    
+    // Increase size of dictionary
+    list->size++;
 }
 
 // Remove word from dict
@@ -172,35 +170,37 @@ int Search(const Dict* list, const char* word)
     return -1;
 }
 
-int displayWord(const Dict* list, const char* word)
+DictElement* getWord(const Dict* list, const char* word)
 {
+    DictElement* element = (DictElement*)malloc(sizeof(DictElement));
     // Check if word is in dict
     int isIn = Search(list, word);
     if (isIn == -1)
     {
         printf("Word not in dictionary");
-        return 1;
     }
 
     // Element is in dict
-    DictElement* Element = list->head;
-
-    // Loop on all elements
-    while (Element != NULL)
+    else
     {
-        // Check if it's the element we're looking for
-        if (strcmp(word, Element->word) == 0)
+        element = list->head;
+
+        // Loop on all elements
+        while (element != NULL)
         {
-            // Display informations about element
-            printf("WORD: %s\nDEFINITION: %s\n", Element->word, Element->definition);
-            // Terminate function
-            return 0;
+            // Check if it's the element we're looking for
+            if (strcmp(word, element->word) == 0)
+            {
+                // Display informations about element
+                printf("WORD: %s\nDEFINITION: %s\n", element->word, element->definition);
+                // Terminate function
+                return element;
+            }
+            // Move pointer to next element
+            element = element->next;
         }
-        
-        // Move pointer to next element
-        Element = Element->next;
+        // Element is null in this case
+        return element;
     }
-    // End of function
-    return 0;
 }
 

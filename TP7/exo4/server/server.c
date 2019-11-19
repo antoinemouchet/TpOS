@@ -236,6 +236,9 @@ int main(int argc, char const *argv[])
     // Initialize variable to store the position of the word in dictionary
     int index;
 
+    // Initialize structure of element of dictionary
+    DictElement* element;
+
     // Loop until we get the request to close
     do
     {
@@ -336,12 +339,12 @@ int main(int argc, char const *argv[])
                 else
                 {
                     // Display word from dict
-                    displayWord(dictionary, wordReq);
+                    element = getWord(dictionary, wordReq);
                     
                     // Display that it worked
                     printf("%s was displayed from dictionary.\n", wordReq);
                     // Send result of request
-                    sprintf(result, "SEARCH OK (word at index: %d) ~ Check server for more info about word.", index);
+                    sprintf(result, "SEARCH OK (word at index: %d) ~ Definition: %s", index, element->definition);
                     write(pipeSendDescriptor, result, strlen(result) + 1);
                 }
                 break;

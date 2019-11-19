@@ -45,6 +45,6 @@ void RemoveWord(Dict*, const char*);
 int Search(const Dict*, const char*);
 
 // Display word and its definition
-int displayWord(const Dict*, const char*);
+DictElement* getWord(const Dict*, const char*);
 
 #endif
