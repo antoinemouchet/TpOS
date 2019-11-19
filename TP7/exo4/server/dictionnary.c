@@ -94,7 +94,7 @@ void AddElement(Dict* list, const char* word, const char* definition)
         prev->next = NewEl;
         NewEl->next = next;
     }
-    
+
     // Increase size of dictionary
     list->size++;
 }
@@ -199,8 +199,8 @@ DictElement* getWord(const Dict* list, const char* word)
             // Move pointer to next element
             element = element->next;
         }
-        // Element is null in this case
-        return element;
     }
+    // Element not in dict
+    return NULL;
 }
 
