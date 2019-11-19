@@ -37,7 +37,8 @@ int main(int argc, char const *argv[])
         char definition[512] = "";
         char requestSentence[1024] = "";
         char resultSentence[1024] = "";
-
+        printf("%s\n", requestSentence);
+        
         // ASK A REQUEST
         printf("Choose one request:\n 0. Add a word + definition\n 1. Remove a word \n 2. Select a word from dict\n 3. Exit\n >");
         scanf("%d", &requestTag);
@@ -49,17 +50,16 @@ int main(int argc, char const *argv[])
             case 0:
                 printf("\nYou choose to add a word in the dict.\n");
                 // Choose a word
-                printf("write a word: ");
+                printf("Write a word: ");
                 scanf("%[^\n]s", word);
                 // Catch newline char
                 getchar();
                 // Choose his definition
-                printf("\nwrite its definition: ");
+                printf("Write its definition: ");
                 scanf("%[^\n]s", definition);
                 // Catch newline character
                 getchar();
 
-                printf(definition);
                 // Init to send word and definition and adding tag in the pipe
                 // RequestSentence is written Tag:size of word:size of definition:word:definition
                 sprintf(requestSentence, "%d:%d:%d:%s:%s", requestTag, strlen(word), strlen(definition), word, definition);
@@ -71,6 +71,8 @@ int main(int argc, char const *argv[])
                 printf("\nYou choose to remove a word from dict.\n");
                 printf("choose a word to delete: ");
                 scanf("%[^\n]s", word);
+                // Catch newline character
+                getchar();
 
                 // Init to send the word to delete and deleting tag in the pipe
                 sprintf(requestSentence, "%d:%d:%s", requestTag,strlen(word), word);
@@ -82,8 +84,10 @@ int main(int argc, char const *argv[])
                 printf("\nYou choose to select a word from dict.\n");
                 printf("Which word do you want to know ? ");
                 scanf("%[^\n]s", word);
+                // Catch newline character
+                getchar();
                 // Init to send the word to find and finding tag in the pipe
-                sprintf(requestSentence, "%d:%d:%s", requestTag,strlen(word), word);
+                sprintf(requestSentence, "%d:%d:%s", requestTag, strlen(word), word);
                 printf("\nRequest send\n");
                 break;
 
@@ -102,7 +106,7 @@ int main(int argc, char const *argv[])
         if(requestTag < 3)
         {
             read(resultPipe, resultSentence, BUF_SIZE);
-            printf("%s", resultSentence);
+            printf("%s\n", resultSentence);
         }
         
     } while (requestTag < 3);
