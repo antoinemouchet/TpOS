@@ -254,7 +254,6 @@ int main(int argc, char const *argv[])
 
         // Get request
         read(pipeReqDescriptor, request, BUF_SIZE);
-        printf("%s", request);
         // Get code using sscanf to extract the only int in the string
         sscanf(request, "%d", &code);
         // Get lenght of request

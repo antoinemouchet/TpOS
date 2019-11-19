@@ -95,6 +95,11 @@ int main(int argc, char const *argv[])
                 printf("\nYou choose to exit\n");
                 sprintf(requestSentence, "%d", requestTag);
                 break;
+            
+            default:
+                printf("\nInvalid choice, leaving.\n");
+                sprintf(requestSentence, "%d", requestTag);
+                break;
         }
         printf("%s\n", requestSentence);
         // Send requestSentence in the pipe 
