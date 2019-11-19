@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
 
 #define BUF_SIZE 1024
 
@@ -40,6 +41,8 @@ int main(int argc, char const *argv[])
         // ASK A REQUEST
         printf("Choose one request:\n 0. Add a word + definition\n 1. Remove a word \n 2. Select a word from dict\n 3. Exit\n >");
         scanf("%d", &requestTag);
+        // Get the newline char to avoid any problem
+        getchar();
         switch (requestTag)
         {
             // Add a word
@@ -47,12 +50,14 @@ int main(int argc, char const *argv[])
                 printf("\nYou choose to add a word in the dict.\n");
                 // Choose a word
                 printf("write a word: ");
-                read(STDIN_FILENO, word, 128);
-                //scanf("%[^\n]s", word);
+                scanf("%[^\n]s", word);
+                // Catch newline char
+                getchar();
                 // Choose his definition
                 printf("\nwrite its definition: ");
-                read(STDIN_FILENO, definition, 512);
-                //scanf("%[^\n]s", definition);
+                scanf("%[^\n]s", definition);
+                // Catch newline character
+                getchar();
 
                 printf(definition);
                 // Init to send word and definition and adding tag in the pipe
