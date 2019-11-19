@@ -93,9 +93,11 @@ void AddElement(Dict* list, const char* word, const char* definition)
         following = prev->next;
         prev->next = NewEl;
         NewEl->next = following;
+
+        // Increase size of dict
+        list ->size ++;
     }
-    // Increase size of dict
-    list ->size ++;
+
 }
 
 // Remove word from dict
