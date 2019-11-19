@@ -21,6 +21,8 @@ typedef struct Dictionary
 
 } Dict;
 
+char* MemAndcopyString(const char* );
+
 // Create dictionary
 Dict* NewDict(void);
 

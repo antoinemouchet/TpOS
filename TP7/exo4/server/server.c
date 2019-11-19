@@ -9,10 +9,19 @@
 
 #define BUF_SIZE 1024
 
-#define GET_REQ "/tmp/sgbd/request"
-#define SEND_RES "/tmp/sgbd/result"
+#define GET_REQ "../tmp/sgbd_request"
+#define SEND_RES "../tmp/sgbd_result"
 
-#define DICT_PATH "dict.txt"
+#define DICT_PATH "../tmp/dict.txt"
+
+void extractString(char *dest, char*source, int startPoint, int size)
+{
+    // Copy substring into dest
+    memcpy(dest, &source[startPoint], size);
+    // Correctly terminate the string
+    dest[size] = '\0';
+}
+
 
 Dict* loadDictionary(char* DicoTextFilePath)
 {
@@ -32,6 +41,12 @@ Dict* loadDictionary(char* DicoTextFilePath)
     // define storage emplacement as the word
     char *reading = word;
 
+    // No dict available, return empty dictionary
+    if (access(DICT_PATH, F_OK) == -1)
+    {
+        return dictionary;
+    }
+    
     // Open file in which dico is stored in read only mode
     int fileDescriptor = open(DicoTextFilePath, O_RDONLY);
 
@@ -39,8 +54,6 @@ Dict* loadDictionary(char* DicoTextFilePath)
     if (fileDescriptor == -1)
     {
         perror("Error trying to load dictionary from file");
-        // Error quit function
-        return 1;
     }
     // Store dico informations into a structure
     else
@@ -101,33 +114,33 @@ void saveDictionary(Dict* DictionaryName)
     // Open in Write only if already exists, create it otherwise
     // If created give user read and write permission on file
     int dictFileDescriptor = open(DICT_PATH, O_WRONLY | O_CREAT, S_IWUSR | S_IRUSR);
+
+    // Error opening file
     if (dictFileDescriptor == -1)
     {
         perror("Problem opening dico file");
-        return 1;
     }
-
-    // Loop to get all elements of dict
-    while (element != NULL)
+    // File opened correctly
+    else
     {
-        // Get info about word
-        char word[] = element->word;
-        char definition[] = element->definition;
+        // Loop to get all elements of dict
+        while (element != NULL)
+        {
+            // Write word and its definition into file with format
+            // WORD
+            // DEFINITION
+            write(dictFileDescriptor, element->word, strlen(element->word));
+            write(dictFileDescriptor, "\n", 1);
+            write(dictFileDescriptor, element->definition, strlen(element->definition));
+            write(dictFileDescriptor, "\n", 1);
 
-        // Write word and its definition into file with format
-        // WORD
-        // DEFINITION
-        write(dictFileDescriptor, word, strlen(word));
-        write(dictFileDescriptor, '\n', 1);
-        write(dictFileDescriptor, definition, strlen(definition));
-        write(dictFileDescriptor, '\n', 1);
+            // Move pointer to next element in dictionary
+            element = element->next;
+        }
 
-        // Move pointer to next element in dictionary
-        element = element->next;
+        // Close the file after storing whole dictionary
+        close(dictFileDescriptor);
     }
-
-    // Close the file after storing whole dictionary
-    close(dictFileDescriptor);
 }
 
 int main(int argc, char const *argv[])
@@ -215,6 +228,7 @@ int main(int argc, char const *argv[])
     // DO REQUEST
     // Initialize array of char where request will be stored
     char request[BUF_SIZE];
+
     // Initialize code which will define what's the request to do
     int code;
 
@@ -224,6 +238,12 @@ int main(int argc, char const *argv[])
     // Initialize array of char for the result to be sent
     char result[BUF_SIZE];
 
+    // Initialize variable to store the size of the request, the size of the word and the size of the definition
+    int reqSize, wordSize, defSize;
+
+    // Initialize variable to store the position of the word in dictionary
+    int index;
+
     // Loop until we get the request to close
     do
     {
@@ -231,6 +251,9 @@ int main(int argc, char const *argv[])
         read(pipeReqDescriptor, request, BUF_SIZE);
         // Get code using sscanf to extract the only int in the string
         sscanf(request, "%d", &code);
+        // Get lenght of request
+        reqSize = strlen(request);
+
         // Display request received
         printf("Request received: %s\n", request);
 
@@ -238,8 +261,19 @@ int main(int argc, char const *argv[])
         {
             // Add word in dictionary
             case 0:
-                // Get actual word and its definition from request
-                sscanf(request,"%d %s %s",&code, wordReq, definitionReq);
+                // Get sizes of word and its definition from request
+                sscanf(request, "%d:%d:%d", &code, &wordSize, &defSize);
+                // Extract word and its definition from request
+
+                /* NOTE
+                Using sscanf could work to get the word since it should be only 1 word
+                but if the user inserted something like "the elephant" (2 words)
+                we want to be able to read the whole thing and not just the "the"
+                so we implemented a function to extract a string from another string
+                */
+
+                extractString(wordReq, request, reqSize - defSize - wordSize -1, wordSize);
+                extractString(definitionReq, request, reqSize - defSize, defSize);
                 // Add element into dictionary
                 AddElement(dictionary, wordReq, definitionReq);
 
@@ -252,9 +286,10 @@ int main(int argc, char const *argv[])
             
             // Remove word from dictionary
             case 1:
-                // Get word from request
-                sscanf(request, "%d %s", &code, wordReq);
-
+                // Get size of word from request
+                sscanf(request, "%d:%d", &code, &wordSize);
+                // Extract word from the request
+                extractString(wordReq, request, reqSize-wordSize, wordSize);
                 // Check that word is in dict
                 if (Search(dictionary, wordReq) == -1)
                 {
@@ -270,7 +305,7 @@ int main(int argc, char const *argv[])
                     RemoveWord(dictionary, wordReq);
                     
                     // Display that it worked
-                    printf("%s was removed from dictionary.\n");
+                    printf("%s was removed from dictionary.\n", wordReq);
                     // Send result of request
                     sprintf(result, "REMOVE OK");
                     write(pipeSendDescriptor, result, strlen(result) + 1);
@@ -278,10 +313,12 @@ int main(int argc, char const *argv[])
                 break;
             // Display word
             case 2:
-                // Get word from request
-                sscanf(request, "%d %s", &code, wordReq);
+                // Get size of word from request
+                sscanf(request, "%d:%d", &code, &wordSize);
+                // Get actual word
+                extractString(wordReq, request, reqSize - wordSize, wordSize);
 
-                int index = Search(dictionary, wordReq);
+                index = Search(dictionary, wordReq);
                 // Check that word is in dict
                 if (index == -1)
                 {
@@ -297,7 +334,7 @@ int main(int argc, char const *argv[])
                     displayWord(dictionary, wordReq);
                     
                     // Display that it worked
-                    printf("%s was displayed from dictionary.\n");
+                    printf("%s was displayed from dictionary.\n", wordReq);
                     // Send result of request
                     sprintf(result, "SEARCH OK (word at index: %d) ~ Check server for more info about word.", index);
                     write(pipeSendDescriptor, result, strlen(result) + 1);

@@ -3,13 +3,24 @@
 #include <string.h>
 #include "dictHeader.h"
 
+// Allocate memory and copy string
+char* MemAndcopyString(const char* string)
+{
+    // Dynamically allocate memory
+    char *newPlace = (char*)malloc(sizeof(char) * (strlen(string) +1));
+    // Move string into its allocated memory storage
+    strcpy(newPlace, string);
+
+    return newPlace;
+}
+
 // Create a new element
 DictElement* NewElement(const char* word, const char* definition)
 {
     DictElement* NewEl = (DictElement*)malloc(sizeof(DictElement));
     
-    NewEl->word = copy_string(word);
-    NewEl->definition = copy_string(definition);
+    NewEl->word = MemAndcopyString(word);
+    NewEl->definition = MemAndcopyString(definition);
     NewEl->next = NULL;
     
     return NewEl;
@@ -58,25 +69,36 @@ void AddElement(Dict* list, const char* word, const char* definition)
     // Create element
     DictElement* NewEl = NewElement(word, definition);
 
-    DictElement* prev = list->head;
-    DictElement* next;
+
 
     // Get size of actual dict
     int dictSize = list -> size;
 
-    // Loop until we reach the end
-    while (dictSize-- > 0)
+    // Check if dict is empty
+    if (dictSize == 0)
     {
-        prev = prev->next;
+        // Update pointers to make element the first
+        NewEl->next = list->head;
+        list->head = NewEl;
     }
-    // Move pointerto next element
-    next = prev->next;
-    prev->next = NewEl;
-    NewEl->next = next;
+    // Dict not empty
+    else
+    {
+        DictElement* prev = list->head;
+        DictElement* next;
+        // Loop until we reach the end
+        while (dictSize-- > 0)
+        {
+            prev = prev->next;
+        }
+        // Move pointer to next element
+        next = prev->next;
+        prev->next = NewEl;
+        NewEl->next = next;
 
-    // Increase size
-    list->size++;
-    
+        // Increase size
+        list->size++;
+    }
 }
 
 // Remove word from dict
@@ -88,11 +110,10 @@ void RemoveWord(Dict* list, const char* word)
     if (index == -1)
     {
         printf("Word not found.");
-        return -1;
     }
     
     // Check that index is in the list
-    if (index >= 0 && index < list->size)
+    else if (index >= 0 && index < list->size)
     {
         DictElement* Element;
 
@@ -179,5 +200,7 @@ int displayWord(const Dict* list, const char* word)
         // Move pointer to next element
         Element = Element->next;
     }
+    // End of function
+    return 0;
 }
 
