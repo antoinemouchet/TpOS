@@ -5,10 +5,13 @@ SOURCES = diner.c
 #Debug
 DEBUG = gdb
 #Flags
-CFLAGS = -ggdb -Wall -lpthread
+CFLAGS = -ggdb -Wall
+#Thread
+THREAD = -lpthread
+
 
 all:
-	$(CC) $(SOURCES) $(CFLAGS) -o output.o
+	$(CC) $(SOURCES) $(CFLAGS) -o output.o $(THREAD)
 debug: all
 	$(DEBUG) output.o
 
