@@ -109,7 +109,7 @@ int main(int argc, char const *argv[])
     for (int i = 0; i < NB_PHILO; i++)
     {
         // Create thread with function philAction and argument i
-        int threadRet = pthread_create(&(philosopheIds[i]), NULL, &philAction, &i);
+        int threadRet = pthread_create(&(philosopheIds[i]), NULL, philAction, &i);
 
         // Check that each thread is correctly created
         if (threadRet != 0)
@@ -122,7 +122,7 @@ int main(int argc, char const *argv[])
     // Loop to end all threads
     for (int i = 0; i < NB_PHILO; i++)
     {
-        pthread_join(&philosopheIds[i], NULL);
+        pthread_join(philosopheIds[i], NULL);
     }
 
     // Destroy mutex
