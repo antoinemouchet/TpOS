@@ -83,6 +83,7 @@ void* philAction(int philId)
 
         // End of critical zone
         pthread_mutex_unlock(&eating);
+        pthread_exit(NULL);
     }
 }
 
