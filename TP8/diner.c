@@ -63,8 +63,9 @@ void eat(int philID)
     }
 }
 
-void* philAction(int philId)
+void * philAction(void * philID)
 {
+    int philId = * ((int *) philID);
     // Infinite loop
     while (1)
     {
@@ -108,8 +109,10 @@ int main(int argc, char const *argv[])
     // Loop until all philos are created
     for (int i = 0; i < NB_PHILO; i++)
     {
+        int * idPhilo = (int *) malloc(sizeof(int));
+        * idPhilo = i;
         // Create thread with function philAction and argument i
-        int threadRet = pthread_create(&(philosopheIds[i]), NULL, philAction, &i);
+        int threadRet = pthread_create(&(philosopheIds[i]), NULL, philAction, idPhilo);
 
         // Check that each thread is correctly created
         if (threadRet != 0)
