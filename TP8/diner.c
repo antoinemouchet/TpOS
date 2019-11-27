@@ -7,15 +7,12 @@
 #define NB_PHILO 5
 #define FREE 0
 #define TAKEN 1
-//#define MAX_EATING 20
 
 // Global lock
 pthread_mutex_t  eating;
 
-// Global variable for 
+// Global array for forks status
 int forkStatus[NB_PHILO];
-
-//int eaten = 0;
 
 // Get id of the left fork for a philosophe
 int leftFork(int philId)
@@ -57,9 +54,6 @@ void eat(int philID)
     {
         // Display eating message
         printf("%d is eating.\n", philID);
-
-        // Increase nb of times philosophes ate
-        //eaten ++;
     }
 }
 
@@ -131,8 +125,5 @@ int main(int argc, char const *argv[])
     // Destroy mutex
     pthread_mutex_destroy(&eating);
     
-
     return 0;
 }
-
-
