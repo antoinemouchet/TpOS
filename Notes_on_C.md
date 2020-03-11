@@ -113,11 +113,14 @@ int main(void)
 \
 Il faut utiliser le moins possible le ```_``` dans le nom des variables.
 
+!!!warning
+    Apparemment, il n'y a pas de convention de nommage officielle en C.
+
 ```C 
 int NbEnfants;
 ```
 
-est **bien mieux** que
+est **mieux** que
 
 ```C 
 int nombre_enfants;
