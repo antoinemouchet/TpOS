@@ -113,7 +113,7 @@ int main(void)
 \
 Il faut utiliser le moins possible le ```_``` dans le nom des variables.
 
-!!!warning
+!!!tip Note
     Apparemment, il n'y a pas de convention de nommage officielle en C.
 
 ```C 
@@ -171,6 +171,7 @@ Il est important de noter que ```scanf``` ne fait que récupérer la valeur intr
 
 int n;
 char sentence[20];
+char letter;
 
 // Ici je veux le nombre
 printf("Insert a number.\n");
@@ -180,6 +181,13 @@ scanf("%d", &n);
 // Attention qu'une chaîne de caractères demandée comme suit sera arrêtée au premier espace
 printf("Insert a string.\n");
 scanf("%s", sentence);
+
+// Ici je voudrais uniquement une lettre.
+// 2 méthodes donnent le même résultat
+printf("Insert a letter.\n");
+letter = getchar();
+scanf(" %c", &letter);
+// L'espace avant le % est important pour éviter de prendre les caractères blancs.
 ```
 
 ### _Utilisation des conditions_
@@ -451,7 +459,7 @@ struct node
 struct node tree;
 ```
 
-!!! danger
+!!! attention
     L'opérateur ```.``` est prioritaire sur ```*```. Dès lors, il ne faut pas hésiter à utiliser les parenthèses.\
     Il est également bon de noter ceci:
     
@@ -766,14 +774,273 @@ int main(void)
     
 ```
 ## _*Signaux*_
-    
+Les signaux permettent de prévenir un processus qu'un événement particulier s'est produit. C'est un peu le moyen de communication entre processus au final. Les processus ont un comportement adapté en fonction de chaque signal. Il est possible de modifier ce comportement en utilisant la fonction ```sigaction``` avec les paramètres appopriés.
+
+!!!example Exemple
+    ```C
+    // Variable globale
+    int NbAlarm = 0;
+
+    /*
+    Fonction permettant de changer l'action faite lorsque le signal précisé par signum est reçu.
+    */ 
+    void handler(int signum)
+    {
+        //increment nb alarms and print amount of times it was already printed
+        NbAlarm ++;
+        printf("Number of alarms: %d.\n", NbAlarm);
+    }
+
+    int main(int argc, char const *argv[])
+        // Modify action of sigalrm and ignore all signals except it
+
+        // Structure qui va être utilisée pour remplacer l'ancienne action
+        struct sigaction act;
+        // Ensemble de signaux
+        sigset_t set;
+        // Définit la nouvelle méthode de gestion du signal
+        act.sa_handler = handler;
+        act.sa_flags = 0;
+        // Remplace l'ancienne action par la nouvelle (définie par act)
+        sigaction(SIGALRM, &act, NULL);
+        // On dit ici que l'ensemble des signaux les reprend tous
+        sigfillset(&set);
+        // On supprime le signal SIGALRM de l'ensemble
+        sigdelset(&set, SIGALRM);
+        // Bloque les signaux de l'ensemble set (donc tous sauf SIGALRM).
+        sigprocmask(SIG_SETMASK, &set, NULL);
+    ```
+
+### _Question 1: Que se passe-t-il si le processus père envoie le signal SIGSTOP au lieu de SIGUSR1 ? La situation est-elle différente avec le signal SIGINT?_
+!!!question Réponse
+    Le signal SIGSTOP ne peut pas être ignoré. Donc lorsque le père envoie ce signal au fils, celui-ci va s'arrêter.\
+    Le signal SIGINT peut être ignoré donc cela n'arrêtera pas le fils car on a réattribué une action à SIGINT.
+
+### _Question 2: Comment améliorer un programme pour que le processus père ne soit pas interrompu lorsque l’on tape un CTRL-C?_
+!!!question Réponse
+    On implémente une fonction ```handler``` dont le but va être de changer l'action de SIGINT (signal de CTRL-C) afin que celui-ci soit ignoré. On attribuera cette fonction UNIQUEMENT au signal SIGINT en utilisant la fonction ```sigaction```.
+
+
+## _*Pipes*_
+
+On utilise des ```pipes``` *(ou tubes en français)* pour connecter un flux de données entre des processus *(bien plus pratique et propre que les signaux*) afin de se transmettre de l'information.
+
+On distingue 2 types de ```pipes```:
+* pipe simple $\Rightarrow$ Données entre processus d'un même programme.
+* pipe nommé $\Rightarrow$ Données entre processus de différents programmes car se comporte comme un fichier.
+
+!!!example Exemple pipe simple
+    ```C
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <unistd.h>
+    #include <sys/types.h>
+
+    int main(int argc, char const *argv[])
+    {
+        // Array for pipe
+        int fdPipe[2];
+
+        // Create pipe
+        int pipeReturn = pipe(fdPipe);
+
+        // Check if there was an error creating pipe
+        if (pipeReturn == -1)
+        {
+            // Display error and exit program
+            perror("Error creating pipe");
+            return 1;
+        }
+
+        // Create child process
+        int forkReturn = fork();
+        
+        // Error case
+        if (forkReturn < 0)
+        {
+            // Display error and exit program
+            perror("Error creating process");
+            return 1;
+        }
+        // Parent case
+        else if (forkReturn > 0)
+        {
+            // Initialize data to send
+            char data[] = "je t'envoie des données";
+            // Initialize nb of bytes sent by process
+            int nbBytes = 0;
+
+            // Close the reading end of the pipe for the parent
+            // We want to send data not read some here
+            close(fdPipe[0]);
+
+            // Send data
+            // Writing end of pipe is at 1 in the array
+            nbBytes = write(fdPipe[1], data, strlen(data));
+
+            // Close writing end of pipe now that we sent data
+            close(fdPipe[1]);
+
+            // Display number of bytes sent and pid.
+            printf("I'm the parent. My pid is: %d and I sent %d bytes.\n", getpid(), nbBytes);
+        }
+        // Child case
+        else
+        {
+            /* The child inherited the same pipe as the parent process
+            except that both ends are still open for the child.*/
+
+            // Initialize array for data to receive
+            char received[100];
+            // Initialize command to execute
+            char command[256];
+            // List of argument for command
+            char arg[3][100];
+
+            // Close writing end of pipe
+            // Receiving data not sending
+            close(fdPipe[1]);
+            
+            // Read data from pipe and store it into array received
+            read(fdPipe[0], received, 100);
+            // Terminate string
+            received[strlen(received)] = '\0';
+
+            // Close reading end of pipe 
+            // Data was received
+            close(fdPipe[0]);
+
+            // Command name
+            strcpy(arg[0], "od ");
+            // Option
+            strcpy(arg[1], "-c ");
+            // Data
+            strcpy(arg[2], received);
+        
+            // Build command using format
+            sprintf(command, "%s%s\"%s\"", arg[0], arg[1], arg[2]);
+
+            printf("%s\n", command);
+            // Actually use command
+            system(command);
+        }
+        return 0;
+    }
+    ```
+
+!!!example Exemple pipe nommé
+    ```C
+    //Création du pipe nommé (chemin du fichier, permissions)
+    int pipeReturn = mkfifo("./", 0666);
+    // Check that named pipe was correctly created
+    if (pipeReturn == -1)
+    {
+        perror("Error creating pipe to get request");
+        return 1;
+    }
+
+    // OPEN NAMED PIPES
+    // Get request so read only (path to file, mode)
+    int pipeReqDescriptor = open(GET_REQ, O_RDONLY);
+
+    // Check it opened correctly
+    if (pipeReqDescriptor == -1)
+    {
+        perror("Error opening named pipe to get request");
+        return 1;
+    }
+    ```
 
 ## _*Thread*_
-### Différence entre thread et processus
+### _Différence entre thread et processus_
 
 Il y a des accès concurrent à un objet partagé avec:
 * **_Les threads:_** Ils ont un espace d’adressage commun, des accès concurrents aux variables globales et aux fichiers ouverts.
 * **_Les processus (*parents & enfants*):_** Ils ont un espace d’adressage distincts mais partagent la mémoire et les fichiers ouverts avant le fork.
 
-
+### _Message passing_
 Le **message passing** c’est le fait d’envoyer des messages entre des entités. Il peut être local (entre threads d’une machine) ou non-local (entre deux machines distantes)
+
+### _Autres notions_
+#### Section critique
+Il s’agit de délimiter le code manipulant un objet partagé. On va instaurer une réglementation des entrées dans cette section.\
+Conditions requises :
+* ```Exclusion mutuelle``` : 2 threads ne peuvent pas être en section critique en même temps.
+* ```Absence d’attente injustifiée``` : 1 thread hors de section critique ne peut empêcher l’entrée d’un autre.
+* ```Absence de famine``` : pas d’attente infinie à l’entrée d’une section critique.
+  
+On veut une solution indépendante du matériel disponible (*vitesse et nombre de processeurs*). Il n’y a pas d’exécutions out-of-order de processeur.
+#### Solution avec attente active
+##### Variable verrou
+On utilise une variable partagée qui sert de verrou. Elle prend les valeurs :
+* ```Ouvert``` : aucun thread n’est en section critique.
+* ```Fermé``` : un autre thread est en section critique.
+  
+L’accès à la section critique se fait lorsque le verrou est ouvert. Tant que celui-ci est fermé, on attend en vérifiant régulièrement la valeur du verrou. Dès que celui-ci est ouvert, le thread entre en section critique et met à jour le verrou pour le fermer.
+
+!!!failure
+    L’exclusion mutuelle n’est cependant pas garantie car le verrou est accessible à tous et peut être modifié par d’autres thread.
+
+
+##### Alternance stricte
+On utilise une variable partagée ```tour```. De plus, on attribue à chaque thread un identifiant. L’entrée en section critique ne sera permise qu’au thread qui a le bon identifiant.
+
+L’accès en section critique se fait de la même manière que pour un verrou. À la sortie, on incrémente la variable tour de 1, permettant ainsi au thread suivant de rentrer en phase critique.
+
+!!!failure
+    Il est possible d’avoir une attente injustifiée.
+##### Alternance
+On utilise un ```tableau partagé``` au lieu d’une simple variable. Cela empêche un thread de se retrouver à attendre qu’un autre thread dont c’est le tour arrive. Chaque élément du tableau peut prend 2 valeurs :
+* Critique : entrée ou en section critique.
+* Ailleurs : totalement hors de la section critique.
+
+Cela nécessite également l’attribution d’un identifiant à chaque thread. L’accès à la section critique ne se fait que si aucun autre processus n’a le statut critique. À la sortie de la section critique, on bascule la valeur à ailleurs.
+
+!!!failure
+    On a quand-même toujours le risque d’attente infinie dans le cas où 2 threads atteignent l’état critique en même temps.
+
+##### Solution de Peterson
+C’est une combinaison des 2 dernières.
+
+Lorsqu’un accès a lieu :
+* Basculement à ```critique``` et passage de ```tour``` à ```autre```.
+* Tant que ```tour``` de ```autre``` est à ```critique``` :
+    * Attente active
+    * Sinon entrée en section critique
+* Sortie de section critique : basculement à ```ailleurs```.
+
+!!!success
+    C’est une solution correcte car elle remplit toutes les conditions.
+
+
+#### Solutions avec blocage
+##### Sémaphores
+Mécanisme basé sur une variable entière s tel que $0\leq s$.
+
+Il y a une liste d’attente du sémaphore pour les threads bloqués.
+
+* Opération atomique  proberen(s) *(du néerlandais « essayer »)*
+	* Si s == 0, ajout en liste d’attente, blocage.
+	* Si s>0, décrémentation de s de 1 unité.
+* Opération atomique verhogen(s) *(du néerlandais « incrémenter »)*
+	* Si la liste d’attente est vide, on incrémente s de 1 unité.
+	* Sinon on débloque un thread de la liste.
+##### Mutex
+C’est une version particulière du sémaphore. Il est basé sur une variable entière m\ tq $0\leq s$.
+
+Liste d’attente du mutex pour les threads bloqués.
+
+* On a l’opération atomique lock(m)
+	* Si s==0, ajout en liste d’attente, blocage.
+	* Si s==1, basculement de m à 0.
+* On a également l’opération atomique unlock(m)
+	* Si la liste d’attente est vide, on bascule m à 1.
+	* Sinon, on débloque un thread de la liste.
+
+### _Problèmes classiques_
+Des problèmes classiques pour ces concepts sont les suivants:
+* Producteur-consommateur
+* Dîner des philosophes
+
+
