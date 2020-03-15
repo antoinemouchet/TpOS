@@ -1,4 +1,5 @@
 # Random notes on C
+## by Antoine Mouchet
 
 L'utilisation de gdb quand on utilise le signal SIGRTMIN est à **PROSCRIRE** car il remplace sa valeur créant un conflit et cassant tout.
 
@@ -773,6 +774,61 @@ int main(void)
 }
     
 ```
+## _*Fichiers*_
+### _Différence entre ```fopen()``` et ```open()```_
+_*Source:*_ [Stack Overflow](https://stackoverflow.com/questions/1658476/c-fopen-vs-open)
+
+Il y a 4 raisons principales pour préférer ```fopen()``` (librairie) à ```open()``` (appel plus bas niveau).:
+1. ```fopen()``` donne un buffer I/O qui est beaucoup plus rapide que l'utilisation d'```open()```.
+   
+2. ```fopen()``` effectue une traduction de fin de ligne si le fichier n'est pas ouvert en mode binaire, ce qui peut être très utile si votre programme est porté dans un environnement non-Unix (bien que le monde semble converger vers le mode LF uniquement (sauf les protocoles de réseau en mode texte de l'IETF comme SMTP et HTTP et autres)).
+
+3. Un ```FILE *``` vous donne la possibilité d'utiliser ```fscanf()``` et d'autres fonctions stdio.
+
+4. Votre code devra peut-être un jour être porté sur une autre plateforme qui ne supporte que l'ANSI C et ne supporte pas la fonction ```open()```.
+
+!!!info
+    Dans ce document, j'utilise souvent ```open()``` mais tous les codes utilisant cette fonction sont adaptables pour utiliser ```fopen()```. C'est cette dernière fonction qui est la plus employée actuellement dans des applications.
+
+### _Utilisation de ```fopen()```_
+!!!quote Remerciement
+    Cette partie m'a été expliquée par Vincent Higginson
+
+#### Ouvrir un fichier
+On commence par ouvrir le fichier (déclaration à l'OS qu'on prend la main dessus).\
+Ensuite, on va chercher la longueur du fichier (```fseek()``` au début et à la fin, position = longueur).\
+Après, On alloue un buffer de taille égale à la longueur du fichier.\
+L'étape suivante est l'itération sur tous les caractères du fichier que l'on met dans le buffer à chaque fois.\
+Enfin, on ferme le fichier.
+
+```C
+// Fonction affichant le contenu du fichier pointé par *path
+void readFile(char *path)
+{
+    FILE *fp;
+    fp = fopen(path, "r");
+    long fileSize = 0;
+
+    // Place pointer at end of file
+    fseek(fp, 0L, SEEK_END);
+    // Get size of file
+    fileSize = ftell(fp);
+
+    // Return to start of file
+    fseek(fp, 0L, SEEK_SET);
+
+    // Alloc size for file
+    char *buff = (char *)malloc(fileSize * sizeof(char));
+    fread(buff, fileSize, 1, fp);
+
+    // Print content of file
+    printf("%s", buff);
+
+    // Close file
+    fclose(fp);
+}
+```
+
 ## _*Signaux*_
 Les signaux permettent de prévenir un processus qu'un événement particulier s'est produit. C'est un peu le moyen de communication entre processus au final. Les processus ont un comportement adapté en fonction de chaque signal. Il est possible de modifier ce comportement en utilisant la fonction ```sigaction``` avec les paramètres appopriés.
 
@@ -1043,4 +1099,45 @@ Des problèmes classiques pour ces concepts sont les suivants:
 * Producteur-consommateur
 * Dîner des philosophes
 
+
+## *_Sources_*
+Je mets ici tous les sites qui m'ont été utiles à un moment quelconque dans l'écriture de ce document ou pour résoudre les divers exercices dans le cadre des TPs d'OS en plus des slides du cours d'OS et de Techniques de programmation.
+
+### Processus
+* [fork()](https://www.geeksforgeeks.org/fork-system-call/)
+* [fork()](https://www.geeksforgeeks.org/creating-multiple-process-using-fork/)
+* [fork()](https://www.geeksforgeeks.org/using-fork-produce-1-parent-3-child-processes/)
+* [wait()](https://www.geeksforgeeks.org/wait-system-call-c/)
+* [pstree](https://www.howtoforge.com/linux-pstree-command/#linux-pstree-command)
+* [pstree](https://github.com/posborne/linux-programming-interface-exercises/blob/master/12-system-and-process-information/pstree.c)
+
+### Fichiers
+* [fopen()](https://www.tutorialspoint.com/c_standard_library/c_function_fopen.htm)
+* [fseek()](https://www.tutorialspoint.com/c_standard_library/c_function_fseek.htm)
+* [ftell()](https://www.tutorialspoint.com/c_standard_library/c_function_ftell.htm)
+* [fread()](https://www.tutorialspoint.com/c_standard_library/c_function_fread.htm)
+* [open()](http://codewiki.wikidot.com/c:system-calls:open)
+* [open()](http://man7.org/linux/man-pages/man2/open.2.html)
+* [stat()](https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/apis/stat.htm)
+* [stat()](https://linux.die.net/man/2/stat)
+* [write()](https://linux.die.net/man/2/write)
+### Signaux
+* [sigaction()](https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_74/apis/sigactn.htm)
+* [sigaction()](http://man7.org/linux/man-pages/man2/sigaction.2.html)
+* [signal()](http://man7.org/linux/man-pages/man7/signal.7.html)
+* [sigqueue()](http://man7.org/linux/man-pages/man3/sigqueue.3.html)
+
+### Multithreading
+* [Dîner des philosophes](https://fr.wikipedia.org/wiki/D%C3%AEner_des_philosophes)
+* [Multithreading in C](https://www.geeksforgeeks.org/multithreading-c-2/)
+
+### Divers
+* [Headers](https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_74/apis/unix13.htm)
+* [Liste chainée](https://www.geeksforgeeks.org/data-structures/linked-list/)
+* [Tri liste](https://www.geeksforgeeks.org/c-program-bubble-sort-linked-list/)
+* [mkfifo() ~ pipe nommé](http://man7.org/linux/man-pages/man3/mkfifo.3.html)
+* [memcpy()](https://www.tutorialspoint.com/c_standard_library/c_function_memcpy.htm)
+* [scanf()](https://stackoverflow.com/questions/14419954/reading-a-single-character-in-c)
+* [Shell in C](https://brennan.io/2015/01/16/write-a-shell-in-c/)
+* [sscanf()](https://www.tutorialspoint.com/c_standard_library/c_function_sscanf.htm)
 
