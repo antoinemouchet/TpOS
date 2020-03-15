@@ -1,6 +1,10 @@
 # Random notes on C
 ## by Antoine Mouchet
 
+## _*Note*_
+
+Ce document n'est probablement pas parfait et contient peut-être encore des erreurs. N'hésitez pas à me les signaler si vous en trouvez pour que je les corrige. 
+
 L'utilisation de gdb quand on utilise le signal SIGRTMIN est à **PROSCRIRE** car il remplace sa valeur créant un conflit et cassant tout.
 
 ## _*Les librairies*_
