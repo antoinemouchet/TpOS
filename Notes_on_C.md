@@ -168,7 +168,7 @@ sur plusieurs lignes.
 
 Lors d'un ```scanf```, on doit désigner l'adresse de l'endroit où la valeur va être stockée. C'est pour cela que l'on différencie un ```scanf``` avec un string d'un ```scanf``` avec un int.
 
-Il est important de noter que ```scanf``` ne fait que récupérer la valeur introduite par l'utilisateur, elle n'affiche rien. Dès lors, il est intéressant de montrer à l'utiliser avec un ```printf``` ce qu'on veut qu'il mette.
+Il est important de noter que ```scanf``` ne fait que récupérer la valeur introduite par l'utilisateur, elle n'affiche rien. Dès lors, il est intéressant de montrer à l'utilisateur avec un ```printf``` ce qu'on veut qu'il mette.
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -410,7 +410,7 @@ struct student resultVote(char code[15])
 struct student delegue = resultVote("2e-Bac-Info")
 ```
 ### _Listes chaînées_
-Il s'agit d'un assemblage de cellues liées par des pointeurs.
+Il s'agit d'un assemblage de cellules liées par des pointeurs.
 
 ```C
 struct element
@@ -427,7 +427,7 @@ struct element *list;
 ```
 
 ### _Listes doublement chaînées_
-Il s'agit d'un assemblage de cellues liées par des pointeurs avec un chaînage dans les 2 sens.
+Il s'agit d'un assemblage de cellules liées par des pointeurs avec un chaînage dans les 2 sens.
 
 ```C
 struct element
