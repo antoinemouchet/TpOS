@@ -7,6 +7,9 @@ Ce document n'est probablement pas parfait et contient peut-être encore des err
 
 L'utilisation de gdb quand on utilise le signal SIGRTMIN est à **PROSCRIRE** car il remplace sa valeur créant un conflit et cassant tout.
 
+!!!info
+    Par convention, en C, une chaine de caractères finira toujours par le caractère '\0'.
+
 ## _*Les librairies*_
 
 Un truc super important qu'il faut pas oublier, ce sont les librairies//headers.
@@ -119,7 +122,7 @@ int main(void)
 Il faut utiliser le moins possible le ```_``` dans le nom des variables.
 
 !!!tip Note
-    Apparemment, il n'y a pas de convention de nommage officielle en C.
+    Apparemment, il n'y a pas de convention de nommage officielle en C. Ce point est donc totalement négligeable et ne reflète que mon opinion.
 
 ```C 
 int NbEnfants;
@@ -606,7 +609,7 @@ int sumTree(struct node *tree)
 Ça sert à quoi ce truc? Et bien c'est pour diviser le travail en quelque sorte.
 Le père, qui a la flemme, va faire des gosses (*pas pour les allocs mais pour les mettre au travail ici*) et il va soit travailler de son côté (*Ouais ouais ça lui arrive*), soit attendre que les gosses aient fini leurs tâches respectives.
 
-_Mais comment on fait des gosses me direz-vous?_\
+_Mais comment on fait des enfants me direz-vous?_\
 (*Je pourrais répondre demande à tes parents mais pas sûr qu'ils puissent aider*)\
 C'est pas très compliqué pour le coup. On peut distinguer plusieurs manières de les faire selon:
 * L'arbre familial voulu.
@@ -858,15 +861,19 @@ Les signaux permettent de prévenir un processus qu'un événement particulier s
         struct sigaction act;
         // Ensemble de signaux
         sigset_t set;
+        
         // Définit la nouvelle méthode de gestion du signal
         act.sa_handler = handler;
         act.sa_flags = 0;
+
         // Remplace l'ancienne action par la nouvelle (définie par act)
         sigaction(SIGALRM, &act, NULL);
+
         // On dit ici que l'ensemble des signaux les reprend tous
         sigfillset(&set);
         // On supprime le signal SIGALRM de l'ensemble
         sigdelset(&set, SIGALRM);
+
         // Bloque les signaux de l'ensemble set (donc tous sauf SIGALRM).
         sigprocmask(SIG_SETMASK, &set, NULL);
     ```
