@@ -289,6 +289,38 @@ int main (void)
 }
 ```
 
+### _Enum_
+L'enum est un moyen de définir un ensemble de "types" (qui seront associés à un nombre équivalent à leur place dans la déclaration de l'ensemble) ce qui peut nous permettre de nous simplifier la tâche par après pour faire des tests d'équivalence par exemple.
+
+Dans l'exemple qui suit, on a 4 genres de musique, cela est utile de déclarer un énum car, plus tard dans le programme, on aura besoin d'attribuer un genre à chaque musique et cela est plus simple avec l'enum car les 4 genres sont déjà définis et on choisira parmi ceux-ci uniquement.
+
+!!!example Exemple
+```C
+// Déclaration de l'enum avec les valeurs de celui-ci
+enum musique_Type{reels, polka, jigs, mazurkas};
+
+// Ceci doit être mis à jour si musique_Type est changé
+// Cette variable globale va permettre d'imprimer le nom de la variable de l'enum
+// Selon sa place. Par exemple Musique_genre_string[2] donnera "jig".
+static const char *Musique_genre_string[] = {"reel", "polka", "jig", "mazurka"};
+
+// Déclaration de la variable de type enum
+enum musique_Type genre;
+
+// Déclaration de la variable pour stocker temporairement le choix
+int choix;
+
+printf("• 0 ~ Reel\t| • 2 ~ Jig\n• 1 ~ Polka\t|• 3 ~ Mazurka\nInsérez le numéro correspondant au genre de musique: ");
+scanf("%i", &choix);
+
+// Convertir en valeur de l'enum
+genre = (enum musique_Type) choix;
+
+// Afficher le genre de musique
+printf("%s", Musique_genre_string[genre]);
+```
+
+
 ## _*Pointeurs*_
 
 ### _Valeurs fixes_
